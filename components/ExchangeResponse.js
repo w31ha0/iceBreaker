@@ -1,18 +1,9 @@
 import React from "react";
 import axios from "axios";
+import Exchange from './Exchange'
 import endpoints from "../constants/endpoints";
-import ParticularsForm from "./ParticularsForm";
 
-export default class extends React.Component {
-
-    constructor(){
-        super()
-        this.state = {
-            birthday: '',
-            favouriteFood: '',
-            letterToExchange: ''
-        }
-    }
+export default class extends Exchange{
 
     submitExchangeResponse = (e) => {
         let exchangeResponse = {
@@ -40,35 +31,4 @@ export default class extends React.Component {
             console.log(response);
         });
     }
-
-    handleBirthdayChange = (e) => {
-        this.setState({
-            birthday: e.target.value
-        })
-    }
-
-    handleFavouriteFoodChange = (e) => {
-        console.log(e.target)
-        this.setState({
-            favouriteFood: e.target.value
-        })
-    }
-
-    handleLetterToExchangeChange = (e) => {
-        this.setState({
-            letterToExchange: e.target.value
-        })
-    }
-
-    render(){
-        return(
-            <ParticularsForm
-                userName = {this.props.exchangeRequest.request_user}
-                handleBirthdayChange = {this.handleBirthdayChange}
-                handleFavouriteFoodChange = {this.handleFavouriteFoodChange}
-                handleLetterToExchangeChange = {this.handleLetterToExchangeChange}
-                lettersAvailable = {this.props.lettersAvailable}
-                submitForm = {this.submitExchangeResponse}
-            />
-        )}
 }

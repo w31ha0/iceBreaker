@@ -386,7 +386,7 @@ function (_React$Component) {
 var dataSource = __webpack_require__(2);
 var dataSource_default = /*#__PURE__*/__webpack_require__.n(dataSource);
 
-// CONCATENATED MODULE: ./components/ParticularsForm.js
+// CONCATENATED MODULE: ./components/Exchange.js
 function ParticularsForm__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { ParticularsForm__typeof = function _typeof(obj) { return typeof obj; }; } else { ParticularsForm__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return ParticularsForm__typeof(obj); }
 
 function ParticularsForm__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
