@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 import axios from "axios";
 import endpoints from "../constants/endpoints";
-import ParticularsForm from './ParticularsForm'
+import ParticularsForm from "./ParticularsForm";
 
-export default class extends React.Component{
+export default class extends React.Component {
 
     constructor(){
         super()
@@ -14,24 +14,26 @@ export default class extends React.Component{
         }
     }
 
-    submitExchangeRequest = (e) => {
-        let exchangeRequest = {
-            respond_user: this.props.userSelected,
+    submitExchangeResponse = (e) => {
+        let exchangeResponse = {
+            request_user: this.props.exchangeRequest.request_user,
             birthday: this.state.birthday,
             favouriteFood: this.state.favouriteFood,
             letterToExchange: this.state.letterToExchange,
-            request_user: this.props.userName
         }
-        console.log("ExchangeRequest: "+JSON.stringify(exchangeRequest))
+        console.log("ExchangeResponse: "+JSON.stringify(exchangeResponse))
         axios({
             method: 'post',
-            url: endpoints.API_SUBMIT_EXCHANGE_REQUEST,
-            data: exchangeRequest
+            url: endpoints.API_SUBMIT_EXCHANGE_RESPONSE,
+            data: exchangeResponse
         })
         .then((response) => {
-            console.log('Response of ExchangeRequest: '+JSON.stringify(response.data))
-            if(response.data.success == 1)
-                this.props.onExchangeRequestSubmitSuccess(this.state.letterToExchange)
+            console.log('Response of ExchangeResponse: '+JSON.stringify(response.data))
+            if(response.data.success == 1){
+                const letterToReceive = this.props.exchangeRequest.letterToExchange
+                const letterToGive = this.state.letterToExchange
+                this.props.onExchangeResponseSubmitSuccess(letterToGive,letterToReceive,this.props.exchangeRequest.request_user)
+            }
         })
         .catch(function (response) {
             //handle error
@@ -61,13 +63,12 @@ export default class extends React.Component{
     render(){
         return(
             <ParticularsForm
-                userName = {this.props.userSelected}
+                userName = {this.props.exchangeRequest.request_user}
                 handleBirthdayChange = {this.handleBirthdayChange}
                 handleFavouriteFoodChange = {this.handleFavouriteFoodChange}
                 handleLetterToExchangeChange = {this.handleLetterToExchangeChange}
                 lettersAvailable = {this.props.lettersAvailable}
-                submitForm = {this.submitExchangeRequest}
+                submitForm = {this.submitExchangeResponse}
             />
         )}
-
 }

@@ -1,13 +1,14 @@
-import Page from '../components/page';
-import Layout from '../components/Layout.js'
 import axios from 'axios'
-import endpoints from '../constants/endpoints'
-import strings from '../constants/strings'
+import React from "react";
 import Pusher from 'pusher-js';
+import Page from '../components/page';
+import strings from '../constants/strings'
+import Layout from '../components/Layout.js'
+import endpoints from '../constants/endpoints'
+const credentials = require('../constants/credentials')
 import LetterComponent from '../components/lettersComponent'
 import ExchangeRequest from '../components/ExchangeRequest'
-import React from "react";
-import RespondToExchangeRequest from '../components/respondToExchangeRequest'
+import ExchangeResponse from '../components/ExchangeResponse'
 
 export default class extends Page {
 
@@ -22,7 +23,7 @@ export default class extends Page {
             isVerifyingForCounterParty: false,
             letterToGive: ''
         }
-        this.exchangeRequestReceived = {}
+        this.exchangeRequest = {}
 
         this.retriveUserName()
         this.retriveLetters()
@@ -30,8 +31,8 @@ export default class extends Page {
     }
 
     async componentDidMount(){
-        this.pusher = new Pusher(process.env.PUSHER_APP_KEY, {
-            cluster: process.env.PUSHER_APP_CLUSTER,
+        this.pusher = new Pusher(credentials.PUSHER_APP_KEY, {
+            cluster: credentials.PUSHER_APP_CLUSTER,
             encrypted: true
         });
 
@@ -46,11 +47,11 @@ export default class extends Page {
             })
         });
 
-        this.channel.bind(strings.PUSHER_NEW_EXCHANGE_REQUEST_EVENT, (ExchangeRequest) => {
-            console.log("Received new exchange request: "+JSON.stringify(ExchangeRequest))
-            if(ExchangeRequest.name == this.state.userName){
+        this.channel.bind(strings.PUSHER_NEW_EXCHANGE_REQUEST_EVENT, (exchangeRequest) => {
+            console.log("Received new exchange request: "+JSON.stringify(exchangeRequest))
+            if(exchangeRequest.respond_user == this.state.userName){
                 console.log("Exchange request is for me.")
-                this.exchangeRequestReceived = ExchangeRequest
+                this.exchangeRequest = exchangeRequest
                 this.setState({
                     isVerifyingForCounterParty: true
                 })
@@ -58,7 +59,7 @@ export default class extends Page {
         });
 
         this.channel.bind(strings.EXCHANGE_COMPLETED_EVENT, (data) => {
-            if(data.requestUser == this.state.userName){
+            if(data.request_user == this.state.userName){
                 console.log("Exchange request has completed: "+JSON.stringify(data))
                 this.setState({
                     isWaitingForCounterPartyToVerify: false
@@ -100,7 +101,6 @@ export default class extends Page {
     }
 
     onClick = (e) => {
-        console.log("clicked "+e.target.value)
         this.setState({
             userSelected: this.state.activeUsers[e.target.value]
         })
@@ -112,10 +112,9 @@ export default class extends Page {
             url: endpoints.API_GET_ASSIGNED_LETTERS
         })
         .then((response) => {
-            const lettersAssigned = response.data
-            console.log('Got letters assigned as '+lettersAssigned)
+            console.log('Got letters assigned as '+response.data)
             this.setState({
-                lettersAssigned : lettersAssigned
+                lettersAssigned : response.data
             })
         })
         .catch(function (response) {
@@ -130,7 +129,6 @@ export default class extends Page {
             url: endpoints.API_GET_ALL_ACTIVE_USERS
         })
         .then((response) => {
-            console.log("Got response from API backend "+JSON.stringify(response));
             const activeUsers = response.data.map(session => session.user.name)
             console.log('Parsed active users as '+activeUsers)
             this.setState({
@@ -173,7 +171,7 @@ export default class extends Page {
             )
         else if(this.state.isVerifyingForCounterParty)
             return(
-                <RespondToExchangeRequest onExchangeResponseSubmitSuccess={this.onExchangeResponseSubmitSuccess} lettersAvailable={this.state.lettersAssigned} exchangeRequestReceived={this.exchangeRequestReceived}/>
+                <ExchangeResponse onExchangeResponseSubmitSuccess={this.onExchangeResponseSubmitSuccess} lettersAvailable={this.state.lettersAssigned} exchangeRequest={this.exchangeRequest}/>
             )
         else
             return(

@@ -1,6 +1,6 @@
 import Page from '../components/page';
-import Layout from '../components/Layout.js'
 import data from '../data/dataSource'
+import Layout from '../components/Layout.js'
 
 export default class extends Page {
 
