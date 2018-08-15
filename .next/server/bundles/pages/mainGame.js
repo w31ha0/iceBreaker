@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -229,24 +229,34 @@ module.exports = {
 };
 
 /***/ }),
-/* 8 */,
+/* 8 */
+/***/ (function(module, exports) {
+
+module.exports = require("styled-jsx/style");
+
+/***/ }),
 /* 9 */,
-/* 10 */
+/* 10 */,
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(11);
+module.exports = __webpack_require__(12);
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // EXTERNAL MODULE: external "@babel/runtime/regenerator"
-var regenerator_ = __webpack_require__(12);
+var regenerator_ = __webpack_require__(13);
 var regenerator__default = /*#__PURE__*/__webpack_require__.n(regenerator_);
+
+// EXTERNAL MODULE: external "styled-jsx/style"
+var style_ = __webpack_require__(8);
+var style__default = /*#__PURE__*/__webpack_require__.n(style_);
 
 // EXTERNAL MODULE: external "axios"
 var external__axios_ = __webpack_require__(6);
@@ -257,14 +267,14 @@ var external__react_ = __webpack_require__(0);
 var external__react__default = /*#__PURE__*/__webpack_require__.n(external__react_);
 
 // EXTERNAL MODULE: external "pusher-js"
-var external__pusher_js_ = __webpack_require__(13);
+var external__pusher_js_ = __webpack_require__(14);
 var external__pusher_js__default = /*#__PURE__*/__webpack_require__.n(external__pusher_js_);
 
 // EXTERNAL MODULE: ./components/page.js
 var page = __webpack_require__(1);
 
 // EXTERNAL MODULE: ./constants/strings.js
-var strings = __webpack_require__(14);
+var strings = __webpack_require__(15);
 var strings_default = /*#__PURE__*/__webpack_require__.n(strings);
 
 // EXTERNAL MODULE: ./components/Layout.js
@@ -274,7 +284,13 @@ var Layout = __webpack_require__(3);
 var endpoints = __webpack_require__(7);
 var endpoints_default = /*#__PURE__*/__webpack_require__.n(endpoints);
 
+// EXTERNAL MODULE: ./constants/credentials.js
+var credentials = __webpack_require__(16);
+var credentials_default = /*#__PURE__*/__webpack_require__.n(credentials);
+
 // CONCATENATED MODULE: ./components/lettersComponent.js
+
+
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -365,16 +381,28 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      return external__react__default.a.createElement("div", null, external__react__default.a.createElement("div", null, this.state.lettersUsed.join(' '), external__react__default.a.createElement("button", {
+      return external__react__default.a.createElement("div", {
+        className: "jsx-2280239731"
+      }, external__react__default.a.createElement("div", {
+        className: "jsx-2280239731"
+      }, this.state.lettersUsed.join(' '), external__react__default.a.createElement("button", {
+        id: "cancel-btn",
         onClick: this.removeOneCharFromLettersUsed,
-        className: "btn btn-primary"
-      }, "C")), external__react__default.a.createElement("div", null, this.state.lettersAvailable.map(function (letter, index) {
+        className: "jsx-2280239731" + " " + "btn btn-light"
+      }, "C")), external__react__default.a.createElement("div", {
+        id: "letters-available",
+        className: "jsx-2280239731"
+      }, this.state.lettersAvailable.map(function (letter, index) {
         return external__react__default.a.createElement("button", {
+          id: "letter-available",
           value: index,
           onClick: _this2.handleLetterSelected,
-          className: "btn btn-primary"
+          className: "jsx-2280239731" + " " + "btn btn-primary"
         }, letter);
-      })));
+      })), external__react__default.a.createElement(style__default.a, {
+        styleId: "2280239731",
+        css: ["#cancel-btn.jsx-2280239731{margin-left:20px;margin-bottom:20px;}", "#letters-available.jsx-2280239731{margin-bottom:20px;}", "#letter-available.jsx-2280239731{margin:5px;}"]
+      }));
     }
   }]);
 
@@ -387,51 +415,93 @@ var dataSource = __webpack_require__(2);
 var dataSource_default = /*#__PURE__*/__webpack_require__.n(dataSource);
 
 // CONCATENATED MODULE: ./components/Exchange.js
-function ParticularsForm__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { ParticularsForm__typeof = function _typeof(obj) { return typeof obj; }; } else { ParticularsForm__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return ParticularsForm__typeof(obj); }
+function Exchange__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { Exchange__typeof = function _typeof(obj) { return typeof obj; }; } else { Exchange__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return Exchange__typeof(obj); }
 
-function ParticularsForm__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function Exchange__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function ParticularsForm__defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function Exchange__defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function ParticularsForm__createClass(Constructor, protoProps, staticProps) { if (protoProps) ParticularsForm__defineProperties(Constructor.prototype, protoProps); if (staticProps) ParticularsForm__defineProperties(Constructor, staticProps); return Constructor; }
+function Exchange__createClass(Constructor, protoProps, staticProps) { if (protoProps) Exchange__defineProperties(Constructor.prototype, protoProps); if (staticProps) Exchange__defineProperties(Constructor, staticProps); return Constructor; }
 
-function ParticularsForm__possibleConstructorReturn(self, call) { if (call && (ParticularsForm__typeof(call) === "object" || typeof call === "function")) { return call; } return ParticularsForm__assertThisInitialized(self); }
+function Exchange__possibleConstructorReturn(self, call) { if (call && (Exchange__typeof(call) === "object" || typeof call === "function")) { return call; } return Exchange__assertThisInitialized(self); }
 
-function ParticularsForm__assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function Exchange__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function ParticularsForm__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
+function Exchange__assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
-var ParticularsForm__default =
+
+
+var Exchange__default =
 /*#__PURE__*/
 function (_React$Component) {
-  ParticularsForm__inherits(_default, _React$Component);
+  Exchange__inherits(_default, _React$Component);
 
   function _default() {
-    ParticularsForm__classCallCheck(this, _default);
+    var _this;
 
-    return ParticularsForm__possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).apply(this, arguments));
+    Exchange__classCallCheck(this, _default);
+
+    _this = Exchange__possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).call(this));
+    Object.defineProperty(Exchange__assertThisInitialized(_this), "handleBirthdayChange", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        _this.setState({
+          birthday: e.target.value
+        });
+      }
+    });
+    Object.defineProperty(Exchange__assertThisInitialized(_this), "handleFavouriteFoodChange", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        console.log(e.target);
+
+        _this.setState({
+          favouriteFood: e.target.value
+        });
+      }
+    });
+    Object.defineProperty(Exchange__assertThisInitialized(_this), "handleLetterToExchangeChange", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        _this.setState({
+          letterToExchange: e.target.value
+        });
+      }
+    });
+    _this.state = {
+      birthday: '',
+      favouriteFood: '',
+      letterToExchange: ''
+    };
+    return _this;
   }
 
-  ParticularsForm__createClass(_default, [{
+  Exchange__createClass(_default, [{
     key: "render",
     value: function render() {
       return external__react__default.a.createElement("div", null, external__react__default.a.createElement("div", {
         className: "form-group"
-      }, external__react__default.a.createElement("label", null, "Name")), external__react__default.a.createElement("div", null, external__react__default.a.createElement("label", null, this.props.userName)), external__react__default.a.createElement("div", {
+      }, external__react__default.a.createElement("label", null, "Name")), external__react__default.a.createElement("div", {
+        className: "form-group"
+      }, external__react__default.a.createElement("label", null, this.props.targetUser)), external__react__default.a.createElement("div", {
         className: "form-group"
       }, external__react__default.a.createElement("label", null, "Birthday"), external__react__default.a.createElement("input", {
         className: "form-control",
         name: "birthday",
-        onChange: this.props.handleBirthdayChange
+        onChange: this.handleBirthdayChange
       })), external__react__default.a.createElement("div", {
         className: "form-group"
       }, external__react__default.a.createElement("label", null, "Favourite Food"), external__react__default.a.createElement("select", {
         className: "form-control",
         name: "favouriteFood",
-        onChange: this.props.handleFavouriteFoodChange
+        onChange: this.handleFavouriteFoodChange
       }, external__react__default.a.createElement("option", {
         disabled: true,
         selected: true,
@@ -445,7 +515,7 @@ function (_React$Component) {
       }, external__react__default.a.createElement("label", null, "Letter To Exchange Away"), external__react__default.a.createElement("select", {
         className: "form-control",
         name: "letterToExchange",
-        onChange: this.props.handleLetterToExchangeChange
+        onChange: this.handleLetterToExchangeChange
       }, external__react__default.a.createElement("option", {
         disabled: true,
         selected: true,
@@ -455,7 +525,7 @@ function (_React$Component) {
           value: letter
         }, letter);
       }))), external__react__default.a.createElement("button", {
-        onClick: this.props.submitForm,
+        onClick: this.submitForm,
         className: "btn btn-primary"
       }, "Submit"));
     }
@@ -470,10 +540,6 @@ function ExchangeRequest__typeof(obj) { if (typeof Symbol === "function" && type
 
 function ExchangeRequest__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function ExchangeRequest__defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function ExchangeRequest__createClass(Constructor, protoProps, staticProps) { if (protoProps) ExchangeRequest__defineProperties(Constructor.prototype, protoProps); if (staticProps) ExchangeRequest__defineProperties(Constructor, staticProps); return Constructor; }
-
 function ExchangeRequest__possibleConstructorReturn(self, call) { if (call && (ExchangeRequest__typeof(call) === "object" || typeof call === "function")) { return call; } return ExchangeRequest__assertThisInitialized(self); }
 
 function ExchangeRequest__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
@@ -487,16 +553,21 @@ function ExchangeRequest__assertThisInitialized(self) { if (self === void 0) { t
 
 var ExchangeRequest__default =
 /*#__PURE__*/
-function (_React$Component) {
-  ExchangeRequest__inherits(_default, _React$Component);
+function (_Exchange) {
+  ExchangeRequest__inherits(_default, _Exchange);
 
   function _default() {
-    var _this;
+    var _ref;
+
+    var _temp, _this;
 
     ExchangeRequest__classCallCheck(this, _default);
 
-    _this = ExchangeRequest__possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).call(this));
-    Object.defineProperty(ExchangeRequest__assertThisInitialized(_this), "submitExchangeRequest", {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return ExchangeRequest__possibleConstructorReturn(_this, (_temp = _this = ExchangeRequest__possibleConstructorReturn(this, (_ref = _default.__proto__ || Object.getPrototypeOf(_default)).call.apply(_ref, [this].concat(args))), Object.defineProperty(ExchangeRequest__assertThisInitialized(_this), "submitForm", {
       configurable: true,
       enumerable: true,
       writable: true,
@@ -521,73 +592,17 @@ function (_React$Component) {
           console.log(response);
         });
       }
-    });
-    Object.defineProperty(ExchangeRequest__assertThisInitialized(_this), "handleBirthdayChange", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: function value(e) {
-        _this.setState({
-          birthday: e.target.value
-        });
-      }
-    });
-    Object.defineProperty(ExchangeRequest__assertThisInitialized(_this), "handleFavouriteFoodChange", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: function value(e) {
-        console.log(e.target);
-
-        _this.setState({
-          favouriteFood: e.target.value
-        });
-      }
-    });
-    Object.defineProperty(ExchangeRequest__assertThisInitialized(_this), "handleLetterToExchangeChange", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: function value(e) {
-        _this.setState({
-          letterToExchange: e.target.value
-        });
-      }
-    });
-    _this.state = {
-      birthday: '',
-      favouriteFood: '',
-      letterToExchange: ''
-    };
-    return _this;
+    }), _temp));
   }
 
-  ExchangeRequest__createClass(_default, [{
-    key: "render",
-    value: function render() {
-      return external__react__default.a.createElement(ParticularsForm__default, {
-        userName: this.props.userSelected,
-        handleBirthdayChange: this.handleBirthdayChange,
-        handleFavouriteFoodChange: this.handleFavouriteFoodChange,
-        handleLetterToExchangeChange: this.handleLetterToExchangeChange,
-        lettersAvailable: this.props.lettersAvailable,
-        submitForm: this.submitExchangeRequest
-      });
-    }
-  }]);
-
   return _default;
-}(external__react__default.a.Component);
+}(Exchange__default);
 
 
 // CONCATENATED MODULE: ./components/ExchangeResponse.js
 function ExchangeResponse__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { ExchangeResponse__typeof = function _typeof(obj) { return typeof obj; }; } else { ExchangeResponse__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return ExchangeResponse__typeof(obj); }
 
 function ExchangeResponse__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function ExchangeResponse__defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function ExchangeResponse__createClass(Constructor, protoProps, staticProps) { if (protoProps) ExchangeResponse__defineProperties(Constructor.prototype, protoProps); if (staticProps) ExchangeResponse__defineProperties(Constructor, staticProps); return Constructor; }
 
 function ExchangeResponse__possibleConstructorReturn(self, call) { if (call && (ExchangeResponse__typeof(call) === "object" || typeof call === "function")) { return call; } return ExchangeResponse__assertThisInitialized(self); }
 
@@ -602,16 +617,21 @@ function ExchangeResponse__assertThisInitialized(self) { if (self === void 0) { 
 
 var ExchangeResponse__default =
 /*#__PURE__*/
-function (_React$Component) {
-  ExchangeResponse__inherits(_default, _React$Component);
+function (_Exchange) {
+  ExchangeResponse__inherits(_default, _Exchange);
 
   function _default() {
-    var _this;
+    var _ref;
+
+    var _temp, _this;
 
     ExchangeResponse__classCallCheck(this, _default);
 
-    _this = ExchangeResponse__possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).call(this));
-    Object.defineProperty(ExchangeResponse__assertThisInitialized(_this), "submitExchangeResponse", {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return ExchangeResponse__possibleConstructorReturn(_this, (_temp = _this = ExchangeResponse__possibleConstructorReturn(this, (_ref = _default.__proto__ || Object.getPrototypeOf(_default)).call.apply(_ref, [this].concat(args))), Object.defineProperty(ExchangeResponse__assertThisInitialized(_this), "submitForm", {
       configurable: true,
       enumerable: true,
       writable: true,
@@ -641,58 +661,57 @@ function (_React$Component) {
           console.log(response);
         });
       }
-    });
-    Object.defineProperty(ExchangeResponse__assertThisInitialized(_this), "handleBirthdayChange", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: function value(e) {
-        _this.setState({
-          birthday: e.target.value
-        });
-      }
-    });
-    Object.defineProperty(ExchangeResponse__assertThisInitialized(_this), "handleFavouriteFoodChange", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: function value(e) {
-        console.log(e.target);
-
-        _this.setState({
-          favouriteFood: e.target.value
-        });
-      }
-    });
-    Object.defineProperty(ExchangeResponse__assertThisInitialized(_this), "handleLetterToExchangeChange", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: function value(e) {
-        _this.setState({
-          letterToExchange: e.target.value
-        });
-      }
-    });
-    _this.state = {
-      birthday: '',
-      favouriteFood: '',
-      letterToExchange: ''
-    };
-    return _this;
+    }), _temp));
   }
 
-  ExchangeResponse__createClass(_default, [{
+  return _default;
+}(Exchange__default);
+
+
+// CONCATENATED MODULE: ./components/WaitingForVerification.js
+function WaitingForVerification__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { WaitingForVerification__typeof = function _typeof(obj) { return typeof obj; }; } else { WaitingForVerification__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return WaitingForVerification__typeof(obj); }
+
+function WaitingForVerification__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function WaitingForVerification__defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function WaitingForVerification__createClass(Constructor, protoProps, staticProps) { if (protoProps) WaitingForVerification__defineProperties(Constructor.prototype, protoProps); if (staticProps) WaitingForVerification__defineProperties(Constructor, staticProps); return Constructor; }
+
+function WaitingForVerification__possibleConstructorReturn(self, call) { if (call && (WaitingForVerification__typeof(call) === "object" || typeof call === "function")) { return call; } return WaitingForVerification__assertThisInitialized(self); }
+
+function WaitingForVerification__assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function WaitingForVerification__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var WaitingForVerification__default =
+/*#__PURE__*/
+function (_React$Component) {
+  WaitingForVerification__inherits(_default, _React$Component);
+
+  function _default() {
+    WaitingForVerification__classCallCheck(this, _default);
+
+    return WaitingForVerification__possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).apply(this, arguments));
+  }
+
+  WaitingForVerification__createClass(_default, [{
     key: "render",
     value: function render() {
-      return external__react__default.a.createElement(ParticularsForm__default, {
-        userName: this.props.exchangeRequest.request_user,
-        handleBirthdayChange: this.handleBirthdayChange,
-        handleFavouriteFoodChange: this.handleFavouriteFoodChange,
-        handleLetterToExchangeChange: this.handleLetterToExchangeChange,
-        lettersAvailable: this.props.lettersAvailable,
-        submitForm: this.submitExchangeResponse
-      });
+      return external__react__default.a.createElement("div", {
+        style: {
+          textAlign: 'center',
+          marginBottom: '30px'
+        }
+      }, external__react__default.a.createElement("h1", {
+        style: {
+          marginBottom: '20px'
+        }
+      }, "Waiting for other party to verify"), external__react__default.a.createElement("button", {
+        onClick: this.props.cancel,
+        className: "btn btn-danger"
+      }, "Cancel"));
     }
   }]);
 
@@ -702,6 +721,7 @@ function (_React$Component) {
 
 // CONCATENATED MODULE: ./pages/mainGame.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return mainGame__default; });
+
 
 
 function mainGame__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { mainGame__typeof = function _typeof(obj) { return typeof obj; }; } else { mainGame__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return mainGame__typeof(obj); }
@@ -728,7 +748,6 @@ function mainGame__assertThisInitialized(self) { if (self === void 0) { throw ne
 
 
 
-var credentials = __webpack_require__(15);
 
 
 
@@ -798,8 +817,10 @@ function (_Page) {
       enumerable: true,
       writable: true,
       value: function value(e) {
+        console.log("Setting user selected to " + e.target.id);
+
         _this.setState({
-          userSelected: _this.state.activeUsers[e.target.value]
+          userSelected: _this.state.activeUsers[e.target.id]
         });
       }
     });
@@ -869,7 +890,7 @@ function (_Page) {
     });
     _this.state = {
       userName: "",
-      activeUsers: [],
+      activeUsers: ["Test", "Mary"],
       lettersAssigned: [],
       userSelected: '',
       isWaitingForCounterPartyToVerify: false,
@@ -899,8 +920,8 @@ function (_Page) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                this.pusher = new external__pusher_js__default.a(credentials.PUSHER_APP_KEY, {
-                  cluster: credentials.PUSHER_APP_CLUSTER,
+                this.pusher = new external__pusher_js__default.a(credentials_default.a.PUSHER_APP_KEY, {
+                  cluster: credentials_default.a.PUSHER_APP_CLUSTER,
                   encrypted: true
                 });
                 this.channel = this.pusher.subscribe(strings_default.a.PUSHER_CHANNEL);
@@ -955,28 +976,59 @@ function (_Page) {
       var _this3 = this;
 
       console.log("passing in user name into props " + this.state.userName);
-      if (this.state.isWaitingForCounterPartyToVerify) return external__react__default.a.createElement("div", null, "Waiting for other party to verify", external__react__default.a.createElement("button", {
-        onClick: this.cancelWaitingForVerification,
-        className: "btn btn-primary"
-      }, "Cancel"));else if (this.state.isVerifyingForCounterParty) return external__react__default.a.createElement(ExchangeResponse__default, {
+      if (this.state.isWaitingForCounterPartyToVerify) return external__react__default.a.createElement(Layout["a" /* default */], null, external__react__default.a.createElement(WaitingForVerification__default, {
+        cancel: this.cancelWaitingForVerification
+      }));else if (this.state.isVerifyingForCounterParty) return external__react__default.a.createElement(Layout["a" /* default */], null, external__react__default.a.createElement("div", {
+        className: "form-group"
+      }, external__react__default.a.createElement("label", null, this.exchangeRequest.request_user, " has requested to connect.Please fill in his details below.")), external__react__default.a.createElement(ExchangeResponse__default, {
+        targetUser: this.exchangeRequest.request_user,
+        userName: this.exchangeRequest.request_user,
         onExchangeResponseSubmitSuccess: this.onExchangeResponseSubmitSuccess,
         lettersAvailable: this.state.lettersAssigned,
         exchangeRequest: this.exchangeRequest
-      });else return external__react__default.a.createElement(Layout["a" /* default */], null, external__react__default.a.createElement("ul", {
-        className: "list-group"
-      }, this.state.activeUsers.map(function (user) {
+      }));else return external__react__default.a.createElement(Layout["a" /* default */], null, external__react__default.a.createElement("div", {
+        id: "wrapper",
+        className: "jsx-2713142477"
+      }, external__react__default.a.createElement("div", {
+        id: "sidebar-wrapper",
+        className: "jsx-2713142477"
+      }, external__react__default.a.createElement("nav", {
+        id: "spy",
+        className: "jsx-2713142477"
+      }, external__react__default.a.createElement("ul", {
+        className: "jsx-2713142477" + " " + "sidebar-nav nav"
+      }, this.state.activeUsers.map(function (user, index) {
         return external__react__default.a.createElement("li", {
+          id: index,
           onClick: _this3.onClick,
-          className: "list-group-item",
-          value: user
+          className: "jsx-2713142477" + " " + "sidebar-brand"
         }, user);
-      })), external__react__default.a.createElement(lettersComponent_LetterComponent, {
+      })))), external__react__default.a.createElement("div", {
+        id: "page-content-wrapper",
+        className: "jsx-2713142477"
+      }, external__react__default.a.createElement("div", {
+        "data-spy": "scroll",
+        "data-target": "#spy",
+        className: "jsx-2713142477" + " " + "page-content inset"
+      }, external__react__default.a.createElement(lettersComponent_LetterComponent, {
         lettersAssigned: this.state.lettersAssigned
-      }), external__react__default.a.createElement(ExchangeRequest__default, {
+      }), external__react__default.a.createElement("div", {
+        style: {
+          marginTop: '50px',
+          marginBottom: '50px'
+        },
+        className: "jsx-2713142477" + " " + "form-group"
+      }, external__react__default.a.createElement("label", {
+        className: "jsx-2713142477"
+      }, "Fill in the details of the player you would like to exchange with.")), external__react__default.a.createElement(ExchangeRequest__default, {
+        targetUser: this.state.userSelected,
         userName: this.state.userName,
         onExchangeRequestSubmitSuccess: this.onExchangeRequestSubmitSuccess,
         userSelected: this.state.userSelected,
         lettersAvailable: this.state.lettersAssigned
+      })))), external__react__default.a.createElement(style__default.a, {
+        styleId: "2713142477",
+        css: ["#wrapper.jsx-2713142477{padding-left:250px;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;}", "#sidebar-wrapper.jsx-2713142477{margin-left:-250px;left:250px;width:250px;background:#000;position:fixed;height:100%;overflow-y:auto;z-index:1000;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;color:white;}", "#wrapper.active.jsx-2713142477{padding-left:0;}", "#wrapper.active.jsx-2713142477 #sidebar-wrapper.jsx-2713142477{left:0;}", "#page-content-wrapper.jsx-2713142477{width:100%;}", ".sidebar-nav.jsx-2713142477{position:absolute;top:0;width:250px;list-style:none;margin:0;padding:0;}", ".sidebar-nav.jsx-2713142477 li.jsx-2713142477{line-height:40px;text-indent:20px;}", ".sidebar-nav.jsx-2713142477 li.jsx-2713142477 a.jsx-2713142477{color:#999999;display:block;-webkit-text-decoration:none;text-decoration:none;padding-left:60px;}", ".sidebar-nav.jsx-2713142477 li.jsx-2713142477 a.jsx-2713142477 span.jsx-2713142477:before{position:absolute;left:0;color:#41484c;text-align:center;width:20px;line-height:18px;}", ".sidebar-nav.jsx-2713142477 li.jsx-2713142477 a.jsx-2713142477:hover,.sidebar-nav.jsx-2713142477 li.active.jsx-2713142477{color:#fff;background:rgba(255,255,255,0.2);-webkit-text-decoration:none;text-decoration:none;}", ".sidebar-nav.jsx-2713142477 li.jsx-2713142477 a.jsx-2713142477:active,.sidebar-nav.jsx-2713142477 li.jsx-2713142477 a.jsx-2713142477:focus{-webkit-text-decoration:none;text-decoration:none;}", ".sidebar-nav.jsx-2713142477>.sidebar-brand.jsx-2713142477{height:65px;line-height:60px;font-size:18px;}", ".sidebar-nav.jsx-2713142477>.sidebar-brand.jsx-2713142477 a.jsx-2713142477{color:#999999;}", ".sidebar-nav.jsx-2713142477>.sidebar-brand.jsx-2713142477 a.jsx-2713142477:hover{color:#fff;background:none;}", ".inset.jsx-2713142477{padding:20px;}", "@media (max-width:767px){#wrapper.jsx-2713142477{padding-left:0;}#sidebar-wrapper.jsx-2713142477{left:0;}#wrapper.active.jsx-2713142477{position:relative;left:250px;}#wrapper.active.jsx-2713142477 #sidebar-wrapper.jsx-2713142477{left:250px;width:250px;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;}#menu-toggle.jsx-2713142477{display:inline-block;}.inset.jsx-2713142477{padding:15px;}}"]
       }));
     }
   }]);
@@ -987,19 +1039,19 @@ function (_Page) {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("@babel/runtime/regenerator");
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = require("pusher-js");
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 var PUSHER_CHANNEL = 'iceBreaker';
@@ -1016,7 +1068,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 var PUSHER_APP_ID = '575034';

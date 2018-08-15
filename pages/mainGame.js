@@ -5,10 +5,11 @@ import Page from '../components/page';
 import strings from '../constants/strings'
 import Layout from '../components/Layout.js'
 import endpoints from '../constants/endpoints'
-const credentials = require('../constants/credentials')
+import credentials from '../constants/credentials'
 import LetterComponent from '../components/lettersComponent'
 import ExchangeRequest from '../components/ExchangeRequest'
 import ExchangeResponse from '../components/ExchangeResponse'
+import WaitingForVerification from '../components/WaitingForVerification'
 
 export default class extends Page {
 
@@ -16,7 +17,7 @@ export default class extends Page {
         super()
         this.state = {
             userName: "",
-            activeUsers : [],
+            activeUsers : ["Test","Mary"],
             lettersAssigned: [],
             userSelected: '',
             isWaitingForCounterPartyToVerify: false,
@@ -101,8 +102,9 @@ export default class extends Page {
     }
 
     onClick = (e) => {
+        console.log("Setting user selected to "+e.target.id)
         this.setState({
-            userSelected: this.state.activeUsers[e.target.value]
+            userSelected: this.state.activeUsers[e.target.id]
         })
     }
 
@@ -164,25 +166,165 @@ export default class extends Page {
         console.log("passing in user name into props "+this.state.userName)
         if (this.state.isWaitingForCounterPartyToVerify)
             return(
-                <div>
-                    Waiting for other party to verify
-                    <button onClick={this.cancelWaitingForVerification} className="btn btn-primary">Cancel</button>
-                </div>
+                <Layout>
+                    <WaitingForVerification cancel={this.cancelWaitingForVerification}/>
+                </Layout>
             )
         else if(this.state.isVerifyingForCounterParty)
             return(
-                <ExchangeResponse onExchangeResponseSubmitSuccess={this.onExchangeResponseSubmitSuccess} lettersAvailable={this.state.lettersAssigned} exchangeRequest={this.exchangeRequest}/>
+                <Layout>
+                    <div className="form-group">
+                        <label>{this.exchangeRequest.request_user} has requested to connect.Please fill in his details below.</label>
+                    </div>
+                    <ExchangeResponse targetUser={this.exchangeRequest.request_user} userName={this.exchangeRequest.request_user} onExchangeResponseSubmitSuccess={this.onExchangeResponseSubmitSuccess} lettersAvailable={this.state.lettersAssigned} exchangeRequest={this.exchangeRequest}/>
+                </Layout>
             )
         else
             return(
                 <Layout>
-                    <ul className="list-group">
-                        {this.state.activeUsers.map(user => {
-                            return <li onClick={this.onClick} className="list-group-item" value={user}>{user}</li>
-                        })}
-                    </ul>
-                    <LetterComponent lettersAssigned={this.state.lettersAssigned}/>
-                    <ExchangeRequest userName={this.state.userName} onExchangeRequestSubmitSuccess={this.onExchangeRequestSubmitSuccess} userSelected={this.state.userSelected} lettersAvailable={this.state.lettersAssigned}/>
+                    <div id="wrapper">
+                        <div id="sidebar-wrapper">
+                            <nav id="spy">
+                                <ul className="sidebar-nav nav">
+                                    {this.state.activeUsers.map((user,index) => {
+                                        return <li id={index} className="sidebar-brand" onClick={this.onClick}>{user}</li>
+                                    })}
+                                </ul>
+                            </nav>
+                        </div>
+                        <div id="page-content-wrapper">
+                            <div className="page-content inset" data-spy="scroll" data-target="#spy">
+                                <LetterComponent lettersAssigned={this.state.lettersAssigned}/>
+                                <div style={{marginTop:'50px',marginBottom:'50px'}} className="form-group">
+                                    <label>Fill in the details of the player you would like to exchange with.</label>
+                                </div>
+                                <ExchangeRequest targetUser={this.state.userSelected} userName={this.state.userName} onExchangeRequestSubmitSuccess={this.onExchangeRequestSubmitSuccess} userSelected={this.state.userSelected} lettersAvailable={this.state.lettersAssigned}/>
+                            </div>
+                        </div>
+                    </div>
+                    <style jsx>{`
+                      #wrapper {
+                      padding-left: 250px;
+                      transition: all 0.4s ease 0s;
+                    }
+
+                    #sidebar-wrapper {
+                      margin-left: -250px;
+                      left: 250px;
+                      width: 250px;
+                      background: #000;
+                      position: fixed;
+                      height: 100%;
+                      overflow-y: auto;
+                      z-index: 1000;
+                      transition: all 0.4s ease 0s;
+                      color: white;
+                    }
+
+                    #wrapper.active {
+                      padding-left: 0;
+                    }
+
+                    #wrapper.active #sidebar-wrapper {
+                      left: 0;
+                    }
+
+                    #page-content-wrapper {
+                      width: 100%;
+                    }
+
+                    .sidebar-nav {
+                      position: absolute;
+                      top: 0;
+                      width: 250px;
+                      list-style: none;
+                      margin: 0;
+                      padding: 0;
+                    }
+
+                    .sidebar-nav li {
+                      line-height: 40px;
+                      text-indent: 20px;
+                    }
+
+                    .sidebar-nav li a {
+                      color: #999999;
+                      display: block;
+                      text-decoration: none;
+                      padding-left: 60px;
+                    }
+
+                    .sidebar-nav li a span:before {
+                      position: absolute;
+                      left: 0;
+                      color: #41484c;
+                      text-align: center;
+                      width: 20px;
+                      line-height: 18px;
+                    }
+
+                    .sidebar-nav li a:hover,
+                    .sidebar-nav li.active {
+                      color: #fff;
+                      background: rgba(255,255,255,0.2);
+                      text-decoration: none;
+                    }
+
+                    .sidebar-nav li a:active,
+                    .sidebar-nav li a:focus {
+                      text-decoration: none;
+                    }
+
+                    .sidebar-nav > .sidebar-brand {
+                      height: 65px;
+                      line-height: 60px;
+                      font-size: 18px;
+                    }
+
+                    .sidebar-nav > .sidebar-brand a {
+                      color: #999999;
+                    }
+
+                    .sidebar-nav > .sidebar-brand a:hover {
+                      color: #fff;
+                      background: none;
+                    }
+
+                    .inset {
+                      padding: 20px;
+                    }
+
+                    @media (max-width:767px) {
+
+                    #wrapper {
+                      padding-left: 0;
+                    }
+
+                    #sidebar-wrapper {
+                      left: 0;
+                    }
+
+                    #wrapper.active {
+                      position: relative;
+                      left: 250px;
+                    }
+
+                    #wrapper.active #sidebar-wrapper {
+                      left: 250px;
+                      width: 250px;
+                      transition: all 0.4s ease 0s;
+                    }
+
+                    #menu-toggle {
+                      display: inline-block;
+                    }
+
+                    .inset {
+                      padding: 15px;
+                    }
+
+                    }
+                    `}</style>
                 </Layout>
             )
     }

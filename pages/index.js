@@ -10,6 +10,9 @@ export default class extends Page {
             <Layout>
                 <form method="post" action="/loginUser">
                     <div className="form-group">
+                        <label>Fill in your details to begin the game.</label>
+                    </div>
+                    <div className="form-group">
                         <label>Name</label>
                         <input class="form-control" name="name"/>
                     </div>

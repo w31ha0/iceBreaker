@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -202,14 +202,15 @@ module.exports = require("reactstrap");
 /***/ }),
 /* 6 */,
 /* 7 */,
-/* 8 */
+/* 8 */,
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(9);
+module.exports = __webpack_require__(10);
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -259,6 +260,8 @@ function (_Page) {
         method: "post",
         action: "/loginUser"
       }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
+        className: "form-group"
+      }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", null, "Fill in your details to begin the game.")), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
         className: "form-group"
       }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", null, "Name"), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
         "class": "form-control",

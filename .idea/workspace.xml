@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/pages/mainGame.js" description="        axios({&#10;            method: 'post',&#10;      ..." line="109" />
+    <bookmark url="file://$PROJECT_DIR$/pages/mainGame.js" description="        axios({&#10;            method: 'post',&#10;      ..." line="111" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b01c743-071b-446e-8fd6-5cd5d1864f2e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/components/WaitingForVerification.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/BUILD_ID" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/build-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/.next/build-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/bundles/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/bundles/pages/_app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/bundles/pages/_error.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/bundles/pages/_error.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/bundles/pages/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/bundles/pages/mainGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/bundles/pages/mainGame.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/server/bundles/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/bundles/pages/_app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/server/bundles/pages/_document.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/bundles/pages/_document.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/server/bundles/pages/_error.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/bundles/pages/_error.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/server/bundles/pages/index.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.next/server/bundles/pages/mainGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/bundles/pages/mainGame.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/server/pages-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/pages-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/static/commons/main-26967f762359dc6b757f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/static/commons/main-281f77805812adee5c56.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/static/commons/main-59a7c6a07678dc41f8ab.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.next/static/commons/main-ae174068e6f9d6d614e9.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Exchange.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Exchange.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/ExchangeRequest.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/ExchangeRequest.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/ExchangeResponse.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/ExchangeResponse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ParticularsForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/Exchange.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/lettersComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/lettersComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/mainGame.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mainGame.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -65,33 +83,34 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.open.time.20" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.44" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="env" value="1" />
-          <entry key="js" value="38" />
-          <entry key="json" value="2" />
+          <entry key="js" value="42" />
+          <entry key="json" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JSON" value="2" />
-          <entry key="JavaScript" value="38" />
+          <entry key="JSON" value="3" />
+          <entry key="JavaScript" value="42" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="605" />
-          <entry key="json" value="47" />
+          <entry key="js" value="1799" />
+          <entry key="json" value="50" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JSON" value="47" />
-          <entry key="JavaScript" value="605" />
+          <entry key="JSON" value="50" />
+          <entry key="JavaScript" value="1799" />
         </counts>
       </usages-collector>
     </session>
@@ -101,8 +120,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/components/ExchangeRequest.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="40" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="85">
+              <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -113,8 +132,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/components/ExchangeResponse.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+            <state relative-caret-position="31">
+              <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/components/Exchange.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="164">
+              <caret line="40" column="49" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="49" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -123,34 +154,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/components/Exchange.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="65" column="37" selection-start-line="65" selection-start-column="37" selection-end-line="65" selection-end-column="37" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/components/Layout.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/mainGame.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1856">
-              <caret line="48" selection-start-line="48" selection-end-line="48" />
+            <state relative-caret-position="272">
+              <caret line="106" column="61" lean-forward="true" selection-start-line="106" selection-start-column="61" selection-end-line="106" selection-end-column="61" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -159,10 +166,40 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/components/WaitingForVerification.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="94" selection-start-line="7" selection-start-column="94" selection-end-line="7" selection-end-column="94" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/components/lettersComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-68">
-              <caret line="8" column="51" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="51" />
+            <state relative-caret-position="289">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" column="70" selection-start-line="12" selection-start-column="70" selection-end-line="12" selection-end-column="70" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -193,6 +230,8 @@
       <find>PUSHER_NEW_EXCHANGE_REQUEST_EVENT</find>
       <find>EXCHANGE_COMPLETED_EVENT</find>
       <find>exchangeRequest</find>
+      <find>submitExchangeResponse</find>
+      <find>onExchangeResponseSubmitSuccess</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -210,21 +249,22 @@
         <option value="$PROJECT_DIR$/utils/utils.js" />
         <option value="$PROJECT_DIR$/components/Prompt.js" />
         <option value="$PROJECT_DIR$/data/foodOptions.js" />
-        <option value="$PROJECT_DIR$/components/lettersComponent.js" />
         <option value="$PROJECT_DIR$/pages/respondToExchangeRequest.js" />
         <option value="$PROJECT_DIR$/constants/strings.js" />
         <option value="$PROJECT_DIR$/constants/endpoints.js" />
         <option value="$PROJECT_DIR$/components/ParticularsForm.js" />
         <option value="$PROJECT_DIR$/components/respondToExchangeRequest.js" />
         <option value="$PROJECT_DIR$/constants/config.js" />
-        <option value="$PROJECT_DIR$/pages/index.js" />
         <option value="$PROJECT_DIR$/constants/credentials.js" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/components/WaitingForVerification.js" />
+        <option value="$PROJECT_DIR$/pages/index.js" />
+        <option value="$PROJECT_DIR$/components/lettersComponent.js" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/pages/mainGame.js" />
-        <option value="$PROJECT_DIR$/components/ExchangeRequest.js" />
-        <option value="$PROJECT_DIR$/components/ExchangeResponse.js" />
         <option value="$PROJECT_DIR$/components/Exchange.js" />
+        <option value="$PROJECT_DIR$/components/ExchangeResponse.js" />
+        <option value="$PROJECT_DIR$/components/ExchangeRequest.js" />
+        <option value="$PROJECT_DIR$/pages/mainGame.js" />
       </list>
     </option>
   </component>
@@ -245,7 +285,7 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
+    <option name="x" value="952" />
     <option name="width" value="977" />
     <option name="height" value="1038" />
   </component>
@@ -254,6 +294,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -295,7 +336,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -340,18 +380,19 @@
       <workItem from="1533986342793" duration="13239000" />
       <workItem from="1534052325306" duration="692000" />
       <workItem from="1534053179206" duration="20402000" />
-      <workItem from="1534162860693" duration="6859000" />
+      <workItem from="1534162860693" duration="8831000" />
+      <workItem from="1534335022544" duration="9038000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41192000" />
+    <option name="totallyTimeSpent" value="52202000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14077991" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2557832" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -438,13 +479,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/next.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/next.config.js" />
     <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
@@ -459,13 +494,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/Prompt.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/components/Prompt.js" />
     <entry file="file://$PROJECT_DIR$/constants/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -484,16 +513,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="34" selection-start-column="34" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pages/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -525,13 +544,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="22" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/.env" />
     <entry file="file://$PROJECT_DIR$/constants/credentials.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -539,23 +552,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1190">
-          <caret line="8" column="54" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/components/Layout.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
+        <state relative-caret-position="17">
           <caret line="3" selection-start-line="3" selection-end-line="3" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
@@ -563,49 +562,87 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/components/WaitingForVerification.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="94" selection-start-line="7" selection-start-column="94" selection-end-line="7" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="70" selection-start-line="12" selection-start-column="70" selection-end-line="12" selection-end-column="70" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="691">
+          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/components/lettersComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
-          <caret line="8" column="51" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="51" />
+        <state relative-caret-position="289">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/ExchangeRequest.js">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="119">
+          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/mainGame.js">
+    <entry file="file://$PROJECT_DIR$/.next/bundles/pages/mainGame.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1856">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="226">
+          <caret column="3902" selection-start-column="3902" selection-end-column="3902" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/components/ExchangeResponse.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+        <state relative-caret-position="31">
+          <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/ExchangeRequest.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/components/Exchange.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="65" column="37" selection-start-line="65" selection-start-column="37" selection-end-line="65" selection-end-column="37" />
+        <state relative-caret-position="164">
+          <caret line="40" column="49" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="49" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/mainGame.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="106" column="61" lean-forward="true" selection-start-line="106" selection-start-column="61" selection-end-line="106" selection-end-column="61" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -5,7 +5,7 @@ import endpoints from "../constants/endpoints";
 
 export default class extends Exchange{
 
-    submitExchangeResponse = (e) => {
+    submitForm = (e) => {
         let exchangeResponse = {
             request_user: this.props.exchangeRequest.request_user,
             birthday: this.state.birthday,

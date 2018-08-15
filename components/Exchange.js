@@ -37,8 +37,8 @@ export default class extends React.Component{
                 <div className="form-group">
                     <label>Name</label>
                 </div>
-                <div>
-                    <label>{this.props.userName}</label>
+                <div className="form-group">
+                    <label>{this.props.targetUser}</label>
                 </div>
                 <div className="form-group">
                     <label>Birthday</label>

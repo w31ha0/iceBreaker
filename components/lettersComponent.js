@@ -54,13 +54,25 @@ export default class LetterComponent extends React.Component {
             <div>
                 <div>
                     {this.state.lettersUsed.join(' ')}
-                    <button onClick={this.removeOneCharFromLettersUsed} className="btn btn-primary">C</button>
+                    <button id="cancel-btn" onClick={this.removeOneCharFromLettersUsed} className="btn btn-light">C</button>
                 </div>
-                <div>
+                <div id="letters-available">
                     {this.state.lettersAvailable.map((letter,index) => {
-                        return <button value={index} onClick={this.handleLetterSelected} className="btn btn-primary">{letter}</button>
+                        return <button id="letter-available" value={index} onClick={this.handleLetterSelected} className="btn btn-primary">{letter}</button>
                     })}
                 </div>
+                <style jsx>{`
+                    #cancel-btn {
+                              margin-left: 20px;
+                              margin-bottom: 20px;
+                            }
+                    #letters-available {
+                              margin-bottom: 20px;
+                            }
+                    #letter-available {
+                              margin: 5px;
+                            }
+                `}</style>
             </div>
         )
     }
