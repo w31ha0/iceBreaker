@@ -1,6 +1,7 @@
 const next = require('next')
 const Pusher = require('pusher');
 const express = require('express');
+const utils = require('./utils/utils')
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const config = require('./constants/config')
@@ -26,6 +27,7 @@ nextApp
     .prepare()
     .then(() => {
         const expressApp = express()
+        var allCharacters = ""
 
         expressApp.use(session({secret: config.SESSION_SECRET,
             store: sessionStore
@@ -36,6 +38,19 @@ nextApp
         expressApp.use(bodyParser.urlencoded({ extended: true }));
 
         //mongoose.connect('mongodb://'+config.DB_HOST+':'+config.DB_PORT+'/'+config.DB_NAME);
+
+        expressApp.post(endpoints.API_START_GAME,function(req,res){
+            console.log("Got Request to start game with password "+req.body.password)
+            if(req.body.password === 'jxbcamp2019'){
+                console.log("Authentication succeeded...starting game")
+                allCharacters = utils.shuffleString(allCharacters)
+                console.log("Shuffled characters are now "+allCharacters)
+                pusher.trigger(strings.PUSHER_CHANNEL,strings.PUSHER_GAME_START_EVENT,{})
+                res.json({success: 1})
+            }
+            else
+                res.json({success:0})
+        })
 
         expressApp.post(endpoints.API_GET_ALL_ACTIVE_USERS,function (req,res) {
             sessionStore.all(function(err,sessions){
@@ -51,7 +66,9 @@ nextApp
             req.session.user = req.body
             req.session.cookie.maxAge = new Date(Date.now() + config.COOKIE_DURATION)
             req.session.save()
-            nextApp.render(req, res, '/mainGame')
+            allCharacters += req.body.name
+            console.log("All characters are now "+allCharacters)
+            nextApp.render(req, res, '/loadingScreen')
             pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_NEW_USER_EVENT, req.body.name);
         })
 
@@ -59,8 +76,14 @@ nextApp
             res.json(req.session)
         })
 
-        expressApp.post(endpoints.API_GET_ASSIGNED_LETTERS,function (req,res) {
-            res.send(['A','B','C','D'])
+        expressApp.post(endpoints.API_GET_ASSIGNED_LETTERS,function (req,res){
+            const userName = req.session.user.name
+            console.log("Got letters request from: "+userName)
+            const lettersExtracted = allCharacters.slice(0,userName.length)
+            allCharacters = allCharacters.substring(userName.length)
+            const lettersAssigned = lettersExtracted.split("")
+            console.log("Assigned letters "+lettersAssigned+" to user "+userName);
+            res.send(lettersAssigned)
         })
 
         expressApp.get(endpoints.API_CHECK_SESSION_EXPIRED,function (req,res) {

@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -209,17 +209,69 @@ function (_React$Component) {
 
 /***/ }),
 
-/***/ "./data/dataSource.js":
+/***/ "./constants/credentials.js":
 /***/ (function(module, exports) {
 
-var FOOD_OPTIONS = ['hokkien mee', 'laksa', 'mee rebus'];
+var PUSHER_APP_ID = '575034';
+var PUSHER_APP_KEY = '30d8dabc87d7db943336';
+var PUSHER_APP_SECRET = 'ed7e51b094c6d48e5475';
+var PUSHER_APP_CLUSTER = 'ap1';
 module.exports = {
-  FOOD_OPTIONS: FOOD_OPTIONS
+  PUSHER_APP_ID: PUSHER_APP_ID,
+  PUSHER_APP_KEY: PUSHER_APP_KEY,
+  PUSHER_APP_SECRET: PUSHER_APP_SECRET,
+  PUSHER_APP_CLUSTER: PUSHER_APP_CLUSTER
 };
 
 /***/ }),
 
-/***/ "./pages/index.js":
+/***/ "./constants/endpoints.js":
+/***/ (function(module, exports) {
+
+var API_LOGIN_USER = '/loginUser';
+var API_CHECK_SESSION_EXPIRED = '/checkExpired';
+var API_GET_ALL_ACTIVE_USERS = '/getActiveUsers';
+var API_GET_SESSION = '/getSession';
+var API_GET_ASSIGNED_LETTERS = '/getAssignedLetters';
+var API_SUBMIT_EXCHANGE_REQUEST = '/submitExchangeRequest';
+var API_SUBMIT_EXCHANGE_RESPONSE = '/submitExchangeResponse';
+var API_EXCHANGE_COMPLETED = '/exchangeCompleted';
+var API_START_GAME = '/startGame';
+module.exports = {
+  API_LOGIN_USER: API_LOGIN_USER,
+  API_CHECK_SESSION_EXPIRED: API_CHECK_SESSION_EXPIRED,
+  API_GET_ALL_ACTIVE_USERS: API_GET_ALL_ACTIVE_USERS,
+  API_GET_SESSION: API_GET_SESSION,
+  API_GET_ASSIGNED_LETTERS: API_GET_ASSIGNED_LETTERS,
+  API_SUBMIT_EXCHANGE_REQUEST: API_SUBMIT_EXCHANGE_REQUEST,
+  API_EXCHANGE_COMPLETED: API_EXCHANGE_COMPLETED,
+  API_SUBMIT_EXCHANGE_RESPONSE: API_SUBMIT_EXCHANGE_RESPONSE,
+  API_START_GAME: API_START_GAME
+};
+
+/***/ }),
+
+/***/ "./constants/strings.js":
+/***/ (function(module, exports) {
+
+var PUSHER_CHANNEL = 'iceBreaker';
+var PUSHER_NEW_USER_EVENT = 'new-user';
+var PUSHER_GAME_START_EVENT = 'game-start';
+var PUSHER_NEW_EXCHANGE_REQUEST_EVENT = 'new-exchange-request';
+var PUSHER_NEW_EXCHANGE_RESPONSE_EVENT = 'new-exchange-response';
+var EXCHANGE_COMPLETED_EVENT = 'exchange-completed';
+module.exports = {
+  PUSHER_CHANNEL: PUSHER_CHANNEL,
+  PUSHER_NEW_USER_EVENT: PUSHER_NEW_USER_EVENT,
+  PUSHER_NEW_EXCHANGE_REQUEST_EVENT: PUSHER_NEW_EXCHANGE_REQUEST_EVENT,
+  PUSHER_NEW_EXCHANGE_RESPONSE_EVENT: PUSHER_NEW_EXCHANGE_RESPONSE_EVENT,
+  EXCHANGE_COMPLETED_EVENT: EXCHANGE_COMPLETED_EVENT,
+  PUSHER_GAME_START_EVENT: PUSHER_GAME_START_EVENT
+};
+
+/***/ }),
+
+/***/ "./pages/admin.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -227,11 +279,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_page__ = __webpack_require__("./components/page.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_dataSource__ = __webpack_require__("./data/dataSource.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__data_dataSource___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__data_dataSource__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Layout_js__ = __webpack_require__("./components/Layout.js");
-var _jsxFileName = "E:\\iceBreaker\\pages\\index.js";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__("axios");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js__ = __webpack_require__("pusher-js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_pusher_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_page__ = __webpack_require__("./components/page.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_strings__ = __webpack_require__("./constants/strings.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_strings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__constants_strings__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Layout_js__ = __webpack_require__("./components/Layout.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__constants_endpoints__ = __webpack_require__("./constants/endpoints.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__constants_endpoints___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__constants_endpoints__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_credentials__ = __webpack_require__("./constants/credentials.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_credentials___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__constants_credentials__);
+var _jsxFileName = "E:\\iceBreaker\\pages\\admin.js";
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -244,9 +304,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
 
 
 
@@ -258,122 +322,104 @@ function (_Page) {
   _inherits(_default, _Page);
 
   function _default() {
+    var _this;
+
     _classCallCheck(this, _default);
 
-    return _possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).call(this));
+    Object.defineProperty(_assertThisInitialized(_this), "handlePasswordChange", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        _this.setState({
+          password: e.target.value
+        });
+      }
+    });
+    Object.defineProperty(_assertThisInitialized(_this), "startGame", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        __WEBPACK_IMPORTED_MODULE_1_axios___default()({
+          method: 'post',
+          url: __WEBPACK_IMPORTED_MODULE_6__constants_endpoints___default.a.API_START_GAME,
+          data: {
+            password: _this.state.password
+          }
+        }).then(function (response) {
+          console.log('Got start game result ' + response.data.success);
+        }).catch(function (response) {
+          //handle error
+          console.log(response);
+        });
+      }
+    });
+    _this.state = {
+      password: ''
+    };
+    return _this;
   }
 
   _createClass(_default, [{
     key: "render",
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_Layout_js__["a" /* default */], {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_Layout_js__["a" /* default */], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 10
-        }
-      }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("form", {
-        method: "post",
-        action: "/loginUser",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 11
+          lineNumber: 41
         }
       }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
         className: "form-group",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 12
+          lineNumber: 42
         }
       }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 13
+          lineNumber: 43
         }
-      }, "Fill in your details to begin the game.")), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-        className: "form-group",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 15
-        }
-      }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 16
-        }
-      }, "Name"), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-        "class": "form-control",
+      }, "Password"), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+        onChange: this.handlePasswordChange,
+        className: "form-control",
         name: "name",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 17
+          lineNumber: 44
         }
-      })), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-        className: "form-group",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 19
-        }
-      }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 20
-        }
-      }, "Birthday"), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-        "class": "form-control",
-        name: "birthday",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 21
-        }
-      })), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-        className: "form-group",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 23
-        }
-      }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 24
-        }
-      }, "Favourite Food"), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("select", {
-        "class": "form-control",
-        name: "favouriteFood",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 25
-        }
-      }, __WEBPACK_IMPORTED_MODULE_2__data_dataSource___default.a.FOOD_OPTIONS.map(function (foodOption) {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("option", {
-          value: foodOption,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 26
-          }
-        }, foodOption);
-      }))), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
+      })), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
+        onClick: this.startGame,
         type: "submit",
         className: "btn btn-primary",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 29
+          lineNumber: 46
         }
-      }, "Submit")));
+      }, "Start Game"));
     }
   }]);
 
   return _default;
-}(__WEBPACK_IMPORTED_MODULE_1__components_page__["a" /* default */]);
+}(__WEBPACK_IMPORTED_MODULE_3__components_page__["a" /* default */]);
 
 
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("./pages/index.js");
+module.exports = __webpack_require__("./pages/admin.js");
 
+
+/***/ }),
+
+/***/ "axios":
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
 
 /***/ }),
 
@@ -381,6 +427,13 @@ module.exports = __webpack_require__("./pages/index.js");
 /***/ (function(module, exports) {
 
 module.exports = require("next/head");
+
+/***/ }),
+
+/***/ "pusher-js":
+/***/ (function(module, exports) {
+
+module.exports = require("pusher-js");
 
 /***/ }),
 
@@ -399,4 +452,4 @@ module.exports = require("reactstrap");
 /***/ })
 
 /******/ });
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=admin.js.map

@@ -5,13 +5,14 @@ export default class LetterComponent extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            lettersUsed: Array.apply(null,{length: 3}).map(function() { return '-'; }),
+            lettersUsed: [],
             lettersAvailable: props.lettersAssigned
         }
     }
 
     componentWillReceiveProps(newProps){
         this.setState({
+            lettersUsed: Array.apply(null,{length: newProps.lettersAssigned.length}).map(function() { return '-'; }),
             lettersAvailable: newProps.lettersAssigned
         })
     }
