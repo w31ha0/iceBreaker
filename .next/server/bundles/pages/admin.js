@@ -172,7 +172,7 @@ function (_React$Component) {
 
 /***/ }),
 
-/***/ "./components/page.js":
+/***/ "./components/Page.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -237,6 +237,7 @@ var API_SUBMIT_EXCHANGE_REQUEST = '/submitExchangeRequest';
 var API_SUBMIT_EXCHANGE_RESPONSE = '/submitExchangeResponse';
 var API_EXCHANGE_COMPLETED = '/exchangeCompleted';
 var API_START_GAME = '/startGame';
+var API_USER_COMPLETED_GAME = '/userCompletedGame';
 module.exports = {
   API_LOGIN_USER: API_LOGIN_USER,
   API_CHECK_SESSION_EXPIRED: API_CHECK_SESSION_EXPIRED,
@@ -246,7 +247,8 @@ module.exports = {
   API_SUBMIT_EXCHANGE_REQUEST: API_SUBMIT_EXCHANGE_REQUEST,
   API_EXCHANGE_COMPLETED: API_EXCHANGE_COMPLETED,
   API_SUBMIT_EXCHANGE_RESPONSE: API_SUBMIT_EXCHANGE_RESPONSE,
-  API_START_GAME: API_START_GAME
+  API_START_GAME: API_START_GAME,
+  API_USER_COMPLETED_GAME: API_USER_COMPLETED_GAME
 };
 
 /***/ }),
@@ -283,7 +285,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js__ = __webpack_require__("pusher-js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_pusher_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_page__ = __webpack_require__("./components/page.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Page__ = __webpack_require__("./components/Page.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_strings__ = __webpack_require__("./constants/strings.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_strings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__constants_strings__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Layout_js__ = __webpack_require__("./components/Layout.js");
@@ -402,7 +404,7 @@ function (_Page) {
   }]);
 
   return _default;
-}(__WEBPACK_IMPORTED_MODULE_3__components_page__["a" /* default */]);
+}(__WEBPACK_IMPORTED_MODULE_3__components_Page__["a" /* default */]);
 
 
 

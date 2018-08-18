@@ -1,4 +1,4 @@
-import Page from '../components/page';
+import Page from '../components/Page';
 import data from '../data/dataSource'
 import Layout from '../components/Layout.js'
 

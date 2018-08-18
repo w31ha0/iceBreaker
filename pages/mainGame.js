@@ -1,12 +1,12 @@
 import axios from 'axios'
 import React from "react";
 import Pusher from 'pusher-js';
-import Page from '../components/page';
+import Page from '../components/Page';
 import strings from '../constants/strings'
 import Layout from '../components/Layout.js'
 import endpoints from '../constants/endpoints'
 import credentials from '../constants/credentials'
-import LetterComponent from '../components/lettersComponent'
+import LetterComponent from '../components/LettersComponent'
 import ExchangeRequest from '../components/ExchangeRequest'
 import ExchangeResponse from '../components/ExchangeResponse'
 import WaitingForVerification from '../components/WaitingForVerification'
@@ -62,6 +62,7 @@ export default class extends Page {
         this.channel.bind(strings.EXCHANGE_COMPLETED_EVENT, (data) => {
             if(data.request_user == this.state.userName){
                 console.log("Exchange request has completed: "+JSON.stringify(data))
+                console.log("Letters assigned are now "+this.state.lettersAssigned)
                 this.setState({
                     isWaitingForCounterPartyToVerify: false
                 })
@@ -76,6 +77,7 @@ export default class extends Page {
         console.log("Receiving letter "+letterToReceive)
         var lettersAssigned = this.state.lettersAssigned
         lettersAssigned[lettersAssigned.indexOf(letterToGive)] = letterToReceive
+        console.log("Letters assigned has changed from "+this.state.lettersAssigned+" to "+lettersAssigned)
         this.setState({
             lettersAssigned: lettersAssigned
         })
@@ -162,6 +164,10 @@ export default class extends Page {
         });
     }
 
+    onLetterSelected = () => {
+        console.log("Letters assigned are now "+this.state.lettersAssigned)
+    }
+
     render(){
         console.log("passing in user name into props "+this.state.userName)
         if (this.state.isWaitingForCounterPartyToVerify)
@@ -194,7 +200,7 @@ export default class extends Page {
                         </div>
                         <div id="page-content-wrapper">
                             <div className="page-content inset" data-spy="scroll" data-target="#spy">
-                                <LetterComponent lettersAssigned={this.state.lettersAssigned}/>
+                                <LetterComponent onLetterSelected={this.onLetterSelected} userName={this.state.userName} lettersAssigned={this.state.lettersAssigned}/>
                                 <div style={{marginTop:'50px',marginBottom:'50px'}} className="form-group">
                                     <label>Fill in the details of the player you would like to exchange with.</label>
                                 </div>

@@ -28,6 +28,7 @@ nextApp
     .then(() => {
         const expressApp = express()
         var allCharacters = ""
+        var allUsers = []
 
         expressApp.use(session({secret: config.SESSION_SECRET,
             store: sessionStore
@@ -38,6 +39,20 @@ nextApp
         expressApp.use(bodyParser.urlencoded({ extended: true }));
 
         //mongoose.connect('mongodb://'+config.DB_HOST+':'+config.DB_PORT+'/'+config.DB_NAME);
+
+        expressApp.post(endpoints.API_USER_COMPLETED_GAME,function(req,res){
+            const completedUser = req.session.user
+            console.log("User "+completedUser.name+" has completed the game")
+            req.session.destroy()
+            allUsers = allUsers.filter(function( user ) {
+                return user.name !== completedUser.name;
+            });
+            res.json({success:1})
+            if(allUsers.length == 0){
+                console.log("All users have completed the game....")
+                sessionStore.clear()
+            }
+        })
 
         expressApp.post(endpoints.API_START_GAME,function(req,res){
             console.log("Got Request to start game with password "+req.body.password)
@@ -62,14 +77,16 @@ nextApp
         })
 
         expressApp.post(endpoints.API_LOGIN_USER,function (req,res) {
-            console.log("Received request to log in user "+JSON.stringify(req.body))
-            req.session.user = req.body
+            const user = req.body
+            console.log("Received request to log in user "+JSON.stringify(user))
+            req.session.user = user
             req.session.cookie.maxAge = new Date(Date.now() + config.COOKIE_DURATION)
             req.session.save()
-            allCharacters += req.body.name
+            allUsers.push(user)
+            allCharacters += user.name
             console.log("All characters are now "+allCharacters)
             nextApp.render(req, res, '/loadingScreen')
-            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_NEW_USER_EVENT, req.body.name);
+            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_NEW_USER_EVENT, user.name);
         })
 
         expressApp.post(endpoints.API_GET_SESSION,function(req,res){

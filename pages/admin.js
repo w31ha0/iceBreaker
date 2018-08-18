@@ -1,6 +1,6 @@
 import axios from "axios";
 import Pusher from "pusher-js";
-import Page from '../components/page';
+import Page from '../components/Page';
 import strings from "../constants/strings";
 import Layout from '../components/Layout.js'
 import endpoints from "../constants/endpoints";

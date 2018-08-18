@@ -1,4 +1,6 @@
 import React from 'react'
+import axios from "axios";
+import endpoints from "../constants/endpoints";
 
 export default class LetterComponent extends React.Component {
 
@@ -6,14 +8,15 @@ export default class LetterComponent extends React.Component {
         super(props)
         this.state = {
             lettersUsed: [],
-            lettersAvailable: props.lettersAssigned
+            lettersAvailable: props.lettersAssigned.slice()
         }
     }
 
     componentWillReceiveProps(newProps){
+        console.log("Letter component will receive props")
         this.setState({
             lettersUsed: Array.apply(null,{length: newProps.lettersAssigned.length}).map(function() { return '-'; }),
-            lettersAvailable: newProps.lettersAssigned
+            lettersAvailable: newProps.lettersAssigned.slice()
         })
     }
 
@@ -26,6 +29,7 @@ export default class LetterComponent extends React.Component {
             lettersUsed: lettersUsed,
             lettersAvailable: lettersAvailable
         })
+        this.handleLettersChanged()
     }
 
     removeOneCharFromLettersUsed = (e) => {
@@ -46,9 +50,26 @@ export default class LetterComponent extends React.Component {
                 lettersUsed: lettersUsed,
                 lettersAvailable: lettersAvailable
             })
+            this.handleLettersChanged()
         }
 
     }
+
+    handleLettersChanged = () => {
+        if(this.state.lettersUsed.join('') === this.props.userName && typeof window !== 'undefined'){
+            axios({
+                method: 'post',
+                url: endpoints.API_USER_COMPLETED_GAME
+            })
+            .then((response) => {
+                window.alert("You have completed the game!")
+            })
+            .catch(function (response) {
+                //handle error
+                console.log(response);
+            });
+        }}
+
 
     render(){
         return(
