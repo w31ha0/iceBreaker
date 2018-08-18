@@ -27,8 +27,12 @@ nextApp
     .prepare()
     .then(() => {
         const expressApp = express()
+
+        //game variables
         var allCharacters = ""
         var allUsers = []
+        var gameStarted = false
+        var assignedLetters = {}
 
         expressApp.use(session({secret: config.SESSION_SECRET,
             store: sessionStore
@@ -39,6 +43,18 @@ nextApp
         expressApp.use(bodyParser.urlencoded({ extended: true }));
 
         //mongoose.connect('mongodb://'+config.DB_HOST+':'+config.DB_PORT+'/'+config.DB_NAME);
+
+        expressApp.post(endpoints.API_CHECK_GAME_STARTED,function (req,res) {
+            res.json({result: gameStarted?1:0})
+        })
+
+        expressApp.post(endpoints.API_CHECK_AUTHENTICATED,function (req,res) {
+            console.log("Received authentication check from "+JSON.stringify(req.session))
+            if(typeof req.session.user !== 'undefined')
+                res.json({result:1})
+            else
+                res.json({result:0})
+        })
 
         expressApp.post(endpoints.API_USER_COMPLETED_GAME,function(req,res){
             const completedUser = req.session.user
@@ -51,7 +67,12 @@ nextApp
             if(allUsers.length == 0){
                 console.log("All users have completed the game....")
                 sessionStore.clear()
+                allCharacters = ""
+                allUsers = []
+                gameStarted = false
+                assignedLetters = {}
             }
+            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
         })
 
         expressApp.post(endpoints.API_START_GAME,function(req,res){
@@ -62,6 +83,7 @@ nextApp
                 console.log("Shuffled characters are now "+allCharacters)
                 pusher.trigger(strings.PUSHER_CHANNEL,strings.PUSHER_GAME_START_EVENT,{})
                 res.json({success: 1})
+                gameStarted = true
             }
             else
                 res.json({success:0})
@@ -86,7 +108,7 @@ nextApp
             allCharacters += user.name
             console.log("All characters are now "+allCharacters)
             nextApp.render(req, res, '/loadingScreen')
-            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_NEW_USER_EVENT, user.name);
+            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
         })
 
         expressApp.post(endpoints.API_GET_SESSION,function(req,res){
@@ -96,11 +118,16 @@ nextApp
         expressApp.post(endpoints.API_GET_ASSIGNED_LETTERS,function (req,res){
             const userName = req.session.user.name
             console.log("Got letters request from: "+userName)
-            const lettersExtracted = allCharacters.slice(0,userName.length)
-            allCharacters = allCharacters.substring(userName.length)
-            const lettersAssigned = lettersExtracted.split("")
-            console.log("Assigned letters "+lettersAssigned+" to user "+userName);
-            res.send(lettersAssigned)
+            if(!assignedLetters.hasOwnProperty(userName)) {
+                const lettersExtracted = allCharacters.slice(0, userName.length)
+                allCharacters = allCharacters.substring(userName.length)
+                const lettersAssigned = lettersExtracted.split("")
+                console.log("Assigned letters " + lettersAssigned + " to user " + userName);
+                res.send(lettersAssigned)
+                assignedLetters[userName] = lettersAssigned
+            }
+            else
+                res.send(assignedLetters[userName])
         })
 
         expressApp.get(endpoints.API_CHECK_SESSION_EXPIRED,function (req,res) {
@@ -134,21 +161,29 @@ nextApp
         })
 
         expressApp.post(endpoints.API_SUBMIT_EXCHANGE_RESPONSE,function (req,res) {
-            const user = req.body
-            console.log("Received Exchange Response: "+JSON.stringify(user))
+            const exchangeResponse = req.body
+            console.log("Received Exchange Response: "+JSON.stringify(exchangeResponse))
             sessionStore.all(function(err,sessions){
                 var filteredSessions = sessions.filter(function(session){
                     if (session.hasOwnProperty('user'))
-                        return (session.user.name == user.request_user &&
-                                session.user.birthday == user.birthday &&
-                                session.user.favouriteFood == user.favouriteFood)
+                        return (session.user.name == exchangeResponse.request_user &&
+                                session.user.birthday == exchangeResponse.birthday &&
+                                session.user.favouriteFood == exchangeResponse.favouriteFood)
                     else
                         return false
                 })
                 if (filteredSessions.length > 0) {
                     res.json({success: 1})
-                    let payload = {request_user: user.request_user,letterToReceive: user.letterToExchange}
-                    pusher.trigger(strings.PUSHER_CHANNEL,strings.EXCHANGE_COMPLETED_EVENT,payload)
+                    var requestUserAssignedLetters = assignedLetters[exchangeResponse.request_user]
+                    var respondUserAssignedLetters = assignedLetters[exchangeResponse.respond_user]
+                    requestUserAssignedLetters[requestUserAssignedLetters.indexOf(exchangeResponse.letterToReceive)] = exchangeResponse.letterToExchange
+                    respondUserAssignedLetters[respondUserAssignedLetters.indexOf(exchangeResponse.letterToExchange)] = exchangeResponse.letterToReceive
+                    console.log("Exchange completed")
+                    console.log(exchangeResponse.request_user+": "+requestUserAssignedLetters)
+                    console.log(exchangeResponse.respond_user+": "+respondUserAssignedLetters)
+                    assignedLetters[exchangeResponse.request_user] = requestUserAssignedLetters
+                    assignedLetters[exchangeResponse.respond_user] = respondUserAssignedLetters
+                    pusher.trigger(strings.PUSHER_CHANNEL,strings.EXCHANGE_COMPLETED_EVENT,exchangeResponse)
                 }
                 else
                     res.json({success:0})

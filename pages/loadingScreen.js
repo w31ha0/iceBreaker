@@ -3,10 +3,17 @@ import Page from '../components/Page';
 import strings from "../constants/strings";
 import Layout from '../components/Layout.js'
 import credentials from "../constants/credentials";
+import utils from "../utils/utils"
 
 export default class extends Page{
 
     async componentDidMount(){
+        utils.checkGameStarted().then(function(res){
+            window.location.href = '/mainGame'
+        },function(err){
+
+        })
+
         this.pusher = new Pusher(credentials.PUSHER_APP_KEY, {
             cluster: credentials.PUSHER_APP_CLUSTER,
             encrypted: true

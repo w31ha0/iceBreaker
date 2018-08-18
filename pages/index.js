@@ -1,8 +1,17 @@
 import Page from '../components/Page';
 import data from '../data/dataSource'
 import Layout from '../components/Layout.js'
+import utils from "../utils/utils"
 
 export default class extends Page {
+
+    componentDidMount(){
+        utils.checkAuthenticated().then(function(res){
+            window.location.href = "/loadingScreen"
+        },function(err){
+            console.log("Not yet authenticated")
+        })
+    }
 
     render(){
 

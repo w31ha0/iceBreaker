@@ -39,10 +39,9 @@ export default class extends Page {
 
         this.channel = this.pusher.subscribe(strings.PUSHER_CHANNEL);
 
-        this.channel.bind(strings.PUSHER_NEW_USER_EVENT, (user) => {
-            console.log("Received new user from Pusher: "+user)
-            var newActiveUsers = this.state.activeUsers
-            newActiveUsers.push(user)
+        this.channel.bind(strings.PUSHER_USER_LIST_UPDATE_EVENT, (users) => {
+            console.log("Received new user list from Pusher: "+users)
+            var newActiveUsers = users.map(user => user.name)
             this.setState({
                 activeUsers: newActiveUsers
             })
@@ -66,21 +65,10 @@ export default class extends Page {
                 this.setState({
                     isWaitingForCounterPartyToVerify: false
                 })
-                this.swapLetters(this.state.letterToGive,data.letterToReceive)
+                this.retriveLetters()
             }
         });
 
-    }
-
-    swapLetters = (letterToGive,letterToReceive) => {
-        console.log("Giving away letter "+letterToGive)
-        console.log("Receiving letter "+letterToReceive)
-        var lettersAssigned = this.state.lettersAssigned
-        lettersAssigned[lettersAssigned.indexOf(letterToGive)] = letterToReceive
-        console.log("Letters assigned has changed from "+this.state.lettersAssigned+" to "+lettersAssigned)
-        this.setState({
-            lettersAssigned: lettersAssigned
-        })
     }
 
     cancelWaitingForVerification = (r) => {
@@ -96,11 +84,11 @@ export default class extends Page {
         })
     }
 
-    onExchangeResponseSubmitSuccess = (letterToGive,letterToReceive, requestUser) => {
-        this.swapLetters(letterToGive,letterToReceive)
+    onExchangeResponseSubmitSuccess = () => {
         this.setState({
             isVerifyingForCounterParty: false
         })
+        this.retriveLetters()
     }
 
     onClick = (e) => {

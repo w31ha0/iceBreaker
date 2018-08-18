@@ -1,7 +1,7 @@
 module.exports =
 __NEXT_REGISTER_PAGE('/admin', function() {
           var comp =
-      webpackJsonp([5],{
+      webpackJsonp([6],{
 
 /***/ "./components/Layout.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -168,6 +168,8 @@ var API_SUBMIT_EXCHANGE_RESPONSE = '/submitExchangeResponse';
 var API_EXCHANGE_COMPLETED = '/exchangeCompleted';
 var API_START_GAME = '/startGame';
 var API_USER_COMPLETED_GAME = '/userCompletedGame';
+var API_CHECK_AUTHENTICATED = '/checkAuthenticated';
+var API_CHECK_GAME_STARTED = '/checkGameStarted';
 module.exports = {
   API_LOGIN_USER: API_LOGIN_USER,
   API_CHECK_SESSION_EXPIRED: API_CHECK_SESSION_EXPIRED,
@@ -178,7 +180,9 @@ module.exports = {
   API_EXCHANGE_COMPLETED: API_EXCHANGE_COMPLETED,
   API_SUBMIT_EXCHANGE_RESPONSE: API_SUBMIT_EXCHANGE_RESPONSE,
   API_START_GAME: API_START_GAME,
-  API_USER_COMPLETED_GAME: API_USER_COMPLETED_GAME
+  API_USER_COMPLETED_GAME: API_USER_COMPLETED_GAME,
+  API_CHECK_AUTHENTICATED: API_CHECK_AUTHENTICATED,
+  API_CHECK_GAME_STARTED: API_CHECK_GAME_STARTED
 };
 
 /***/ }),
@@ -187,14 +191,14 @@ module.exports = {
 /***/ (function(module, exports) {
 
 var PUSHER_CHANNEL = 'iceBreaker';
-var PUSHER_NEW_USER_EVENT = 'new-user';
+var PUSHER_USER_LIST_UPDATE_EVENT = 'update-user-list';
 var PUSHER_GAME_START_EVENT = 'game-start';
 var PUSHER_NEW_EXCHANGE_REQUEST_EVENT = 'new-exchange-request';
 var PUSHER_NEW_EXCHANGE_RESPONSE_EVENT = 'new-exchange-response';
 var EXCHANGE_COMPLETED_EVENT = 'exchange-completed';
 module.exports = {
   PUSHER_CHANNEL: PUSHER_CHANNEL,
-  PUSHER_NEW_USER_EVENT: PUSHER_NEW_USER_EVENT,
+  PUSHER_USER_LIST_UPDATE_EVENT: PUSHER_USER_LIST_UPDATE_EVENT,
   PUSHER_NEW_EXCHANGE_REQUEST_EVENT: PUSHER_NEW_EXCHANGE_REQUEST_EVENT,
   PUSHER_NEW_EXCHANGE_RESPONSE_EVENT: PUSHER_NEW_EXCHANGE_RESPONSE_EVENT,
   EXCHANGE_COMPLETED_EVENT: EXCHANGE_COMPLETED_EVENT,
@@ -16549,7 +16553,7 @@ function (_Page) {
 
 /***/ }),
 
-/***/ 4:
+/***/ 5:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("./pages/admin.js");
@@ -16557,7 +16561,7 @@ module.exports = __webpack_require__("./pages/admin.js");
 
 /***/ })
 
-},[4])
+},[5])
           return { page: comp.default }
         })
       ;

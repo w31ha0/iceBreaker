@@ -11,6 +11,8 @@ export default class extends Exchange{
             birthday: this.state.birthday,
             favouriteFood: this.state.favouriteFood,
             letterToExchange: this.state.letterToExchange,
+            letterToReceive: this.props.exchangeRequest.letterToExchange,
+            respond_user: this.props.exchangeRequest.respond_user
         }
         console.log("ExchangeResponse: "+JSON.stringify(exchangeResponse))
         axios({
@@ -21,9 +23,7 @@ export default class extends Exchange{
         .then((response) => {
             console.log('Response of ExchangeResponse: '+JSON.stringify(response.data))
             if(response.data.success == 1){
-                const letterToReceive = this.props.exchangeRequest.letterToExchange
-                const letterToGive = this.state.letterToExchange
-                this.props.onExchangeResponseSubmitSuccess(letterToGive,letterToReceive,this.props.exchangeRequest.request_user)
+                this.props.onExchangeResponseSubmitSuccess()
             }
         })
         .catch(function (response) {
