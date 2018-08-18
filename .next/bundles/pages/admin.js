@@ -1,7 +1,7 @@
 module.exports =
 __NEXT_REGISTER_PAGE('/admin', function() {
           var comp =
-      webpackJsonp([6],{
+      webpackJsonp([4],{
 
 /***/ "./components/Layout.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -16553,7 +16553,7 @@ function (_Page) {
 
 /***/ }),
 
-/***/ 5:
+/***/ 3:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("./pages/admin.js");
@@ -16561,7 +16561,7 @@ module.exports = __webpack_require__("./pages/admin.js");
 
 /***/ })
 
-},[5])
+},[3])
           return { page: comp.default }
         })
       ;

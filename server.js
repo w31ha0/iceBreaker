@@ -101,14 +101,18 @@ nextApp
         expressApp.post(endpoints.API_LOGIN_USER,function (req,res) {
             const user = req.body
             console.log("Received request to log in user "+JSON.stringify(user))
-            req.session.user = user
-            req.session.cookie.maxAge = new Date(Date.now() + config.COOKIE_DURATION)
-            req.session.save()
-            allUsers.push(user)
-            allCharacters += user.name
-            console.log("All characters are now "+allCharacters)
-            nextApp.render(req, res, '/loadingScreen')
-            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
+            if (user.name && user.birthday && user.favouriteFood) {
+                req.session.user = user
+                req.session.cookie.maxAge = new Date(Date.now() + config.COOKIE_DURATION)
+                req.session.save()
+                allUsers.push(user)
+                allCharacters += user.name
+                console.log("All characters are now " + allCharacters)
+                res.json({result: 1})
+                pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
+            }
+            else
+                res.json({result: 0})
         })
 
         expressApp.post(endpoints.API_GET_SESSION,function(req,res){

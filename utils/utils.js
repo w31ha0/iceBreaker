@@ -28,13 +28,13 @@ module.exports = {
             })
             .then((response) => {
                 if(response.data.result == 1)
-                    resolve(response)
+                    resolve(true)
                 else
-                    reject(response)
+                    reject(false)
             })
             .catch(function (response) {
                 console.log(response);
-                reject(response)
+                reject(false)
             });
         });
     },
@@ -47,13 +47,13 @@ module.exports = {
             })
             .then((response) => {
                 if(response.data.result == 1)
-                    resolve(response)
+                    resolve(true)
                 else
-                    reject(response)
+                    reject(false)
             })
             .catch(function (response) {
                 console.log(response);
-                reject(response)
+                reject(false)
             });
         });
     },
