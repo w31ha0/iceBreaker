@@ -60,7 +60,7 @@ export default class extends React.Component {
                 </div>
                 <div className="form-group">
                     <label>Birthday</label>
-                    <input onChange={this.handleBirthdayChange} class="form-control" name="birthday"/>
+                    <input type="date" onChange={this.handleBirthdayChange} class="form-control" name="birthday"/>
                 </div>
                 <div className="form-group">
                     <label>Favourite Food</label>

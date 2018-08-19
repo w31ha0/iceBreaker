@@ -172,6 +172,7 @@ function (_React$Component) {
           lineNumber: 61
         }
       }, "Birthday"), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+        type: "date",
         className: "form-control",
         name: "birthday",
         onChange: this.handleBirthdayChange,
@@ -1000,6 +1001,7 @@ function (_React$Component) {
           lineNumber: 62
         }
       }, "Birthday"), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("input", {
+        type: "date",
         onChange: this.handleBirthdayChange,
         "class": "form-control",
         name: "birthday",
