@@ -10,6 +10,7 @@ export default class extends Exchange{
             request_user: this.props.exchangeRequest.request_user,
             birthday: this.state.birthday,
             favouriteFood: this.state.favouriteFood,
+            deshu: this.state.deshu,
             letterToExchange: this.state.letterToExchange,
             letterToReceive: this.props.exchangeRequest.letterToExchange,
             respond_user: this.props.exchangeRequest.respond_user

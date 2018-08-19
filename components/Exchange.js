@@ -8,6 +8,7 @@ export default class extends React.Component{
         this.state = {
             birthday: '',
             favouriteFood: '',
+            deshu: "",
             letterToExchange: ''
         }
     }
@@ -31,6 +32,13 @@ export default class extends React.Component{
         })
     }
 
+    handleDeshuChange = (e) => {
+        console.log(e.target)
+        this.setState({
+            deshu: e.target.value
+        })
+    }
+
     render(){
         return(
             <div>
@@ -39,6 +47,15 @@ export default class extends React.Component{
                 </div>
                 <div className="form-group">
                     <label>{this.props.targetUser}</label>
+                </div>
+                <div className="form-group">
+                    <label>Deshu</label>
+                    <select onChange={this.handleDeshuChange} className="form-control" name="deshu">
+                        <option disabled selected value>Select his/her deshu.</option>
+                        {data.DESHU_OPTIONS.map(deshu => {
+                            return <option value={deshu}>{deshu}</option>
+                        })}
+                    </select>
                 </div>
                 <div className="form-group">
                     <label>Birthday</label>

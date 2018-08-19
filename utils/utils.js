@@ -58,4 +58,26 @@ module.exports = {
         });
     },
 
+    validateUserInfo(store,exchange,targetUser){
+        return new Promise((resolve, reject) => {
+            store.all(function (err, sessions) {
+                var filteredSessions = sessions.filter(function (session) {
+                    if (session.hasOwnProperty('user'))
+                        return (session.user.name == targetUser &&
+                            session.user.birthday == exchange.birthday &&
+                            session.user.favouriteFood == exchange.favouriteFood &&
+                            session.user.deshu == exchange.deshu
+                        )
+                    else
+                        return false
+                })
+                console.log("filtered sessions "+JSON.stringify(filteredSessions))
+                if (filteredSessions.length > 0)
+                    resolve(true)
+                else
+                    reject(false)
+            })
+        })
+    }
+
 }

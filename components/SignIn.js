@@ -8,7 +8,8 @@ export default class extends React.Component {
         this.state = {
             name: "",
             birthday: "",
-            favouriteFood: ""
+            favouriteFood: "",
+            deshu: ""
         }
     }
 
@@ -31,6 +32,13 @@ export default class extends React.Component {
         })
     }
 
+    handleDeshuChange = (e) => {
+        console.log(e.target)
+        this.setState({
+            deshu: e.target.value
+        })
+    }
+
     render(){
         return(
             <div>
@@ -42,17 +50,32 @@ export default class extends React.Component {
                     <input onChange={this.handleNameChange} id="name" class="form-control" name="name"/>
                 </div>
                 <div className="form-group">
+                    <label>Deshu</label>
+                    <select onChange={this.handleDeshuChange} className="form-control" name="deshu">
+                        <option disabled selected value>Select your deshu.</option>
+                        {data.DESHU_OPTIONS.map(deshu => {
+                            return <option value={deshu}>{deshu}</option>
+                        })}
+                    </select>
+                </div>
+                <div className="form-group">
                     <label>Birthday</label>
                     <input onChange={this.handleBirthdayChange} class="form-control" name="birthday"/>
                 </div>
                 <div className="form-group">
                     <label>Favourite Food</label>
                     <select onChange={this.handleFavouriteFoodChange} class="form-control" name="favouriteFood">
-                        <option disabled selected value>Select his/her favourite food</option>
+                        <option disabled selected value>Select your favourite food</option>
                         {data.FOOD_OPTIONS.map(foodOption => { return <option value={foodOption}>{foodOption}</option>})}
                     </select>
                 </div>
-                <button onClick={() => { this.props.onSignIn(this.state.name,this.state.birthday,this.state.favouriteFood) }} type="submit" className="btn btn-primary">Submit</button>
+                <button onClick={() => {
+                    this.props.onSignIn(
+                        this.state.name,
+                        this.state.birthday,
+                        this.state.favouriteFood,
+                        this.state.deshu
+                ) }} type="submit" className="btn btn-primary">Submit</button>
             </div>
             )}
 

@@ -101,7 +101,7 @@ nextApp
         expressApp.post(endpoints.API_LOGIN_USER,function (req,res) {
             const user = req.body
             console.log("Received request to log in user "+JSON.stringify(user))
-            if (user.name && user.birthday && user.favouriteFood) {
+            if (user.name && user.birthday && user.favouriteFood && user.deshu) {
                 req.session.user = user
                 req.session.cookie.maxAge = new Date(Date.now() + config.COOKIE_DURATION)
                 req.session.save()
@@ -144,53 +144,33 @@ nextApp
         })
 
         expressApp.post(endpoints.API_SUBMIT_EXCHANGE_REQUEST,function (req,res) {
-            const user = req.body
-            console.log("Received Exchange Request: "+JSON.stringify(user))
-            sessionStore.all(function(err,sessions){
-                var filteredSessions = sessions.filter(function(session){
-                    if (session.hasOwnProperty('user'))
-                        return (session.user.name == user.respond_user &&
-                                session.user.birthday == user.birthday &&
-                                session.user.favouriteFood == user.favouriteFood)
-                    else
-                        return false
-                })
-                if (filteredSessions.length > 0) {
-                    res.json({success: 1})
-                    pusher.trigger(strings.PUSHER_CHANNEL,strings.PUSHER_NEW_EXCHANGE_REQUEST_EVENT,user)
-                }
-                else
-                    res.json({success:0})
+            const exchangeRequest = req.body
+            console.log("Received Exchange Request: "+JSON.stringify(exchangeRequest))
+            utils.validateUserInfo(sessionStore,exchangeRequest,exchangeRequest.respond_user).then(function(success){
+                res.json({success: 1})
+                pusher.trigger(strings.PUSHER_CHANNEL,strings.PUSHER_NEW_EXCHANGE_REQUEST_EVENT,exchangeRequest)
+            },function(failure){
+                res.json({success:0})
             })
         })
 
         expressApp.post(endpoints.API_SUBMIT_EXCHANGE_RESPONSE,function (req,res) {
             const exchangeResponse = req.body
             console.log("Received Exchange Response: "+JSON.stringify(exchangeResponse))
-            sessionStore.all(function(err,sessions){
-                var filteredSessions = sessions.filter(function(session){
-                    if (session.hasOwnProperty('user'))
-                        return (session.user.name == exchangeResponse.request_user &&
-                                session.user.birthday == exchangeResponse.birthday &&
-                                session.user.favouriteFood == exchangeResponse.favouriteFood)
-                    else
-                        return false
-                })
-                if (filteredSessions.length > 0) {
-                    res.json({success: 1})
-                    var requestUserAssignedLetters = assignedLetters[exchangeResponse.request_user]
-                    var respondUserAssignedLetters = assignedLetters[exchangeResponse.respond_user]
-                    requestUserAssignedLetters[requestUserAssignedLetters.indexOf(exchangeResponse.letterToReceive)] = exchangeResponse.letterToExchange
-                    respondUserAssignedLetters[respondUserAssignedLetters.indexOf(exchangeResponse.letterToExchange)] = exchangeResponse.letterToReceive
-                    console.log("Exchange completed")
-                    console.log(exchangeResponse.request_user+": "+requestUserAssignedLetters)
-                    console.log(exchangeResponse.respond_user+": "+respondUserAssignedLetters)
-                    assignedLetters[exchangeResponse.request_user] = requestUserAssignedLetters
-                    assignedLetters[exchangeResponse.respond_user] = respondUserAssignedLetters
-                    pusher.trigger(strings.PUSHER_CHANNEL,strings.EXCHANGE_COMPLETED_EVENT,exchangeResponse)
-                }
-                else
-                    res.json({success:0})
+            utils.validateUserInfo(sessionStore,exchangeResponse,exchangeResponse.request_user).then(function(success){
+                res.json({success: 1})
+                var requestUserAssignedLetters = assignedLetters[exchangeResponse.request_user]
+                var respondUserAssignedLetters = assignedLetters[exchangeResponse.respond_user]
+                requestUserAssignedLetters[requestUserAssignedLetters.indexOf(exchangeResponse.letterToReceive)] = exchangeResponse.letterToExchange
+                respondUserAssignedLetters[respondUserAssignedLetters.indexOf(exchangeResponse.letterToExchange)] = exchangeResponse.letterToReceive
+                console.log("Exchange completed")
+                console.log(exchangeResponse.request_user+": "+requestUserAssignedLetters)
+                console.log(exchangeResponse.respond_user+": "+respondUserAssignedLetters)
+                assignedLetters[exchangeResponse.request_user] = requestUserAssignedLetters
+                assignedLetters[exchangeResponse.respond_user] = respondUserAssignedLetters
+                pusher.trigger(strings.PUSHER_CHANNEL,strings.EXCHANGE_COMPLETED_EVENT,exchangeResponse)
+            },function(failure){
+                res.json({success:0})
             })
         })
 

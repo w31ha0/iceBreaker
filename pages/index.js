@@ -204,13 +204,18 @@ export default class extends Page {
         });
     }
 
-    onSignIn = (name,birthday,favouriteFood) => {
+    onSignIn = (name,birthday,favouriteFood,deshu) => {
         name = name.toUpperCase()
         console.log("Signing in..."+name)
         axios({
             method: 'post',
             url: endpoints.API_LOGIN_USER,
-            data: {name: name,birthday: birthday,favouriteFood: favouriteFood}
+            data: {
+                    name: name,
+                    birthday: birthday,
+                    favouriteFood: favouriteFood,
+                    deshu: deshu
+            }
         })
         .then((response) => {
             if(response.data.result == 1)
