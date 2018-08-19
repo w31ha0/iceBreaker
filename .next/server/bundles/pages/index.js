@@ -144,6 +144,7 @@ var NOTIFICATION_EXCHANGE_SUCCESSFUL = 'Exchange of letters successful!';
 var NOTIFICATION_DUPLICATE_NAME = 'Name has already been taken! Please choose another one!';
 var NOTIFICATION_INCOMPLETE_DETAILS = 'Please fill in all details!';
 var NOTIFICATION_SAME_NAME_SELECTED = 'You are not allowed to exchange with yourself!';
+var NOTIFICATION_GAME_ALREADY_IN_PROGRESS = 'Game already in progress! Please wait to join the next session!';
 module.exports = {
   PUSHER_CHANNEL: PUSHER_CHANNEL,
   PUSHER_USER_LIST_UPDATE_EVENT: PUSHER_USER_LIST_UPDATE_EVENT,
@@ -157,7 +158,8 @@ module.exports = {
   NOTIFICATION_DUPLICATE_NAME: NOTIFICATION_DUPLICATE_NAME,
   NOTIFICATION_INCOMPLETE_DETAILS: NOTIFICATION_INCOMPLETE_DETAILS,
   NOTIFICATION_SAME_NAME_SELECTED: NOTIFICATION_SAME_NAME_SELECTED,
-  PUSHER_GAME_STOP_EVENT: PUSHER_GAME_STOP_EVENT
+  PUSHER_GAME_STOP_EVENT: PUSHER_GAME_STOP_EVENT,
+  NOTIFICATION_GAME_ALREADY_IN_PROGRESS: NOTIFICATION_GAME_ALREADY_IN_PROGRESS
 };
 
 /***/ }),
@@ -379,16 +381,16 @@ var external__react__default = /*#__PURE__*/__webpack_require__.n(external__reac
 var external__pusher_js_ = __webpack_require__(7);
 var external__pusher_js__default = /*#__PURE__*/__webpack_require__.n(external__pusher_js_);
 
-// EXTERNAL MODULE: ./constants/config.js
-var config = __webpack_require__(12);
-var config_default = /*#__PURE__*/__webpack_require__.n(config);
-
 // EXTERNAL MODULE: ./utils/utils.js
 var utils = __webpack_require__(19);
 var utils_default = /*#__PURE__*/__webpack_require__.n(utils);
 
 // EXTERNAL MODULE: ./components/Page.js
 var Page = __webpack_require__(8);
+
+// EXTERNAL MODULE: ./constants/config.js
+var config = __webpack_require__(12);
+var config_default = /*#__PURE__*/__webpack_require__.n(config);
 
 // EXTERNAL MODULE: ./data/dataSource.js
 var dataSource = __webpack_require__(13);
@@ -768,7 +770,6 @@ function Exchange__possibleConstructorReturn(self, call) { if (call && (Exchange
 function Exchange__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function Exchange__assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 
 
 
@@ -1226,23 +1227,27 @@ function (_Page) {
         });
 
         _this.channel.bind(strings_default.a.PUSHER_GAME_START_EVENT, function () {
-          console.log("Game has started...loading main page...");
+          if (_this.state.signedIn) {
+            console.log("Game has started...loading main page...");
 
-          _this.setState({
-            isWaitingForGameToStart: false
-          });
+            _this.setState({
+              isWaitingForGameToStart: false
+            });
 
-          _this.retrieveAllGameInformation();
+            _this.retrieveAllGameInformation();
 
-          external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_GAME_BEGUN, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
-            background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
-            text: config_default.a.NOTIFICATION_TEXT_COLOR
-          });
+            external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_GAME_BEGUN, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
+              background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
+              text: config_default.a.NOTIFICATION_TEXT_COLOR
+            });
+          }
         });
 
         _this.channel.bind(strings_default.a.PUSHER_GAME_STOP_EVENT, function () {
-          window.alert("Game has been forcefully stopped by game master");
-          window.location.href = '/';
+          if (_this.state.signedIn) {
+            window.alert("Game has been forcefully stopped by game master");
+            window.location.href = '/';
+          }
         });
       }
     });
@@ -1253,10 +1258,7 @@ function (_Page) {
       value: function value() {
         utils_default.a.checkAuthenticated().then(function (res) {
           _this.setState({
-            signedIn: true
-          });
-
-          _this.setState({
+            signedIn: true,
             authenticationChecked: true
           });
         }, function (err) {

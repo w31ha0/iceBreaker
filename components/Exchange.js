@@ -1,6 +1,5 @@
 import React from "react";
 import data from "../data/dataSource";
-import Layout from "./Layout";
 
 export default class extends React.Component{
 

@@ -114,23 +114,28 @@ nextApp
         })
 
         expressApp.post(endpoints.API_LOGIN_USER,function (req,res) {
-            const user = req.body
-            console.log("Received request to log in user "+JSON.stringify(user))
-            if (user.name && user.birthday && user.favouriteFood && user.deshu) {
-                req.session.user = user
-                req.session.cookie.maxAge = new Date(Date.now() + config.COOKIE_DURATION)
-                req.session.save()
-                if (!allUsers.filter(function(savedUser) { return savedUser.name === user.name; }).length > 0) {
-                    allUsers.push(user)
-                    allCharacters += user.name
-                    console.log("All characters are now " + allCharacters)
-                    res.json({result: 1})
-                    pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
-                }else
-                    res.json({result: 0, message: strings.NOTIFICATION_DUPLICATE_NAME})
-            }
-            else
-                res.json({result: 0, message: strings.NOTIFICATION_INCOMPLETE_DETAILS})
+            if(!gameStarted) {
+                const user = req.body
+                console.log("Received request to log in user " + JSON.stringify(user))
+                if (user.name && user.birthday && user.favouriteFood && user.deshu) {
+                    req.session.user = user
+                    req.session.cookie.maxAge = new Date(Date.now() + config.COOKIE_DURATION)
+                    req.session.save()
+                    if (!allUsers.filter(function (savedUser) {
+                        return savedUser.name === user.name;
+                    }).length > 0) {
+                        allUsers.push(user)
+                        allCharacters += user.name
+                        console.log("All characters are now " + allCharacters)
+                        res.json({result: 1})
+                        pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
+                    } else
+                        res.json({result: 0, message: strings.NOTIFICATION_DUPLICATE_NAME})
+                }
+                else
+                    res.json({result: 0, message: strings.NOTIFICATION_INCOMPLETE_DETAILS})
+            }else
+                res.json({result: 0, message: strings.NOTIFICATION_GAME_ALREADY_IN_PROGRESS})
         })
 
         expressApp.post(endpoints.API_GET_SESSION,function(req,res){

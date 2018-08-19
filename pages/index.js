@@ -1,9 +1,9 @@
 import axios from 'axios'
 import React from "react";
 import Pusher from 'pusher-js';
-import config from '../constants/config'
 import utils from '../utils/utils'
 import Page from '../components/Page';
+import config from '../constants/config'
 import SignIn from "../components/SignIn"
 import strings from '../constants/strings'
 import {notify} from "react-notify-toast";
@@ -32,7 +32,6 @@ export default class extends Page {
             letterToGive: '',
             authenticationChecked: false,
             gameStartedChecked: false
-
         }
         this.exchangeRequest = {}
 
@@ -89,33 +88,35 @@ export default class extends Page {
         });
 
         this.channel.bind(strings.PUSHER_GAME_START_EVENT, () => {
-            console.log("Game has started...loading main page...")
-            this.setState({
-                isWaitingForGameToStart: false
-            })
-            this.retrieveAllGameInformation()
-            notify.show(
-                strings.NOTIFICATION_GAME_BEGUN,
-                config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
-                {
-                    background: config.NOTIFICATION_BACKGROUND_COLOR,
-                    text: config.NOTIFICATION_TEXT_COLOR
-                });
+            if(this.state.signedIn) {
+                console.log("Game has started...loading main page...")
+                this.setState({
+                    isWaitingForGameToStart: false
+                })
+                this.retrieveAllGameInformation()
+                notify.show(
+                    strings.NOTIFICATION_GAME_BEGUN,
+                    config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
+                    {
+                        background: config.NOTIFICATION_BACKGROUND_COLOR,
+                        text: config.NOTIFICATION_TEXT_COLOR
+                    });
+            }
         });
 
         this.channel.bind(strings.PUSHER_GAME_STOP_EVENT, () => {
-            window.alert("Game has been forcefully stopped by game master")
-            window.location.href = '/'
+            if(this.state.signedIn){
+                window.alert("Game has been forcefully stopped by game master")
+                window.location.href = '/'
+            }
         });
     }
 
     checkGameState = () => {
         utils.checkAuthenticated().then((res) => {
             this.setState({
-                signedIn: true
-            })
-            this.setState({
-                authenticationChecked: true
+                signedIn: true,
+                authenticationChecked: true,
             })
         },(err) => {
             this.setState({
