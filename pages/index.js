@@ -205,6 +205,7 @@ export default class extends Page {
     }
 
     onSignIn = (name,birthday,favouriteFood) => {
+        name = name.toUpperCase()
         console.log("Signing in..."+name)
         axios({
             method: 'post',

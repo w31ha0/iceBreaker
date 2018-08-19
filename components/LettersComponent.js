@@ -75,6 +75,9 @@ export default class LetterComponent extends React.Component {
     render(){
         return(
             <div>
+                <div id="instructions">
+                    Use the letters below to form your username: {this.props.userName}
+                </div>
                 <div>
                     {this.state.lettersUsed.join(' ')}
                     <button id="cancel-btn" onClick={this.removeOneCharFromLettersUsed} className="btn btn-light">C</button>
@@ -95,6 +98,9 @@ export default class LetterComponent extends React.Component {
                     #letter-available {
                               margin: 5px;
                             }
+                    #instructions {
+                              margin-bottom: 15px;
+                    }
                 `}</style>
             </div>
         )
