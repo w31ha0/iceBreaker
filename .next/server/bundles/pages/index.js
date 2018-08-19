@@ -1,0 +1,1643 @@
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		var threw = true;
+/******/ 		try {
+/******/ 			modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 			threw = false;
+/******/ 		} finally {
+/******/ 			if(threw) delete installedModules[moduleId];
+/******/ 		}
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports) {
+
+module.exports = require("react");
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+var API_LOGIN_USER = '/loginUser';
+var API_CHECK_SESSION_EXPIRED = '/checkExpired';
+var API_GET_ALL_ACTIVE_USERS = '/getActiveUsers';
+var API_GET_SESSION = '/getSession';
+var API_GET_ASSIGNED_LETTERS = '/getAssignedLetters';
+var API_SUBMIT_EXCHANGE_REQUEST = '/submitExchangeRequest';
+var API_SUBMIT_EXCHANGE_RESPONSE = '/submitExchangeResponse';
+var API_EXCHANGE_COMPLETED = '/exchangeCompleted';
+var API_START_GAME = '/startGame';
+var API_USER_COMPLETED_GAME = '/userCompletedGame';
+var API_CHECK_AUTHENTICATED = '/checkAuthenticated';
+var API_CHECK_GAME_STARTED = '/checkGameStarted';
+var API_STOP_GAME = '/stopGame';
+module.exports = {
+  API_LOGIN_USER: API_LOGIN_USER,
+  API_CHECK_SESSION_EXPIRED: API_CHECK_SESSION_EXPIRED,
+  API_GET_ALL_ACTIVE_USERS: API_GET_ALL_ACTIVE_USERS,
+  API_GET_SESSION: API_GET_SESSION,
+  API_GET_ASSIGNED_LETTERS: API_GET_ASSIGNED_LETTERS,
+  API_SUBMIT_EXCHANGE_REQUEST: API_SUBMIT_EXCHANGE_REQUEST,
+  API_EXCHANGE_COMPLETED: API_EXCHANGE_COMPLETED,
+  API_SUBMIT_EXCHANGE_RESPONSE: API_SUBMIT_EXCHANGE_RESPONSE,
+  API_START_GAME: API_START_GAME,
+  API_USER_COMPLETED_GAME: API_USER_COMPLETED_GAME,
+  API_CHECK_AUTHENTICATED: API_CHECK_AUTHENTICATED,
+  API_CHECK_GAME_STARTED: API_CHECK_GAME_STARTED,
+  API_STOP_GAME: API_STOP_GAME
+};
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-notify-toast");
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("styled-jsx/style");
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+var PUSHER_CHANNEL = 'iceBreaker';
+var PUSHER_USER_LIST_UPDATE_EVENT = 'update-user-list';
+var PUSHER_GAME_START_EVENT = 'game-start';
+var PUSHER_NEW_EXCHANGE_REQUEST_EVENT = 'new-exchange-request';
+var PUSHER_NEW_EXCHANGE_RESPONSE_EVENT = 'new-exchange-response';
+var EXCHANGE_COMPLETED_EVENT = 'exchange-completed';
+var PUSHER_GAME_STOP_EVENT = 'game-stop';
+var NOTIFICATION_GAME_BEGUN = 'Game has begun!';
+var NOTIFICATION_WRONG_DETAILS = 'You have entered the wrong details! Please try again!';
+var NOTIFICATION_EXCHANGE_SUCCESSFUL = 'Exchange of letters successful!';
+var NOTIFICATION_DUPLICATE_NAME = 'Name has already been taken! Please choose another one!';
+var NOTIFICATION_INCOMPLETE_DETAILS = 'Please fill in all details!';
+var NOTIFICATION_SAME_NAME_SELECTED = 'You are not allowed to exchange with yourself!';
+module.exports = {
+  PUSHER_CHANNEL: PUSHER_CHANNEL,
+  PUSHER_USER_LIST_UPDATE_EVENT: PUSHER_USER_LIST_UPDATE_EVENT,
+  PUSHER_NEW_EXCHANGE_REQUEST_EVENT: PUSHER_NEW_EXCHANGE_REQUEST_EVENT,
+  PUSHER_NEW_EXCHANGE_RESPONSE_EVENT: PUSHER_NEW_EXCHANGE_RESPONSE_EVENT,
+  EXCHANGE_COMPLETED_EVENT: EXCHANGE_COMPLETED_EVENT,
+  PUSHER_GAME_START_EVENT: PUSHER_GAME_START_EVENT,
+  NOTIFICATION_GAME_BEGUN: NOTIFICATION_GAME_BEGUN,
+  NOTIFICATION_WRONG_DETAILS: NOTIFICATION_WRONG_DETAILS,
+  NOTIFICATION_EXCHANGE_SUCCESSFUL: NOTIFICATION_EXCHANGE_SUCCESSFUL,
+  NOTIFICATION_DUPLICATE_NAME: NOTIFICATION_DUPLICATE_NAME,
+  NOTIFICATION_INCOMPLETE_DETAILS: NOTIFICATION_INCOMPLETE_DETAILS,
+  NOTIFICATION_SAME_NAME_SELECTED: NOTIFICATION_SAME_NAME_SELECTED,
+  PUSHER_GAME_STOP_EVENT: PUSHER_GAME_STOP_EVENT
+};
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _default; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_head__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_reactstrap__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var _default =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(_default, _React$Component);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).apply(this, arguments));
+  }
+
+  _createClass(_default, [{
+    key: "render",
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_next_head___default.a, null, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("meta", {
+        name: "viewport",
+        content: "width=device-width,height=device-height, initial-scale=2"
+      }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("link", {
+        rel: "stylesheet",
+        href: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
+        integrity: "sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u",
+        crossOrigin: "anonymous"
+      }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("link", {
+        rel: "stylesheet",
+        href: "https://unpkg.com/react-tabs@2/style/react-tabs.css"
+      }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("meta", {
+        charSet: "utf-8"
+      })), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_reactstrap__["Container"], null, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default.a, null), this.props.children));
+    }
+  }]);
+
+  return _default;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("pusher-js");
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _default; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var _default =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(_default, _React$Component);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).apply(this, arguments));
+  }
+
+  return _default;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("next/head");
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+module.exports = require("reactstrap");
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+var PUSHER_APP_ID = '575034';
+var PUSHER_APP_KEY = '30d8dabc87d7db943336';
+var PUSHER_APP_SECRET = 'ed7e51b094c6d48e5475';
+var PUSHER_APP_CLUSTER = 'ap1';
+module.exports = {
+  PUSHER_APP_ID: PUSHER_APP_ID,
+  PUSHER_APP_KEY: PUSHER_APP_KEY,
+  PUSHER_APP_SECRET: PUSHER_APP_SECRET,
+  PUSHER_APP_CLUSTER: PUSHER_APP_CLUSTER
+};
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+var DB_HOST = 'localhost';
+var DB_PORT = 27017;
+var DB_NAME = 'iceBreaker';
+var PROTOCOL = 'http';
+var HOST = 'localhost';
+var HOST_IP = '127.0.0.1';
+var PORT = 3000;
+var FULL_URI = PROTOCOL + '://' + HOST + ':' + PORT;
+var COOKIE_DURATION = 30 * 60 * 1000;
+var SESSION_SECRET = 'jakbgakegb545';
+var NOTIFICATION_TYPE = 'custom';
+var NOTIFICATION_TIMEOUT = 5000;
+var NOTIFICATION_BACKGROUND_COLOR = '#0E1717';
+var NOTIFICATION_TEXT_COLOR = '#FFFFFF';
+module.exports = {
+  DB_NAME: DB_NAME,
+  DB_PORT: DB_PORT,
+  DB_HOST: DB_HOST,
+  FULL_URI: FULL_URI,
+  HOST_IP: HOST_IP,
+  HOST: HOST,
+  PORT: PORT,
+  COOKIE_DURATION: COOKIE_DURATION,
+  SESSION_SECRET: SESSION_SECRET,
+  NOTIFICATION_TYPE: NOTIFICATION_TYPE,
+  NOTIFICATION_TIMEOUT: NOTIFICATION_TIMEOUT,
+  NOTIFICATION_BACKGROUND_COLOR: NOTIFICATION_BACKGROUND_COLOR,
+  NOTIFICATION_TEXT_COLOR: NOTIFICATION_TEXT_COLOR
+};
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+var FOOD_OPTIONS = ['hokkien mee', 'laksa', 'mee rebus'];
+var DESHU_OPTIONS = ['博A', '博B', '忍', '信', '公'];
+module.exports = {
+  FOOD_OPTIONS: FOOD_OPTIONS,
+  DESHU_OPTIONS: DESHU_OPTIONS
+};
+
+/***/ }),
+/* 14 */,
+/* 15 */,
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(17);
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+
+// EXTERNAL MODULE: external "@babel/runtime/regenerator"
+var regenerator_ = __webpack_require__(18);
+var regenerator__default = /*#__PURE__*/__webpack_require__.n(regenerator_);
+
+// EXTERNAL MODULE: external "styled-jsx/style"
+var style_ = __webpack_require__(4);
+var style__default = /*#__PURE__*/__webpack_require__.n(style_);
+
+// EXTERNAL MODULE: external "axios"
+var external__axios_ = __webpack_require__(1);
+var external__axios__default = /*#__PURE__*/__webpack_require__.n(external__axios_);
+
+// EXTERNAL MODULE: external "react"
+var external__react_ = __webpack_require__(0);
+var external__react__default = /*#__PURE__*/__webpack_require__.n(external__react_);
+
+// EXTERNAL MODULE: external "pusher-js"
+var external__pusher_js_ = __webpack_require__(7);
+var external__pusher_js__default = /*#__PURE__*/__webpack_require__.n(external__pusher_js_);
+
+// EXTERNAL MODULE: ./constants/config.js
+var config = __webpack_require__(12);
+var config_default = /*#__PURE__*/__webpack_require__.n(config);
+
+// EXTERNAL MODULE: ./utils/utils.js
+var utils = __webpack_require__(19);
+var utils_default = /*#__PURE__*/__webpack_require__.n(utils);
+
+// EXTERNAL MODULE: ./components/Page.js
+var Page = __webpack_require__(8);
+
+// EXTERNAL MODULE: ./data/dataSource.js
+var dataSource = __webpack_require__(13);
+var dataSource_default = /*#__PURE__*/__webpack_require__.n(dataSource);
+
+// CONCATENATED MODULE: ./components/SignIn.js
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+var SignIn__default =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(_default, _React$Component);
+
+  function _default() {
+    var _this;
+
+    _classCallCheck(this, _default);
+
+    _this = _possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).call(this));
+    Object.defineProperty(_assertThisInitialized(_this), "handleNameChange", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        _this.setState({
+          name: e.target.value
+        });
+      }
+    });
+    Object.defineProperty(_assertThisInitialized(_this), "handleBirthdayChange", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        _this.setState({
+          birthday: e.target.value
+        });
+      }
+    });
+    Object.defineProperty(_assertThisInitialized(_this), "handleFavouriteFoodChange", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        console.log(e.target);
+
+        _this.setState({
+          favouriteFood: e.target.value
+        });
+      }
+    });
+    Object.defineProperty(_assertThisInitialized(_this), "handleDeshuChange", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        console.log(e.target);
+
+        _this.setState({
+          deshu: e.target.value
+        });
+      }
+    });
+    _this.state = {
+      name: "",
+      birthday: "",
+      favouriteFood: "",
+      deshu: ""
+    };
+    return _this;
+  }
+
+  _createClass(_default, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return external__react__default.a.createElement("div", null, external__react__default.a.createElement("div", {
+        className: "form-group"
+      }, external__react__default.a.createElement("label", null, "Fill in your details to begin the game.")), external__react__default.a.createElement("div", {
+        className: "form-group"
+      }, external__react__default.a.createElement("label", null, "Name"), external__react__default.a.createElement("input", {
+        onChange: this.handleNameChange,
+        id: "name",
+        "class": "form-control",
+        name: "name"
+      })), external__react__default.a.createElement("div", {
+        className: "form-group"
+      }, external__react__default.a.createElement("label", null, "Deshu"), external__react__default.a.createElement("select", {
+        onChange: this.handleDeshuChange,
+        className: "form-control",
+        name: "deshu"
+      }, external__react__default.a.createElement("option", {
+        disabled: true,
+        selected: true,
+        value: true
+      }, "Select your deshu."), dataSource_default.a.DESHU_OPTIONS.map(function (deshu) {
+        return external__react__default.a.createElement("option", {
+          value: deshu
+        }, deshu);
+      }))), external__react__default.a.createElement("div", {
+        className: "form-group"
+      }, external__react__default.a.createElement("label", null, "Birthday"), external__react__default.a.createElement("input", {
+        type: "date",
+        onChange: this.handleBirthdayChange,
+        "class": "form-control",
+        name: "birthday"
+      })), external__react__default.a.createElement("div", {
+        className: "form-group"
+      }, external__react__default.a.createElement("label", null, "Favourite Food"), external__react__default.a.createElement("select", {
+        onChange: this.handleFavouriteFoodChange,
+        "class": "form-control",
+        name: "favouriteFood"
+      }, external__react__default.a.createElement("option", {
+        disabled: true,
+        selected: true,
+        value: true
+      }, "Select your favourite food"), dataSource_default.a.FOOD_OPTIONS.map(function (foodOption) {
+        return external__react__default.a.createElement("option", {
+          value: foodOption
+        }, foodOption);
+      }))), external__react__default.a.createElement("button", {
+        onClick: function onClick() {
+          _this2.props.onSignIn(_this2.state.name, _this2.state.birthday, _this2.state.favouriteFood, _this2.state.deshu);
+        },
+        type: "submit",
+        className: "btn btn-primary"
+      }, "Submit"));
+    }
+  }]);
+
+  return _default;
+}(external__react__default.a.Component);
+
+
+// EXTERNAL MODULE: ./constants/strings.js
+var strings = __webpack_require__(5);
+var strings_default = /*#__PURE__*/__webpack_require__.n(strings);
+
+// EXTERNAL MODULE: external "react-notify-toast"
+var external__react_notify_toast_ = __webpack_require__(3);
+var external__react_notify_toast__default = /*#__PURE__*/__webpack_require__.n(external__react_notify_toast_);
+
+// EXTERNAL MODULE: ./components/Layout.js
+var Layout = __webpack_require__(6);
+
+// EXTERNAL MODULE: ./constants/endpoints.js
+var endpoints = __webpack_require__(2);
+var endpoints_default = /*#__PURE__*/__webpack_require__.n(endpoints);
+
+// EXTERNAL MODULE: ./constants/credentials.js
+var credentials = __webpack_require__(11);
+var credentials_default = /*#__PURE__*/__webpack_require__.n(credentials);
+
+// CONCATENATED MODULE: ./components/LoadingScreen.js
+function LoadingScreen__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { LoadingScreen__typeof = function _typeof(obj) { return typeof obj; }; } else { LoadingScreen__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return LoadingScreen__typeof(obj); }
+
+function LoadingScreen__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function LoadingScreen__defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function LoadingScreen__createClass(Constructor, protoProps, staticProps) { if (protoProps) LoadingScreen__defineProperties(Constructor.prototype, protoProps); if (staticProps) LoadingScreen__defineProperties(Constructor, staticProps); return Constructor; }
+
+function LoadingScreen__possibleConstructorReturn(self, call) { if (call && (LoadingScreen__typeof(call) === "object" || typeof call === "function")) { return call; } return LoadingScreen__assertThisInitialized(self); }
+
+function LoadingScreen__assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function LoadingScreen__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var LoadingScreen__default =
+/*#__PURE__*/
+function (_React$Component) {
+  LoadingScreen__inherits(_default, _React$Component);
+
+  function _default() {
+    LoadingScreen__classCallCheck(this, _default);
+
+    return LoadingScreen__possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).apply(this, arguments));
+  }
+
+  LoadingScreen__createClass(_default, [{
+    key: "render",
+    value: function render() {
+      return external__react__default.a.createElement("div", {
+        className: "form-group"
+      }, external__react__default.a.createElement("label", null, "Please wait for the game master to start the game."));
+    }
+  }]);
+
+  return _default;
+}(external__react__default.a.Component);
+
+
+// CONCATENATED MODULE: ./components/LettersComponent.js
+
+
+function LettersComponent__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { LettersComponent__typeof = function _typeof(obj) { return typeof obj; }; } else { LettersComponent__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return LettersComponent__typeof(obj); }
+
+function LettersComponent__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function LettersComponent__defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function LettersComponent__createClass(Constructor, protoProps, staticProps) { if (protoProps) LettersComponent__defineProperties(Constructor.prototype, protoProps); if (staticProps) LettersComponent__defineProperties(Constructor, staticProps); return Constructor; }
+
+function LettersComponent__possibleConstructorReturn(self, call) { if (call && (LettersComponent__typeof(call) === "object" || typeof call === "function")) { return call; } return LettersComponent__assertThisInitialized(self); }
+
+function LettersComponent__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function LettersComponent__assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+var LettersComponent_LetterComponent =
+/*#__PURE__*/
+function (_React$Component) {
+  LettersComponent__inherits(LetterComponent, _React$Component);
+
+  function LetterComponent(props) {
+    var _this;
+
+    LettersComponent__classCallCheck(this, LetterComponent);
+
+    _this = LettersComponent__possibleConstructorReturn(this, (LetterComponent.__proto__ || Object.getPrototypeOf(LetterComponent)).call(this, props));
+    Object.defineProperty(LettersComponent__assertThisInitialized(_this), "handleLetterSelected", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        var lettersUsed = _this.state.lettersUsed;
+        var lettersAvailable = _this.state.lettersAvailable;
+        lettersUsed[lettersUsed.indexOf('-')] = _this.state.lettersAvailable[e.target.value];
+        lettersAvailable.splice(e.target.value, 1);
+
+        _this.setState({
+          lettersUsed: lettersUsed,
+          lettersAvailable: lettersAvailable
+        });
+
+        _this.handleLettersChanged();
+      }
+    });
+    Object.defineProperty(LettersComponent__assertThisInitialized(_this), "removeOneCharFromLettersUsed", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        var lettersUsed = _this.state.lettersUsed;
+        var index = lettersUsed.indexOf('-');
+
+        if (index != 0) {
+          var lettersUsed = _this.state.lettersUsed;
+          var lettersAvailable = _this.state.lettersAvailable;
+          var indexToBeRemoved = 0;
+          if (index != -1) indexToBeRemoved = index - 1;else indexToBeRemoved = lettersUsed.length - 1;
+          var letterRemoved = lettersUsed[indexToBeRemoved];
+          lettersUsed[indexToBeRemoved] = '-';
+          lettersAvailable.push(letterRemoved);
+
+          _this.setState({
+            lettersUsed: lettersUsed,
+            lettersAvailable: lettersAvailable
+          });
+
+          _this.handleLettersChanged();
+        }
+      }
+    });
+    Object.defineProperty(LettersComponent__assertThisInitialized(_this), "handleLettersChanged", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        if (_this.state.lettersUsed.join('') === _this.props.userName && typeof window !== 'undefined') {
+          external__axios__default()({
+            method: 'post',
+            url: endpoints_default.a.API_USER_COMPLETED_GAME
+          }).then(function (response) {
+            window.alert("You have completed the game!");
+            window.location.href = '/';
+          }).catch(function (response) {
+            //handle error
+            console.log(response);
+          });
+        }
+      }
+    });
+    _this.state = {
+      lettersUsed: [],
+      lettersAvailable: props.lettersAssigned.slice()
+    };
+    return _this;
+  }
+
+  LettersComponent__createClass(LetterComponent, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(newProps) {
+      console.log("Letter component will receive props");
+      this.setState({
+        lettersUsed: Array.apply(null, {
+          length: newProps.lettersAssigned.length
+        }).map(function () {
+          return '-';
+        }),
+        lettersAvailable: newProps.lettersAssigned.slice()
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return external__react__default.a.createElement("div", {
+        className: "jsx-3311417547"
+      }, external__react__default.a.createElement("div", {
+        id: "instructions",
+        className: "jsx-3311417547"
+      }, "Use the letters below to form your username: ", this.props.userName), external__react__default.a.createElement("div", {
+        className: "jsx-3311417547"
+      }, this.state.lettersUsed.join(' '), external__react__default.a.createElement("button", {
+        id: "cancel-btn",
+        onClick: this.removeOneCharFromLettersUsed,
+        className: "jsx-3311417547" + " " + "btn btn-light"
+      }, "C")), external__react__default.a.createElement("div", {
+        id: "letters-available",
+        className: "jsx-3311417547"
+      }, this.state.lettersAvailable.map(function (letter, index) {
+        return external__react__default.a.createElement("button", {
+          id: "letter-available",
+          value: index,
+          onClick: _this2.handleLetterSelected,
+          className: "jsx-3311417547" + " " + "btn btn-primary"
+        }, letter);
+      })), external__react__default.a.createElement(style__default.a, {
+        styleId: "3311417547",
+        css: ["#cancel-btn.jsx-3311417547{margin-left:20px;margin-bottom:20px;}", "#letters-available.jsx-3311417547{margin-bottom:20px;}", "#letter-available.jsx-3311417547{margin:5px;}", "#instructions.jsx-3311417547{margin-bottom:15px;}"]
+      }));
+    }
+  }]);
+
+  return LetterComponent;
+}(external__react__default.a.Component);
+
+
+// CONCATENATED MODULE: ./components/Exchange.js
+
+
+function Exchange__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { Exchange__typeof = function _typeof(obj) { return typeof obj; }; } else { Exchange__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return Exchange__typeof(obj); }
+
+function Exchange__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function Exchange__defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function Exchange__createClass(Constructor, protoProps, staticProps) { if (protoProps) Exchange__defineProperties(Constructor.prototype, protoProps); if (staticProps) Exchange__defineProperties(Constructor, staticProps); return Constructor; }
+
+function Exchange__possibleConstructorReturn(self, call) { if (call && (Exchange__typeof(call) === "object" || typeof call === "function")) { return call; } return Exchange__assertThisInitialized(self); }
+
+function Exchange__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function Exchange__assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+var Exchange__default =
+/*#__PURE__*/
+function (_React$Component) {
+  Exchange__inherits(_default, _React$Component);
+
+  function _default() {
+    var _this;
+
+    Exchange__classCallCheck(this, _default);
+
+    _this = Exchange__possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).call(this));
+    Object.defineProperty(Exchange__assertThisInitialized(_this), "handleBirthdayChange", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        _this.setState({
+          birthday: e.target.value
+        });
+      }
+    });
+    Object.defineProperty(Exchange__assertThisInitialized(_this), "handleFavouriteFoodChange", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        console.log(e.target);
+
+        _this.setState({
+          favouriteFood: e.target.value
+        });
+      }
+    });
+    Object.defineProperty(Exchange__assertThisInitialized(_this), "handleLetterToExchangeChange", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        _this.setState({
+          letterToExchange: e.target.value
+        });
+      }
+    });
+    Object.defineProperty(Exchange__assertThisInitialized(_this), "handleDeshuChange", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        console.log(e.target);
+
+        _this.setState({
+          deshu: e.target.value
+        });
+      }
+    });
+    _this.state = {
+      birthday: '',
+      favouriteFood: '',
+      deshu: "",
+      letterToExchange: ''
+    };
+    return _this;
+  }
+
+  Exchange__createClass(_default, [{
+    key: "render",
+    value: function render() {
+      return external__react__default.a.createElement("div", {
+        className: "jsx-2910031397"
+      }, external__react__default.a.createElement("div", {
+        className: "jsx-2910031397" + " " + "form-group"
+      }, external__react__default.a.createElement("label", {
+        className: "jsx-2910031397"
+      }, "Name")), external__react__default.a.createElement("div", {
+        className: "jsx-2910031397" + " " + "form-group"
+      }, external__react__default.a.createElement("label", {
+        className: "jsx-2910031397"
+      }, this.props.targetUser)), external__react__default.a.createElement("div", {
+        className: "jsx-2910031397" + " " + "form-group"
+      }, external__react__default.a.createElement("label", {
+        className: "jsx-2910031397"
+      }, "Deshu"), external__react__default.a.createElement("select", {
+        onChange: this.handleDeshuChange,
+        name: "deshu",
+        className: "jsx-2910031397" + " " + "form-control"
+      }, external__react__default.a.createElement("option", {
+        disabled: true,
+        selected: true,
+        value: true,
+        className: "jsx-2910031397"
+      }, "Select his/her deshu."), dataSource_default.a.DESHU_OPTIONS.map(function (deshu) {
+        return external__react__default.a.createElement("option", {
+          value: deshu,
+          className: "jsx-2910031397"
+        }, deshu);
+      }))), external__react__default.a.createElement("div", {
+        className: "jsx-2910031397" + " " + "form-group"
+      }, external__react__default.a.createElement("label", {
+        className: "jsx-2910031397"
+      }, "Birthday"), external__react__default.a.createElement("input", {
+        type: "date",
+        name: "birthday",
+        onChange: this.handleBirthdayChange,
+        className: "jsx-2910031397" + " " + "form-control"
+      })), external__react__default.a.createElement("div", {
+        className: "jsx-2910031397" + " " + "form-group"
+      }, external__react__default.a.createElement("label", {
+        className: "jsx-2910031397"
+      }, "Favourite Food"), external__react__default.a.createElement("select", {
+        name: "favouriteFood",
+        onChange: this.handleFavouriteFoodChange,
+        className: "jsx-2910031397" + " " + "form-control"
+      }, external__react__default.a.createElement("option", {
+        disabled: true,
+        selected: true,
+        value: true,
+        className: "jsx-2910031397"
+      }, "Select his/her favourite food"), dataSource_default.a.FOOD_OPTIONS.map(function (foodOption) {
+        return external__react__default.a.createElement("option", {
+          value: foodOption,
+          className: "jsx-2910031397"
+        }, foodOption);
+      }))), external__react__default.a.createElement("div", {
+        className: "jsx-2910031397" + " " + "form-group"
+      }, external__react__default.a.createElement("label", {
+        className: "jsx-2910031397"
+      }, "Letter To Exchange Away"), external__react__default.a.createElement("select", {
+        name: "letterToExchange",
+        onChange: this.handleLetterToExchangeChange,
+        className: "jsx-2910031397" + " " + "form-control"
+      }, external__react__default.a.createElement("option", {
+        disabled: true,
+        selected: true,
+        value: true,
+        className: "jsx-2910031397"
+      }, "Select a letter to exchange away"), this.props.lettersAvailable.map(function (letter) {
+        return external__react__default.a.createElement("option", {
+          value: letter,
+          className: "jsx-2910031397"
+        }, letter);
+      }))), external__react__default.a.createElement("div", {
+        id: "submit-button",
+        className: "jsx-2910031397"
+      }, external__react__default.a.createElement("button", {
+        onClick: this.submitForm,
+        className: "jsx-2910031397" + " " + "btn btn-primary"
+      }, "Submit")), external__react__default.a.createElement(style__default.a, {
+        styleId: "2910031397",
+        css: ["#submit-button.jsx-2910031397{margin-bottom:15px;}"]
+      }));
+    }
+  }]);
+
+  return _default;
+}(external__react__default.a.Component);
+
+
+// CONCATENATED MODULE: ./components/ExchangeRequest.js
+function ExchangeRequest__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { ExchangeRequest__typeof = function _typeof(obj) { return typeof obj; }; } else { ExchangeRequest__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return ExchangeRequest__typeof(obj); }
+
+function ExchangeRequest__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function ExchangeRequest__possibleConstructorReturn(self, call) { if (call && (ExchangeRequest__typeof(call) === "object" || typeof call === "function")) { return call; } return ExchangeRequest__assertThisInitialized(self); }
+
+function ExchangeRequest__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function ExchangeRequest__assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+
+
+
+
+var ExchangeRequest__default =
+/*#__PURE__*/
+function (_Exchange) {
+  ExchangeRequest__inherits(_default, _Exchange);
+
+  function _default() {
+    var _ref;
+
+    var _temp, _this;
+
+    ExchangeRequest__classCallCheck(this, _default);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return ExchangeRequest__possibleConstructorReturn(_this, (_temp = _this = ExchangeRequest__possibleConstructorReturn(this, (_ref = _default.__proto__ || Object.getPrototypeOf(_default)).call.apply(_ref, [this].concat(args))), Object.defineProperty(ExchangeRequest__assertThisInitialized(_this), "submitForm", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        var exchangeRequest = {
+          respond_user: _this.props.userSelected,
+          birthday: _this.state.birthday,
+          favouriteFood: _this.state.favouriteFood,
+          deshu: _this.state.deshu,
+          letterToExchange: _this.state.letterToExchange,
+          request_user: _this.props.userName
+        };
+        console.log("ExchangeRequest: " + JSON.stringify(exchangeRequest));
+        external__axios__default()({
+          method: 'post',
+          url: endpoints_default.a.API_SUBMIT_EXCHANGE_REQUEST,
+          data: exchangeRequest
+        }).then(function (response) {
+          console.log('Response of ExchangeRequest: ' + JSON.stringify(response.data));
+          if (response.data.success == 1) _this.props.onExchangeRequestSubmitSuccess(_this.state.letterToExchange);else external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_WRONG_DETAILS, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
+            background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
+            text: config_default.a.NOTIFICATION_TEXT_COLOR
+          });
+        }).catch(function (response) {
+          console.log(response);
+        });
+      }
+    }), _temp));
+  }
+
+  return _default;
+}(Exchange__default);
+
+
+// CONCATENATED MODULE: ./components/ExchangeResponse.js
+function ExchangeResponse__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { ExchangeResponse__typeof = function _typeof(obj) { return typeof obj; }; } else { ExchangeResponse__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return ExchangeResponse__typeof(obj); }
+
+function ExchangeResponse__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function ExchangeResponse__possibleConstructorReturn(self, call) { if (call && (ExchangeResponse__typeof(call) === "object" || typeof call === "function")) { return call; } return ExchangeResponse__assertThisInitialized(self); }
+
+function ExchangeResponse__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function ExchangeResponse__assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+
+
+
+
+var ExchangeResponse__default =
+/*#__PURE__*/
+function (_Exchange) {
+  ExchangeResponse__inherits(_default, _Exchange);
+
+  function _default() {
+    var _ref;
+
+    var _temp, _this;
+
+    ExchangeResponse__classCallCheck(this, _default);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return ExchangeResponse__possibleConstructorReturn(_this, (_temp = _this = ExchangeResponse__possibleConstructorReturn(this, (_ref = _default.__proto__ || Object.getPrototypeOf(_default)).call.apply(_ref, [this].concat(args))), Object.defineProperty(ExchangeResponse__assertThisInitialized(_this), "submitForm", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        var exchangeResponse = {
+          request_user: _this.props.exchangeRequest.request_user,
+          birthday: _this.state.birthday,
+          favouriteFood: _this.state.favouriteFood,
+          deshu: _this.state.deshu,
+          letterToExchange: _this.state.letterToExchange,
+          letterToReceive: _this.props.exchangeRequest.letterToExchange,
+          respond_user: _this.props.exchangeRequest.respond_user
+        };
+        console.log("ExchangeResponse: " + JSON.stringify(exchangeResponse));
+        external__axios__default()({
+          method: 'post',
+          url: endpoints_default.a.API_SUBMIT_EXCHANGE_RESPONSE,
+          data: exchangeResponse
+        }).then(function (response) {
+          console.log('Response of ExchangeResponse: ' + JSON.stringify(response.data));
+          if (response.data.success == 1) _this.props.onExchangeResponseSubmitSuccess();else external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_WRONG_DETAILS, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
+            background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
+            text: config_default.a.NOTIFICATION_TEXT_COLOR
+          });
+        }).catch(function (response) {
+          //handle error
+          console.log(response);
+        });
+      }
+    }), _temp));
+  }
+
+  return _default;
+}(Exchange__default);
+
+
+// CONCATENATED MODULE: ./components/WaitingForVerification.js
+function WaitingForVerification__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { WaitingForVerification__typeof = function _typeof(obj) { return typeof obj; }; } else { WaitingForVerification__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return WaitingForVerification__typeof(obj); }
+
+function WaitingForVerification__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function WaitingForVerification__defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function WaitingForVerification__createClass(Constructor, protoProps, staticProps) { if (protoProps) WaitingForVerification__defineProperties(Constructor.prototype, protoProps); if (staticProps) WaitingForVerification__defineProperties(Constructor, staticProps); return Constructor; }
+
+function WaitingForVerification__possibleConstructorReturn(self, call) { if (call && (WaitingForVerification__typeof(call) === "object" || typeof call === "function")) { return call; } return WaitingForVerification__assertThisInitialized(self); }
+
+function WaitingForVerification__assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function WaitingForVerification__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var WaitingForVerification__default =
+/*#__PURE__*/
+function (_React$Component) {
+  WaitingForVerification__inherits(_default, _React$Component);
+
+  function _default() {
+    WaitingForVerification__classCallCheck(this, _default);
+
+    return WaitingForVerification__possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).apply(this, arguments));
+  }
+
+  WaitingForVerification__createClass(_default, [{
+    key: "render",
+    value: function render() {
+      return external__react__default.a.createElement("div", {
+        style: {
+          textAlign: 'center',
+          marginBottom: '30px'
+        }
+      }, external__react__default.a.createElement("h1", {
+        style: {
+          marginBottom: '20px'
+        }
+      }, "You have entered the correct details! Waiting for other party to verify"), external__react__default.a.createElement("button", {
+        onClick: this.props.cancel,
+        className: "btn btn-danger"
+      }, "Cancel"));
+    }
+  }]);
+
+  return _default;
+}(external__react__default.a.Component);
+
+
+// CONCATENATED MODULE: ./pages/index.js
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return pages__default; });
+
+
+
+function pages__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { pages__typeof = function _typeof(obj) { return typeof obj; }; } else { pages__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return pages__typeof(obj); }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
+
+function pages__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function pages__defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function pages__createClass(Constructor, protoProps, staticProps) { if (protoProps) pages__defineProperties(Constructor.prototype, protoProps); if (staticProps) pages__defineProperties(Constructor, staticProps); return Constructor; }
+
+function pages__possibleConstructorReturn(self, call) { if (call && (pages__typeof(call) === "object" || typeof call === "function")) { return call; } return pages__assertThisInitialized(self); }
+
+function pages__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function pages__assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var pages__default =
+/*#__PURE__*/
+function (_Page) {
+  pages__inherits(_default, _Page);
+
+  function _default() {
+    var _this;
+
+    pages__classCallCheck(this, _default);
+
+    _this = pages__possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).call(this));
+    Object.defineProperty(pages__assertThisInitialized(_this), "setupPusher", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        _this.pusher = new external__pusher_js__default.a(credentials_default.a.PUSHER_APP_KEY, {
+          cluster: credentials_default.a.PUSHER_APP_CLUSTER,
+          encrypted: true
+        });
+        _this.channel = _this.pusher.subscribe(strings_default.a.PUSHER_CHANNEL);
+
+        _this.channel.bind(strings_default.a.PUSHER_USER_LIST_UPDATE_EVENT, function (users) {
+          console.log("Received new user list from Pusher: " + users);
+          var newActiveUsers = users.map(function (user) {
+            return user.name;
+          });
+
+          _this.setState({
+            activeUsers: newActiveUsers
+          });
+        });
+
+        _this.channel.bind(strings_default.a.PUSHER_NEW_EXCHANGE_REQUEST_EVENT, function (exchangeRequest) {
+          console.log("Received new exchange request: " + JSON.stringify(exchangeRequest));
+
+          if (exchangeRequest.respond_user == _this.state.userName) {
+            console.log("Exchange request is for me.");
+            _this.exchangeRequest = exchangeRequest;
+
+            _this.setState({
+              isVerifyingForCounterParty: true
+            });
+          }
+        });
+
+        _this.channel.bind(strings_default.a.EXCHANGE_COMPLETED_EVENT, function (data) {
+          if (data.request_user == _this.state.userName) {
+            external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_EXCHANGE_SUCCESSFUL, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
+              background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
+              text: config_default.a.NOTIFICATION_TEXT_COLOR
+            });
+            console.log("Exchange request has completed: " + JSON.stringify(data));
+            console.log("Letters assigned are now " + _this.state.lettersAssigned);
+
+            _this.setState({
+              isWaitingForCounterPartyToVerify: false
+            });
+
+            _this.retrieveAllGameInformation();
+          }
+        });
+
+        _this.channel.bind(strings_default.a.PUSHER_GAME_START_EVENT, function () {
+          console.log("Game has started...loading main page...");
+
+          _this.setState({
+            isWaitingForGameToStart: false
+          });
+
+          _this.retrieveAllGameInformation();
+
+          external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_GAME_BEGUN, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
+            background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
+            text: config_default.a.NOTIFICATION_TEXT_COLOR
+          });
+        });
+
+        _this.channel.bind(strings_default.a.PUSHER_GAME_STOP_EVENT, function () {
+          window.alert("Game has been forcefully stopped by game master");
+          window.location.href = '/';
+        });
+      }
+    });
+    Object.defineProperty(pages__assertThisInitialized(_this), "checkGameState", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        utils_default.a.checkAuthenticated().then(function (res) {
+          _this.setState({
+            signedIn: true
+          });
+
+          _this.setState({
+            authenticationChecked: true
+          });
+        }, function (err) {
+          _this.setState({
+            authenticationChecked: true
+          });
+        });
+        utils_default.a.checkGameStarted().then(function (res) {
+          _this.setState({
+            isWaitingForGameToStart: false
+          });
+
+          _this.retrieveAllGameInformation();
+
+          _this.setState({
+            gameStartedChecked: true
+          });
+        }, function (err) {
+          _this.setState({
+            gameStartedChecked: true
+          });
+        });
+      }
+    });
+    Object.defineProperty(pages__assertThisInitialized(_this), "retrieveAllGameInformation", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        _this.retriveUserName();
+
+        _this.retriveLetters();
+
+        _this.retrieveActiveUsers();
+      }
+    });
+    Object.defineProperty(pages__assertThisInitialized(_this), "cancelWaitingForVerification", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(r) {
+        _this.setState({
+          isWaitingForCounterPartyToVerify: false
+        });
+      }
+    });
+    Object.defineProperty(pages__assertThisInitialized(_this), "onExchangeRequestSubmitSuccess", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(letterToGive) {
+        _this.setState({
+          isWaitingForCounterPartyToVerify: true,
+          letterToGive: letterToGive
+        });
+      }
+    });
+    Object.defineProperty(pages__assertThisInitialized(_this), "onExchangeResponseSubmitSuccess", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_EXCHANGE_SUCCESSFUL, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
+          background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
+          text: config_default.a.NOTIFICATION_TEXT_COLOR
+        });
+
+        _this.setState({
+          isVerifyingForCounterParty: false
+        });
+
+        _this.retriveLetters();
+      }
+    });
+    Object.defineProperty(pages__assertThisInitialized(_this), "onUserSelected", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(e) {
+        if (_this.state.activeUsers[e.target.id] === _this.state.userName) external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_SAME_NAME_SELECTED, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
+          background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
+          text: config_default.a.NOTIFICATION_TEXT_COLOR
+        });else {
+          console.log("Setting user selected to " + e.target.id);
+
+          _this.setState({
+            userSelected: _this.state.activeUsers[e.target.id]
+          });
+        }
+      }
+    });
+    Object.defineProperty(pages__assertThisInitialized(_this), "retriveLetters", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        external__axios__default()({
+          method: 'post',
+          url: endpoints_default.a.API_GET_ASSIGNED_LETTERS
+        }).then(function (response) {
+          console.log('Got letters assigned as ' + response.data);
+
+          _this.setState({
+            lettersAssigned: response.data
+          });
+        }).catch(function (response) {
+          //handle error
+          console.log(response);
+        });
+      }
+    });
+    Object.defineProperty(pages__assertThisInitialized(_this), "retrieveActiveUsers", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        external__axios__default()({
+          method: 'post',
+          url: endpoints_default.a.API_GET_ALL_ACTIVE_USERS
+        }).then(function (response) {
+          var activeUsers = response.data.map(function (session) {
+            return session.user.name;
+          });
+          console.log('Parsed active users as ' + activeUsers);
+
+          _this.setState({
+            activeUsers: activeUsers
+          });
+        }).catch(function (response) {
+          //handle error
+          console.log(response);
+        });
+      }
+    });
+    Object.defineProperty(pages__assertThisInitialized(_this), "retriveUserName", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        external__axios__default()({
+          method: 'post',
+          url: endpoints_default.a.API_GET_SESSION
+        }).then(function (response) {
+          if (typeof response.data.user === 'undefined') return;
+          console.log('Received username as  ' + response.data.user.name);
+
+          _this.setState({
+            userName: response.data.user.name
+          });
+        }).catch(function (response) {
+          //handle error
+          console.log(response);
+        });
+      }
+    });
+    Object.defineProperty(pages__assertThisInitialized(_this), "cancelRespondToRequester", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        _this.setState({
+          isVerifyingForCounterParty: false
+        });
+      }
+    });
+    Object.defineProperty(pages__assertThisInitialized(_this), "onSignIn", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(name, birthday, favouriteFood, deshu) {
+        name = name.toUpperCase();
+        console.log("Signing in..." + name);
+        external__axios__default()({
+          method: 'post',
+          url: endpoints_default.a.API_LOGIN_USER,
+          data: {
+            name: name,
+            birthday: birthday,
+            favouriteFood: favouriteFood,
+            deshu: deshu
+          }
+        }).then(function (response) {
+          if (response.data.result == 1) _this.setState({
+            signedIn: true
+          });else external__react_notify_toast_["notify"].show(response.data.message, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
+            background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
+            text: config_default.a.NOTIFICATION_TEXT_COLOR
+          });
+        }).catch(function (response) {
+          //handle error
+          console.log(response);
+        });
+      }
+    });
+    _this.state = {
+      userName: "",
+      activeUsers: [],
+      lettersAssigned: [],
+      userSelected: '',
+      isWaitingForCounterPartyToVerify: false,
+      isVerifyingForCounterParty: false,
+      isWaitingForGameToStart: true,
+      signedIn: false,
+      letterToGive: '',
+      authenticationChecked: false,
+      gameStartedChecked: false
+    };
+    _this.exchangeRequest = {};
+    return _this;
+  }
+
+  pages__createClass(_default, [{
+    key: "componentDidMount",
+    value: function () {
+      var _componentDidMount = _asyncToGenerator(
+      /*#__PURE__*/
+      regenerator__default.a.mark(function _callee() {
+        return regenerator__default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.setupPusher();
+                this.checkGameState();
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      return function componentDidMount() {
+        return _componentDidMount.apply(this, arguments);
+      };
+    }()
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      if (!this.state.authenticationChecked || !this.state.gameStartedChecked) return external__react__default.a.createElement(Layout["a" /* default */], null);else if (!this.state.signedIn) return external__react__default.a.createElement(Layout["a" /* default */], null, external__react__default.a.createElement(SignIn__default, {
+        onSignIn: this.onSignIn
+      }));else if (this.state.isWaitingForGameToStart && this.state.signedIn) return external__react__default.a.createElement(Layout["a" /* default */], null, external__react__default.a.createElement(LoadingScreen__default, null));
+      if (this.state.isWaitingForCounterPartyToVerify) return external__react__default.a.createElement(Layout["a" /* default */], null, external__react__default.a.createElement(WaitingForVerification__default, {
+        cancel: this.cancelWaitingForVerification
+      }));else if (this.state.isVerifyingForCounterParty) return external__react__default.a.createElement(Layout["a" /* default */], null, external__react__default.a.createElement("div", {
+        className: "form-group"
+      }, external__react__default.a.createElement("label", null, this.exchangeRequest.request_user, " has requested to connect.Please fill in his details below.")), external__react__default.a.createElement(ExchangeResponse__default, {
+        targetUser: this.exchangeRequest.request_user,
+        userName: this.exchangeRequest.request_user,
+        onExchangeResponseSubmitSuccess: this.onExchangeResponseSubmitSuccess,
+        lettersAvailable: this.state.lettersAssigned,
+        exchangeRequest: this.exchangeRequest
+      }), external__react__default.a.createElement("div", {
+        id: "cancel-button"
+      }, external__react__default.a.createElement("button", {
+        onClick: this.cancelRespondToRequester,
+        className: "btn btn-danger"
+      }, "Cancel")));else return external__react__default.a.createElement(Layout["a" /* default */], null, external__react__default.a.createElement("div", {
+        id: "wrapper",
+        className: "jsx-282015899"
+      }, external__react__default.a.createElement("div", {
+        id: "sidebar-wrapper",
+        className: "jsx-282015899"
+      }, external__react__default.a.createElement("nav", {
+        id: "spy",
+        className: "jsx-282015899"
+      }, external__react__default.a.createElement("ul", {
+        className: "jsx-282015899" + " " + "sidebar-nav nav"
+      }, this.state.activeUsers.map(function (user, index) {
+        return external__react__default.a.createElement("li", {
+          id: index,
+          onClick: _this2.onUserSelected,
+          className: "jsx-282015899" + " " + "sidebar-brand"
+        }, user);
+      })))), external__react__default.a.createElement("div", {
+        id: "page-content-wrapper",
+        className: "jsx-282015899"
+      }, external__react__default.a.createElement("div", {
+        "data-spy": "scroll",
+        "data-target": "#spy",
+        className: "jsx-282015899" + " " + "page-content inset"
+      }, external__react__default.a.createElement(LettersComponent_LetterComponent, {
+        userName: this.state.userName,
+        lettersAssigned: this.state.lettersAssigned
+      }), external__react__default.a.createElement("div", {
+        style: {
+          marginTop: '50px',
+          marginBottom: '50px'
+        },
+        className: "jsx-282015899" + " " + "form-group"
+      }, external__react__default.a.createElement("label", {
+        className: "jsx-282015899"
+      }, "Fill in the details of the player you would like to exchange with.")), external__react__default.a.createElement(ExchangeRequest__default, {
+        targetUser: this.state.userSelected,
+        userName: this.state.userName,
+        onExchangeRequestSubmitSuccess: this.onExchangeRequestSubmitSuccess,
+        userSelected: this.state.userSelected,
+        lettersAvailable: this.state.lettersAssigned
+      })))), external__react__default.a.createElement(style__default.a, {
+        styleId: "282015899",
+        css: ["#wrapper.jsx-282015899{padding-left:250px;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;}", "#sidebar-wrapper.jsx-282015899{margin-left:-250px;left:250px;width:250px;background:#000;position:fixed;height:100%;overflow-y:auto;z-index:1000;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;color:white;}", "#wrapper.active.jsx-282015899{padding-left:0;}", "#wrapper.active.jsx-282015899 #sidebar-wrapper.jsx-282015899{left:0;}", "#page-content-wrapper.jsx-282015899{width:100%;}", ".sidebar-nav.jsx-282015899{position:absolute;top:0;width:250px;list-style:none;margin:0;padding:0;}", ".sidebar-nav.jsx-282015899 li.jsx-282015899{line-height:40px;text-indent:20px;}", ".sidebar-nav.jsx-282015899 li.jsx-282015899 a.jsx-282015899{color:#999999;display:block;-webkit-text-decoration:none;text-decoration:none;padding-left:60px;}", ".sidebar-nav.jsx-282015899 li.jsx-282015899 a.jsx-282015899 span.jsx-282015899:before{position:absolute;left:0;color:#41484c;text-align:center;width:20px;line-height:18px;}", ".sidebar-nav.jsx-282015899 li.jsx-282015899 a.jsx-282015899:hover,.sidebar-nav.jsx-282015899 li.active.jsx-282015899{color:#fff;background:rgba(255,255,255,0.2);-webkit-text-decoration:none;text-decoration:none;}", ".sidebar-nav.jsx-282015899 li.jsx-282015899 a.jsx-282015899:active,.sidebar-nav.jsx-282015899 li.jsx-282015899 a.jsx-282015899:focus{-webkit-text-decoration:none;text-decoration:none;}", ".sidebar-nav.jsx-282015899>.sidebar-brand.jsx-282015899{height:65px;line-height:60px;font-size:18px;}", ".sidebar-nav.jsx-282015899>.sidebar-brand.jsx-282015899 a.jsx-282015899{color:#999999;}", ".sidebar-nav.jsx-282015899>.sidebar-brand.jsx-282015899 a.jsx-282015899:hover{color:#fff;background:none;}", ".inset.jsx-282015899{padding:20px;}", "@media (max-width:767px){#wrapper.jsx-282015899{padding-left:0;}#sidebar-wrapper.jsx-282015899{left:0;}#wrapper.active.jsx-282015899{position:relative;left:250px;}#wrapper.active.jsx-282015899 #sidebar-wrapper.jsx-282015899{left:250px;width:250px;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;}#menu-toggle.jsx-282015899{display:inline-block;}.inset.jsx-282015899{padding:15px;}}"]
+      }));
+    }
+  }]);
+
+  return _default;
+}(Page["a" /* default */]);
+
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports = require("@babel/runtime/regenerator");
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var axios = __webpack_require__(1);
+
+var endpoints = __webpack_require__(2);
+
+module.exports = {
+  insertLetter: function insertLetter(lettersUsed, letterToInsert) {
+    var index = lettersUsed.findIndex('-');
+  },
+  shuffleString: function shuffleString(input) {
+    var a = input.split(""),
+        n = a.length;
+
+    for (var i = n - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+
+    return a.join("");
+  },
+  checkAuthenticated: function checkAuthenticated() {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_CHECK_AUTHENTICATED
+      }).then(function (response) {
+        if (response.data.result == 1) resolve(true);else reject(false);
+      }).catch(function (response) {
+        console.log(response);
+        reject(false);
+      });
+    });
+  },
+  checkGameStarted: function checkGameStarted() {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_CHECK_GAME_STARTED
+      }).then(function (response) {
+        if (response.data.result == 1) resolve(true);else reject(false);
+      }).catch(function (response) {
+        console.log(response);
+        reject(false);
+      });
+    });
+  },
+  validateUserInfo: function validateUserInfo(store, exchange, targetUser) {
+    return new Promise(function (resolve, reject) {
+      store.all(function (err, sessions) {
+        var filteredSessions = sessions.filter(function (session) {
+          if (session.hasOwnProperty('user')) return session.user.name == targetUser && session.user.birthday == exchange.birthday && session.user.favouriteFood == exchange.favouriteFood && session.user.deshu == exchange.deshu;else return false;
+        });
+        console.log("filtered sessions " + JSON.stringify(filteredSessions));
+        if (filteredSessions.length > 0) resolve(true);else reject(false);
+      });
+    });
+  }
+};
+
+/***/ })
+/******/ ]);

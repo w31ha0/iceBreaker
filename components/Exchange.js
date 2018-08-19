@@ -1,5 +1,6 @@
 import React from "react";
 import data from "../data/dataSource";
+import Layout from "./Layout";
 
 export default class extends React.Component{
 
@@ -80,7 +81,14 @@ export default class extends React.Component{
                         })}
                     </select>
                 </div>
-                <button onClick={this.submitForm} className="btn btn-primary">Submit</button>
+                <div id='submit-button'>
+                    <button onClick={this.submitForm} className="btn btn-primary">Submit</button>
+                </div>
+                <style jsx>{`
+                    #submit-button {
+                        margin-bottom: 15px;
+                    }
+                `}</style>
             </div>
         )}
 }

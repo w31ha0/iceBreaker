@@ -242,6 +242,12 @@ export default class extends Page {
         });
     }
 
+    cancelRespondToRequester = () => {
+        this.setState({
+            isVerifyingForCounterParty: false
+        })
+    }
+
     onSignIn = (name,birthday,favouriteFood,deshu) => {
         name = name.toUpperCase()
         console.log("Signing in..."+name)
@@ -312,6 +318,9 @@ export default class extends Page {
                         onExchangeResponseSubmitSuccess={this.onExchangeResponseSubmitSuccess}
                         lettersAvailable={this.state.lettersAssigned}
                         exchangeRequest={this.exchangeRequest}/>
+                    <div id='cancel-button'>
+                        <button onClick={this.cancelRespondToRequester} className="btn btn-danger">Cancel</button>
+                    </div>
                 </Layout>
             )
         else
@@ -343,7 +352,7 @@ export default class extends Page {
                         </div>
                     </div>
                     <style jsx>{`
-                      #wrapper {
+                    #wrapper {
                       padding-left: 250px;
                       transition: all 0.4s ease 0s;
                     }
