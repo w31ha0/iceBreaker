@@ -63,6 +63,7 @@ export default class LetterComponent extends React.Component {
             })
             .then((response) => {
                 window.alert("You have completed the game!")
+                window.location.href='/'
             })
             .catch(function (response) {
                 //handle error

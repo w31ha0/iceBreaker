@@ -33,7 +33,7 @@ export default class extends React.Component {
 
     render(){
         return(
-            <form>
+            <div>
                 <div className="form-group">
                     <label>Fill in your details to begin the game.</label>
                 </div>
@@ -53,7 +53,7 @@ export default class extends React.Component {
                     </select>
                 </div>
                 <button onClick={() => { this.props.onSignIn(this.state.name,this.state.birthday,this.state.favouriteFood) }} type="submit" className="btn btn-primary">Submit</button>
-            </form>
+            </div>
             )}
 
 }

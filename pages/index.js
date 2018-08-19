@@ -1,18 +1,18 @@
 import axios from 'axios'
 import React from "react";
 import Pusher from 'pusher-js';
+import utils from '../utils/utils'
 import Page from '../components/Page';
+import SignIn from "../components/SignIn"
 import strings from '../constants/strings'
 import Layout from '../components/Layout.js'
 import endpoints from '../constants/endpoints'
 import credentials from '../constants/credentials'
+import LoadingScreen from "../components/LoadingScreen"
 import LetterComponent from '../components/LettersComponent'
 import ExchangeRequest from '../components/ExchangeRequest'
 import ExchangeResponse from '../components/ExchangeResponse'
 import WaitingForVerification from '../components/WaitingForVerification'
-import LoadingScreen from "../components/LoadingScreen"
-import SignIn from "../components/SignIn"
-import utils from "../utils/utils"
 
 export default class extends Page {
 
@@ -27,53 +27,21 @@ export default class extends Page {
             isVerifyingForCounterParty: false,
             isWaitingForGameToStart: true,
             signedIn: false,
-            letterToGive: ''
+            letterToGive: '',
+            authenticationChecked: false,
+            gameStartedChecked: false
+
         }
         this.exchangeRequest = {}
 
     }
 
-    componentDidUpdate(){
-
-    }
-
-    componentWillMount(){
-        //check if authenticated
-        axios({
-            method: 'post',
-            url: endpoints.API_CHECK_AUTHENTICATED
-        })
-        .then((response) => {
-            if(response.data.result == 1)
-                this.setState({
-                    signedIn: true
-                })
-        })
-        .catch(function (response) {
-            console.log(response);
-        });
-
-        //check if game has already started
-        axios({
-            method: 'post',
-            url: endpoints.API_CHECK_GAME_STARTED
-        })
-        .then((response) => {
-            if(response.data.result == 1)
-                this.setState({
-                    isWaitingForGameToStart: false
-                })
-                console.log("Going to retrive all information")
-                this.retriveUserName()
-                this.retriveLetters()
-                this.retrieveActiveUsers()
-        })
-        .catch(function (response) {
-            console.log(response);
-        });
-    }
-
     async componentDidMount(){
+        this.setupPusher()
+        this.checkGameState()
+    }
+
+    setupPusher = () => {
         this.pusher = new Pusher(credentials.PUSHER_APP_KEY, {
             cluster: credentials.PUSHER_APP_CLUSTER,
             encrypted: true
@@ -107,7 +75,7 @@ export default class extends Page {
                 this.setState({
                     isWaitingForCounterPartyToVerify: false
                 })
-                this.retriveLetters()
+                this.retrieveAllGameInformation()
             }
         });
 
@@ -116,8 +84,43 @@ export default class extends Page {
             this.setState({
                 isWaitingForGameToStart: false
             })
+            this.retrieveAllGameInformation()
         });
+    }
 
+    checkGameState = () => {
+        utils.checkAuthenticated().then((res) => {
+            this.setState({
+                signedIn: true
+            })
+            this.setState({
+                authenticationChecked: true
+            })
+        },(err) => {
+            this.setState({
+                authenticationChecked: true
+            })
+        })
+
+        utils.checkGameStarted().then((res) => {
+            this.setState({
+                isWaitingForGameToStart: false
+            })
+            this.retrieveAllGameInformation()
+            this.setState({
+                gameStartedChecked: true
+            })
+        },(err) => {
+            this.setState({
+                gameStartedChecked: true
+            })
+        })
+    }
+
+    retrieveAllGameInformation = () => {
+        this.retriveUserName()
+        this.retriveLetters()
+        this.retrieveActiveUsers()
     }
 
     cancelWaitingForVerification = (r) => {
@@ -201,10 +204,6 @@ export default class extends Page {
         });
     }
 
-    onLetterSelected = () => {
-        console.log("Letters assigned are now "+this.state.lettersAssigned)
-    }
-
     onSignIn = (name,birthday,favouriteFood) => {
         console.log("Signing in..."+name)
         axios({
@@ -226,7 +225,12 @@ export default class extends Page {
     }
 
     render(){
-        if(!this.state.signedIn)
+        if(!this.state.authenticationChecked || !this.state.gameStartedChecked)
+            return(
+                <Layout>
+                </Layout>
+            )
+        else if(!this.state.signedIn)
             return(
                 <Layout>
                     <SignIn onSignIn={this.onSignIn}/>
@@ -250,7 +254,12 @@ export default class extends Page {
                     <div className="form-group">
                         <label>{this.exchangeRequest.request_user} has requested to connect.Please fill in his details below.</label>
                     </div>
-                    <ExchangeResponse targetUser={this.exchangeRequest.request_user} userName={this.exchangeRequest.request_user} onExchangeResponseSubmitSuccess={this.onExchangeResponseSubmitSuccess} lettersAvailable={this.state.lettersAssigned} exchangeRequest={this.exchangeRequest}/>
+                    <ExchangeResponse
+                        targetUser={this.exchangeRequest.request_user}
+                        userName={this.exchangeRequest.request_user}
+                        onExchangeResponseSubmitSuccess={this.onExchangeResponseSubmitSuccess}
+                        lettersAvailable={this.state.lettersAssigned}
+                        exchangeRequest={this.exchangeRequest}/>
                 </Layout>
             )
         else
@@ -268,11 +277,16 @@ export default class extends Page {
                         </div>
                         <div id="page-content-wrapper">
                             <div className="page-content inset" data-spy="scroll" data-target="#spy">
-                                <LetterComponent onLetterSelected={this.onLetterSelected} userName={this.state.userName} lettersAssigned={this.state.lettersAssigned}/>
+                                <LetterComponent userName={this.state.userName} lettersAssigned={this.state.lettersAssigned}/>
                                 <div style={{marginTop:'50px',marginBottom:'50px'}} className="form-group">
                                     <label>Fill in the details of the player you would like to exchange with.</label>
                                 </div>
-                                <ExchangeRequest targetUser={this.state.userSelected} userName={this.state.userName} onExchangeRequestSubmitSuccess={this.onExchangeRequestSubmitSuccess} userSelected={this.state.userSelected} lettersAvailable={this.state.lettersAssigned}/>
+                                <ExchangeRequest
+                                    targetUser={this.state.userSelected}
+                                    userName={this.state.userName}
+                                    onExchangeRequestSubmitSuccess={this.onExchangeRequestSubmitSuccess}
+                                    userSelected={this.state.userSelected}
+                                    lettersAvailable={this.state.lettersAssigned}/>
                             </div>
                         </div>
                     </div>
