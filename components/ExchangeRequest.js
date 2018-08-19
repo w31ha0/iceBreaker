@@ -2,6 +2,8 @@ import React from 'react'
 import axios from "axios";
 import Exchange from './Exchange'
 import endpoints from "../constants/endpoints";
+import {notify} from "react-notify-toast";
+import strings from "../constants/strings";
 
 export default class extends Exchange{
 
@@ -24,9 +26,11 @@ export default class extends Exchange{
             console.log('Response of ExchangeRequest: '+JSON.stringify(response.data))
             if(response.data.success == 1)
                 this.props.onExchangeRequestSubmitSuccess(this.state.letterToExchange)
+            else
+                notify.show(strings.NOTIFICATION_WRONG_DETAILS, "custom", 5000, { background: '#0E1717', text: "#FFFFFF" });
         })
         .catch(function (response) {
-            //handle error
+
             console.log(response);
         });
     }

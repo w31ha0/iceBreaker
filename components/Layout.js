@@ -1,6 +1,7 @@
 import React from "react";
 import Head from 'next/head'
 import { Container } from 'reactstrap'
+import Notifications from "react-notify-toast";
 
 export default class extends React.Component{
 
@@ -16,6 +17,7 @@ export default class extends React.Component{
                     <meta charSet="utf-8" />
                 </Head>
                 <Container>
+                    <Notifications />
                     {this.props.children}
                 </Container>
             </div>

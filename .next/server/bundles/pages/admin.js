@@ -83,6 +83,8 @@ module.exports =
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_head__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__("reactstrap");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_reactstrap__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__("react-notify-toast");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast__);
 var _jsxFileName = "E:\\iceBreaker\\components\\Layout.js";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -98,6 +100,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -120,19 +123,19 @@ function (_React$Component) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 9
+          lineNumber: 10
         }
       }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_next_head___default.a, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 10
+          lineNumber: 11
         }
       }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("meta", {
         name: "viewport",
         content: "width=device-width,height=device-height, initial-scale=2",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 11
+          lineNumber: 12
         }
       }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("link", {
         rel: "stylesheet",
@@ -141,27 +144,32 @@ function (_React$Component) {
         crossOrigin: "anonymous",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 12
+          lineNumber: 13
         }
       }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("link", {
         rel: "stylesheet",
         href: "https://unpkg.com/react-tabs@2/style/react-tabs.css",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 15
+          lineNumber: 16
         }
       }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("meta", {
         charSet: "utf-8",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 16
+          lineNumber: 17
         }
       })), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_reactstrap__["Container"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 18
+          lineNumber: 19
         }
-      }, this.props.children));
+      }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default.a, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 20
+        }
+      }), this.props.children));
     }
   }]);
 
@@ -266,13 +274,19 @@ var PUSHER_GAME_START_EVENT = 'game-start';
 var PUSHER_NEW_EXCHANGE_REQUEST_EVENT = 'new-exchange-request';
 var PUSHER_NEW_EXCHANGE_RESPONSE_EVENT = 'new-exchange-response';
 var EXCHANGE_COMPLETED_EVENT = 'exchange-completed';
+var NOTIFICATION_GAME_BEGUN = 'Game has begun!';
+var NOTIFICATION_WRONG_DETAILS = 'You have entered the wrong details! Please try again!';
+var NOTIFICATION_EXCHANGE_SUCCESSFUL = 'Exchange of letters succeeded!';
 module.exports = {
   PUSHER_CHANNEL: PUSHER_CHANNEL,
   PUSHER_USER_LIST_UPDATE_EVENT: PUSHER_USER_LIST_UPDATE_EVENT,
   PUSHER_NEW_EXCHANGE_REQUEST_EVENT: PUSHER_NEW_EXCHANGE_REQUEST_EVENT,
   PUSHER_NEW_EXCHANGE_RESPONSE_EVENT: PUSHER_NEW_EXCHANGE_RESPONSE_EVENT,
   EXCHANGE_COMPLETED_EVENT: EXCHANGE_COMPLETED_EVENT,
-  PUSHER_GAME_START_EVENT: PUSHER_GAME_START_EVENT
+  PUSHER_GAME_START_EVENT: PUSHER_GAME_START_EVENT,
+  NOTIFICATION_GAME_BEGUN: NOTIFICATION_GAME_BEGUN,
+  NOTIFICATION_WRONG_DETAILS: NOTIFICATION_WRONG_DETAILS,
+  NOTIFICATION_EXCHANGE_SUCCESSFUL: NOTIFICATION_EXCHANGE_SUCCESSFUL
 };
 
 /***/ }),
@@ -447,6 +461,13 @@ module.exports = require("pusher-js");
 /***/ (function(module, exports) {
 
 module.exports = require("react");
+
+/***/ }),
+
+/***/ "react-notify-toast":
+/***/ (function(module, exports) {
+
+module.exports = require("react-notify-toast");
 
 /***/ }),
 

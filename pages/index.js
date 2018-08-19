@@ -5,6 +5,7 @@ import utils from '../utils/utils'
 import Page from '../components/Page';
 import SignIn from "../components/SignIn"
 import strings from '../constants/strings'
+import {notify} from "react-notify-toast";
 import Layout from '../components/Layout.js'
 import endpoints from '../constants/endpoints'
 import credentials from '../constants/credentials'
@@ -70,6 +71,7 @@ export default class extends Page {
 
         this.channel.bind(strings.EXCHANGE_COMPLETED_EVENT, (data) => {
             if(data.request_user == this.state.userName){
+                notify.show(strings.NOTIFICATION_EXCHANGE_SUCCESSFUL, "custom", 5000, { background: '#0E1717', text: "#FFFFFF" });
                 console.log("Exchange request has completed: "+JSON.stringify(data))
                 console.log("Letters assigned are now "+this.state.lettersAssigned)
                 this.setState({
@@ -85,6 +87,7 @@ export default class extends Page {
                 isWaitingForGameToStart: false
             })
             this.retrieveAllGameInformation()
+            notify.show(strings.NOTIFICATION_GAME_BEGUN, "custom", 5000, { background: '#0E1717', text: "#FFFFFF" });
         });
     }
 
@@ -137,6 +140,7 @@ export default class extends Page {
     }
 
     onExchangeResponseSubmitSuccess = () => {
+        notify.show(strings.NOTIFICATION_EXCHANGE_SUCCESSFUL, "custom", 5000, { background: '#0E1717', text: "#FFFFFF" });
         this.setState({
             isVerifyingForCounterParty: false
         })
