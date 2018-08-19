@@ -89,6 +89,21 @@ nextApp
                 res.json({success:0})
         })
 
+        expressApp.post(endpoints.API_STOP_GAME,function(req,res){
+            console.log("Got Request to stop game with password "+req.body.password)
+            if(req.body.password === 'jxbcamp2019'){
+                console.log("All users have completed the game....")
+                sessionStore.clear()
+                allCharacters = ""
+                allUsers = []
+                gameStarted = false
+                assignedLetters = {}
+                pusher.trigger(strings.PUSHER_CHANNEL,strings.PUSHER_GAME_STOP_EVENT,{})
+            }
+            else
+                res.json({success:0})
+        })
+
         expressApp.post(endpoints.API_GET_ALL_ACTIVE_USERS,function (req,res) {
             sessionStore.all(function(err,sessions){
                 var filteredSessions = sessions.filter(function(session){

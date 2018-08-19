@@ -85,7 +85,7 @@ module.exports =
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_reactstrap__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__("react-notify-toast");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast__);
-var _jsxFileName = "E:\\iceBreaker\\components\\Layout.js";
+var _jsxFileName = "D:\\iceBreaker\\components\\Layout.js";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -248,6 +248,7 @@ var API_START_GAME = '/startGame';
 var API_USER_COMPLETED_GAME = '/userCompletedGame';
 var API_CHECK_AUTHENTICATED = '/checkAuthenticated';
 var API_CHECK_GAME_STARTED = '/checkGameStarted';
+var API_STOP_GAME = '/stopGame';
 module.exports = {
   API_LOGIN_USER: API_LOGIN_USER,
   API_CHECK_SESSION_EXPIRED: API_CHECK_SESSION_EXPIRED,
@@ -260,7 +261,8 @@ module.exports = {
   API_START_GAME: API_START_GAME,
   API_USER_COMPLETED_GAME: API_USER_COMPLETED_GAME,
   API_CHECK_AUTHENTICATED: API_CHECK_AUTHENTICATED,
-  API_CHECK_GAME_STARTED: API_CHECK_GAME_STARTED
+  API_CHECK_GAME_STARTED: API_CHECK_GAME_STARTED,
+  API_STOP_GAME: API_STOP_GAME
 };
 
 /***/ }),
@@ -274,6 +276,7 @@ var PUSHER_GAME_START_EVENT = 'game-start';
 var PUSHER_NEW_EXCHANGE_REQUEST_EVENT = 'new-exchange-request';
 var PUSHER_NEW_EXCHANGE_RESPONSE_EVENT = 'new-exchange-response';
 var EXCHANGE_COMPLETED_EVENT = 'exchange-completed';
+var PUSHER_GAME_STOP_EVENT = 'game-stop';
 var NOTIFICATION_GAME_BEGUN = 'Game has begun!';
 var NOTIFICATION_WRONG_DETAILS = 'You have entered the wrong details! Please try again!';
 var NOTIFICATION_EXCHANGE_SUCCESSFUL = 'Exchange of letters successful!';
@@ -292,7 +295,8 @@ module.exports = {
   NOTIFICATION_EXCHANGE_SUCCESSFUL: NOTIFICATION_EXCHANGE_SUCCESSFUL,
   NOTIFICATION_DUPLICATE_NAME: NOTIFICATION_DUPLICATE_NAME,
   NOTIFICATION_INCOMPLETE_DETAILS: NOTIFICATION_INCOMPLETE_DETAILS,
-  NOTIFICATION_SAME_NAME_SELECTED: NOTIFICATION_SAME_NAME_SELECTED
+  NOTIFICATION_SAME_NAME_SELECTED: NOTIFICATION_SAME_NAME_SELECTED,
+  PUSHER_GAME_STOP_EVENT: PUSHER_GAME_STOP_EVENT
 };
 
 /***/ }),
@@ -303,8 +307,8 @@ module.exports = {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("react");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_styled_jsx_style__ = __webpack_require__("styled-jsx/style");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__("axios");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js__ = __webpack_require__("pusher-js");
@@ -317,7 +321,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__constants_endpoints___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__constants_endpoints__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_credentials__ = __webpack_require__("./constants/credentials.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_credentials___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__constants_credentials__);
-var _jsxFileName = "E:\\iceBreaker\\pages\\admin.js";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react__ = __webpack_require__("react");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_react__);
+var _jsxFileName = "D:\\iceBreaker\\pages\\admin.js";
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -333,6 +339,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 
 
 
@@ -382,6 +389,25 @@ function (_Page) {
         });
       }
     });
+    Object.defineProperty(_assertThisInitialized(_this), "stopGame", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        __WEBPACK_IMPORTED_MODULE_1_axios___default()({
+          method: 'post',
+          url: __WEBPACK_IMPORTED_MODULE_6__constants_endpoints___default.a.API_STOP_GAME,
+          data: {
+            password: _this.state.password
+          }
+        }).then(function (response) {
+          console.log('Got start game result ' + response.data.success);
+        }).catch(function (response) {
+          //handle error
+          console.log(response);
+        });
+      }
+    });
     _this.state = {
       password: ''
     };
@@ -391,39 +417,64 @@ function (_Page) {
   _createClass(_default, [{
     key: "render",
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_Layout_js__["a" /* default */], {
+      return __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_Layout_js__["a" /* default */], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 41
+          lineNumber: 57
         }
-      }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", {
-        className: "form-group",
+      }, __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement("div", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 42
-        }
-      }, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", {
+          lineNumber: 58
+        },
+        className: "jsx-3391191918" + " " + "form-group"
+      }, __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement("label", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 43
-        }
-      }, "Password"), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+          lineNumber: 59
+        },
+        className: "jsx-3391191918"
+      }, "Password"), __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement("input", {
         onChange: this.handlePasswordChange,
-        className: "form-control",
         name: "name",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 44
-        }
-      })), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("button", {
-        onClick: this.startGame,
-        type: "submit",
-        className: "btn btn-primary",
+          lineNumber: 60
+        },
+        className: "jsx-3391191918" + " " + "form-control"
+      })), __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement("div", {
+        id: "start-button",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 46
-        }
-      }, "Start Game"));
+          lineNumber: 62
+        },
+        className: "jsx-3391191918"
+      }, __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement("button", {
+        onClick: this.startGame,
+        type: "submit",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 63
+        },
+        className: "jsx-3391191918" + " " + "btn btn-primary"
+      }, "Start Game")), __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement("div", {
+        id: "stop-button",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 65
+        },
+        className: "jsx-3391191918"
+      }, __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement("button", {
+        onClick: this.stopGame,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 66
+        },
+        className: "jsx-3391191918" + " " + "btn btn-danger"
+      }, "Stop Game")), __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default.a, {
+        styleId: "3391191918",
+        css: "#start-button.jsx-3391191918{margin-bottom:15px;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxhZG1pbi5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFtRTRCLEFBRzRDLG1CQUN2QiIsImZpbGUiOiJwYWdlc1xcYWRtaW4uanMiLCJzb3VyY2VSb290IjoiRDpcXGljZUJyZWFrZXIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgYXhpb3MgZnJvbSBcImF4aW9zXCI7XHJcbmltcG9ydCBQdXNoZXIgZnJvbSBcInB1c2hlci1qc1wiO1xyXG5pbXBvcnQgUGFnZSBmcm9tICcuLi9jb21wb25lbnRzL1BhZ2UnO1xyXG5pbXBvcnQgc3RyaW5ncyBmcm9tIFwiLi4vY29uc3RhbnRzL3N0cmluZ3NcIjtcclxuaW1wb3J0IExheW91dCBmcm9tICcuLi9jb21wb25lbnRzL0xheW91dC5qcydcclxuaW1wb3J0IGVuZHBvaW50cyBmcm9tIFwiLi4vY29uc3RhbnRzL2VuZHBvaW50c1wiO1xyXG5pbXBvcnQgY3JlZGVudGlhbHMgZnJvbSBcIi4uL2NvbnN0YW50cy9jcmVkZW50aWFsc1wiO1xyXG5pbXBvcnQgUmVhY3QgZnJvbSBcInJlYWN0XCI7XHJcblxyXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBleHRlbmRzIFBhZ2V7XHJcblxyXG4gICAgY29uc3RydWN0b3IoKXtcclxuICAgICAgICBzdXBlcigpXHJcbiAgICAgICAgdGhpcy5zdGF0ZSA9IHtcclxuICAgICAgICAgICAgcGFzc3dvcmQ6JydcclxuICAgICAgICB9XHJcbiAgICB9XHJcblxyXG4gICAgaGFuZGxlUGFzc3dvcmRDaGFuZ2UgPSAoZSkgPT4ge1xyXG4gICAgICAgIHRoaXMuc2V0U3RhdGUoe1xyXG4gICAgICAgICAgICBwYXNzd29yZDogZS50YXJnZXQudmFsdWVcclxuICAgICAgICB9KVxyXG4gICAgfVxyXG5cclxuICAgIHN0YXJ0R2FtZSA9ICgpID0+IHtcclxuICAgICAgICBheGlvcyh7XHJcbiAgICAgICAgICAgIG1ldGhvZDogJ3Bvc3QnLFxyXG4gICAgICAgICAgICB1cmw6IGVuZHBvaW50cy5BUElfU1RBUlRfR0FNRSxcclxuICAgICAgICAgICAgZGF0YToge3Bhc3N3b3JkOiB0aGlzLnN0YXRlLnBhc3N3b3JkfVxyXG4gICAgICAgIH0pXHJcbiAgICAgICAgLnRoZW4oKHJlc3BvbnNlKSA9PiB7XHJcbiAgICAgICAgICAgIGNvbnNvbGUubG9nKCdHb3Qgc3RhcnQgZ2FtZSByZXN1bHQgJytyZXNwb25zZS5kYXRhLnN1Y2Nlc3MpXHJcbiAgICAgICAgfSlcclxuICAgICAgICAuY2F0Y2goZnVuY3Rpb24gKHJlc3BvbnNlKSB7XHJcbiAgICAgICAgICAgIC8vaGFuZGxlIGVycm9yXHJcbiAgICAgICAgICAgIGNvbnNvbGUubG9nKHJlc3BvbnNlKTtcclxuICAgICAgICB9KTtcclxuICAgIH1cclxuXHJcbiAgICBzdG9wR2FtZSA9ICgpID0+IHtcclxuICAgICAgICBheGlvcyh7XHJcbiAgICAgICAgICAgIG1ldGhvZDogJ3Bvc3QnLFxyXG4gICAgICAgICAgICB1cmw6IGVuZHBvaW50cy5BUElfU1RPUF9HQU1FLFxyXG4gICAgICAgICAgICBkYXRhOiB7cGFzc3dvcmQ6IHRoaXMuc3RhdGUucGFzc3dvcmR9XHJcbiAgICAgICAgfSlcclxuICAgICAgICAudGhlbigocmVzcG9uc2UpID0+IHtcclxuICAgICAgICAgICAgY29uc29sZS5sb2coJ0dvdCBzdGFydCBnYW1lIHJlc3VsdCAnK3Jlc3BvbnNlLmRhdGEuc3VjY2VzcylcclxuICAgICAgICB9KVxyXG4gICAgICAgIC5jYXRjaChmdW5jdGlvbiAocmVzcG9uc2UpIHtcclxuICAgICAgICAgICAgLy9oYW5kbGUgZXJyb3JcclxuICAgICAgICAgICAgY29uc29sZS5sb2cocmVzcG9uc2UpO1xyXG4gICAgICAgIH0pO1xyXG4gICAgfVxyXG5cclxuICAgIHJlbmRlcigpe1xyXG4gICAgICAgIHJldHVybihcclxuICAgICAgICAgICAgPExheW91dD5cclxuICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZm9ybS1ncm91cFwiPlxyXG4gICAgICAgICAgICAgICAgICAgIDxsYWJlbD5QYXNzd29yZDwvbGFiZWw+XHJcbiAgICAgICAgICAgICAgICAgICAgPGlucHV0IG9uQ2hhbmdlPXt0aGlzLmhhbmRsZVBhc3N3b3JkQ2hhbmdlfSBjbGFzc05hbWU9XCJmb3JtLWNvbnRyb2xcIiBuYW1lPVwibmFtZVwiLz5cclxuICAgICAgICAgICAgICAgIDwvZGl2PlxyXG4gICAgICAgICAgICAgICAgPGRpdiBpZD0nc3RhcnQtYnV0dG9uJz5cclxuICAgICAgICAgICAgICAgICAgICA8YnV0dG9uIG9uQ2xpY2s9e3RoaXMuc3RhcnRHYW1lfSB0eXBlPVwic3VibWl0XCIgY2xhc3NOYW1lPVwiYnRuIGJ0bi1wcmltYXJ5XCI+U3RhcnQgR2FtZTwvYnV0dG9uPlxyXG4gICAgICAgICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgICAgICAgICA8ZGl2IGlkPSdzdG9wLWJ1dHRvbic+XHJcbiAgICAgICAgICAgICAgICAgICAgPGJ1dHRvbiBvbkNsaWNrPXt0aGlzLnN0b3BHYW1lfSBjbGFzc05hbWU9XCJidG4gYnRuLWRhbmdlclwiPlN0b3AgR2FtZTwvYnV0dG9uPlxyXG4gICAgICAgICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgICAgICAgICA8c3R5bGUganN4PntgXHJcbiAgICAgICAgICAgICAgICAgICAgI3N0YXJ0LWJ1dHRvbiB7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIG1hcmdpbi1ib3R0b206IDE1cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgYH08L3N0eWxlPlxyXG4gICAgICAgICAgICA8L0xheW91dD5cclxuICAgICAgICApXHJcbiAgICB9XHJcbn0iXX0= */\n/*@ sourceURL=pages\\admin.js */"
+      }));
     }
   }]);
 
@@ -481,6 +532,13 @@ module.exports = require("react-notify-toast");
 /***/ (function(module, exports) {
 
 module.exports = require("reactstrap");
+
+/***/ }),
+
+/***/ "styled-jsx/style":
+/***/ (function(module, exports) {
+
+module.exports = require("styled-jsx/style");
 
 /***/ })
 

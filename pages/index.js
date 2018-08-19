@@ -102,6 +102,11 @@ export default class extends Page {
                     text: config.NOTIFICATION_TEXT_COLOR
                 });
         });
+
+        this.channel.bind(strings.PUSHER_GAME_STOP_EVENT, () => {
+            window.alert("Game has been forcefully stopped by game master")
+            window.location.href = '/'
+        });
     }
 
     checkGameState = () => {
