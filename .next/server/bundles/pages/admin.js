@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -276,7 +276,10 @@ var PUSHER_NEW_EXCHANGE_RESPONSE_EVENT = 'new-exchange-response';
 var EXCHANGE_COMPLETED_EVENT = 'exchange-completed';
 var NOTIFICATION_GAME_BEGUN = 'Game has begun!';
 var NOTIFICATION_WRONG_DETAILS = 'You have entered the wrong details! Please try again!';
-var NOTIFICATION_EXCHANGE_SUCCESSFUL = 'Exchange of letters succeeded!';
+var NOTIFICATION_EXCHANGE_SUCCESSFUL = 'Exchange of letters successful!';
+var NOTIFICATION_DUPLICATE_NAME = 'Name has already been taken! Please choose another one!';
+var NOTIFICATION_INCOMPLETE_DETAILS = 'Please fill in all details!';
+var NOTIFICATION_SAME_NAME_SELECTED = 'You are not allowed to exchange with yourself!';
 module.exports = {
   PUSHER_CHANNEL: PUSHER_CHANNEL,
   PUSHER_USER_LIST_UPDATE_EVENT: PUSHER_USER_LIST_UPDATE_EVENT,
@@ -286,7 +289,10 @@ module.exports = {
   PUSHER_GAME_START_EVENT: PUSHER_GAME_START_EVENT,
   NOTIFICATION_GAME_BEGUN: NOTIFICATION_GAME_BEGUN,
   NOTIFICATION_WRONG_DETAILS: NOTIFICATION_WRONG_DETAILS,
-  NOTIFICATION_EXCHANGE_SUCCESSFUL: NOTIFICATION_EXCHANGE_SUCCESSFUL
+  NOTIFICATION_EXCHANGE_SUCCESSFUL: NOTIFICATION_EXCHANGE_SUCCESSFUL,
+  NOTIFICATION_DUPLICATE_NAME: NOTIFICATION_DUPLICATE_NAME,
+  NOTIFICATION_INCOMPLETE_DETAILS: NOTIFICATION_INCOMPLETE_DETAILS,
+  NOTIFICATION_SAME_NAME_SELECTED: NOTIFICATION_SAME_NAME_SELECTED
 };
 
 /***/ }),
@@ -428,7 +434,7 @@ function (_Page) {
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("./pages/admin.js");

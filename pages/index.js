@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React from "react";
 import Pusher from 'pusher-js';
+import config from '../constants/config'
 import utils from '../utils/utils'
 import Page from '../components/Page';
 import SignIn from "../components/SignIn"
@@ -71,7 +72,13 @@ export default class extends Page {
 
         this.channel.bind(strings.EXCHANGE_COMPLETED_EVENT, (data) => {
             if(data.request_user == this.state.userName){
-                notify.show(strings.NOTIFICATION_EXCHANGE_SUCCESSFUL, "custom", 5000, { background: '#0E1717', text: "#FFFFFF" });
+                notify.show(
+                    strings.NOTIFICATION_EXCHANGE_SUCCESSFUL,
+                    config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
+                    {
+                        background: config.NOTIFICATION_BACKGROUND_COLOR,
+                        text: config.NOTIFICATION_TEXT_COLOR
+                    });
                 console.log("Exchange request has completed: "+JSON.stringify(data))
                 console.log("Letters assigned are now "+this.state.lettersAssigned)
                 this.setState({
@@ -87,7 +94,13 @@ export default class extends Page {
                 isWaitingForGameToStart: false
             })
             this.retrieveAllGameInformation()
-            notify.show(strings.NOTIFICATION_GAME_BEGUN, "custom", 5000, { background: '#0E1717', text: "#FFFFFF" });
+            notify.show(
+                strings.NOTIFICATION_GAME_BEGUN,
+                config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
+                {
+                    background: config.NOTIFICATION_BACKGROUND_COLOR,
+                    text: config.NOTIFICATION_TEXT_COLOR
+                });
         });
     }
 
@@ -140,18 +153,34 @@ export default class extends Page {
     }
 
     onExchangeResponseSubmitSuccess = () => {
-        notify.show(strings.NOTIFICATION_EXCHANGE_SUCCESSFUL, "custom", 5000, { background: '#0E1717', text: "#FFFFFF" });
+        notify.show(
+            strings.NOTIFICATION_EXCHANGE_SUCCESSFUL,
+            config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
+            {
+                background: config.NOTIFICATION_BACKGROUND_COLOR,
+                text: config.NOTIFICATION_TEXT_COLOR
+            });
         this.setState({
             isVerifyingForCounterParty: false
         })
         this.retriveLetters()
     }
 
-    onClick = (e) => {
-        console.log("Setting user selected to "+e.target.id)
-        this.setState({
-            userSelected: this.state.activeUsers[e.target.id]
-        })
+    onUserSelected = (e) => {
+        if(this.state.activeUsers[e.target.id] === this.state.userName)
+            notify.show(
+                strings.NOTIFICATION_SAME_NAME_SELECTED,
+                config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
+                {
+                    background: config.NOTIFICATION_BACKGROUND_COLOR,
+                    text: config.NOTIFICATION_TEXT_COLOR
+                });
+        else {
+            console.log("Setting user selected to " + e.target.id)
+            this.setState({
+                userSelected: this.state.activeUsers[e.target.id]
+            })
+        }
     }
 
     retriveLetters = () => {
@@ -226,7 +255,15 @@ export default class extends Page {
                 this.setState({
                     signedIn: true
                 })
-                console.log("Signed in successful")
+            else
+                notify.show(
+                    response.data.message,
+                    config.NOTIFICATION_TYPE,
+                    config.NOTIFICATION_TIMEOUT,
+                    {
+                        background: config.NOTIFICATION_BACKGROUND_COLOR,
+                        text: config.NOTIFICATION_TEXT_COLOR
+                    });
         })
         .catch(function (response) {
             //handle error
@@ -280,7 +317,7 @@ export default class extends Page {
                             <nav id="spy">
                                 <ul className="sidebar-nav nav">
                                     {this.state.activeUsers.map((user,index) => {
-                                        return <li id={index} className="sidebar-brand" onClick={this.onClick}>{user}</li>
+                                        return <li id={index} className="sidebar-brand" onClick={this.onUserSelected}>{user}</li>
                                     })}
                                 </ul>
                             </nav>

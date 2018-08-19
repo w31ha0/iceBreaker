@@ -105,14 +105,17 @@ nextApp
                 req.session.user = user
                 req.session.cookie.maxAge = new Date(Date.now() + config.COOKIE_DURATION)
                 req.session.save()
-                allUsers.push(user)
-                allCharacters += user.name
-                console.log("All characters are now " + allCharacters)
-                res.json({result: 1})
-                pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
+                if (!allUsers.filter(function(savedUser) { return savedUser.name === user.name; }).length > 0) {
+                    allUsers.push(user)
+                    allCharacters += user.name
+                    console.log("All characters are now " + allCharacters)
+                    res.json({result: 1})
+                    pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
+                }else
+                    res.json({result: 0, message: strings.NOTIFICATION_DUPLICATE_NAME})
             }
             else
-                res.json({result: 0})
+                res.json({result: 0, message: strings.NOTIFICATION_INCOMPLETE_DETAILS})
         })
 
         expressApp.post(endpoints.API_GET_SESSION,function(req,res){

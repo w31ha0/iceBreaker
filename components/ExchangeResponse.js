@@ -4,6 +4,7 @@ import Exchange from './Exchange'
 import endpoints from "../constants/endpoints";
 import {notify} from "react-notify-toast";
 import strings from "../constants/strings";
+import config from "../constants/config";
 
 export default class extends Exchange{
 
@@ -28,7 +29,14 @@ export default class extends Exchange{
             if(response.data.success == 1)
                 this.props.onExchangeResponseSubmitSuccess()
             else
-                notify.show(strings.NOTIFICATION_WRONG_DETAILS, "custom", 5000, { background: '#0E1717', text: "#FFFFFF" });
+                notify.show(
+                    strings.NOTIFICATION_WRONG_DETAILS,
+                    config.NOTIFICATION_TYPE,
+                    config.NOTIFICATION_TIMEOUT,
+                    {
+                        background: config.NOTIFICATION_BACKGROUND_COLOR,
+                        text: config.NOTIFICATION_TEXT_COLOR
+                    });
         })
         .catch(function (response) {
             //handle error
