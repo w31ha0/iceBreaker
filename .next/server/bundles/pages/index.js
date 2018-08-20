@@ -494,7 +494,7 @@ function (_React$Component) {
 
       return external__react__default.a.createElement("div", null, external__react__default.a.createElement("div", {
         className: "form-group"
-      }, external__react__default.a.createElement("label", null, "Fill in your details to begin the game.")), external__react__default.a.createElement("div", {
+      }, external__react__default.a.createElement("label", null, "Fill in your details to join the game.")), external__react__default.a.createElement("div", {
         className: "form-group"
       }, external__react__default.a.createElement("label", null, "Name"), external__react__default.a.createElement("input", {
         onChange: this.handleNameChange,
@@ -732,29 +732,36 @@ function (_React$Component) {
       var _this2 = this;
 
       return external__react__default.a.createElement("div", {
-        className: "jsx-3311417547"
+        className: "jsx-4194456073"
       }, external__react__default.a.createElement("div", {
+        id: "instructions2",
+        className: "jsx-4194456073" + " " + "form-group"
+      }, external__react__default.a.createElement("label", {
+        className: "jsx-4194456073"
+      }, "Select a player on the left whom you want to exchange letter with.")), external__react__default.a.createElement("div", {
         id: "instructions",
-        className: "jsx-3311417547"
-      }, "Use the letters below to form your username: ", this.props.userName), external__react__default.a.createElement("div", {
-        className: "jsx-3311417547"
+        className: "jsx-4194456073" + " " + "form-group"
+      }, external__react__default.a.createElement("label", {
+        className: "jsx-4194456073"
+      }, "To complete the game, click on the blue boxes below to form your username: ", this.props.userName)), external__react__default.a.createElement("div", {
+        className: "jsx-4194456073"
       }, this.state.lettersUsed.join(' '), external__react__default.a.createElement("button", {
         id: "cancel-btn",
         onClick: this.removeOneCharFromLettersUsed,
-        className: "jsx-3311417547" + " " + "btn btn-light"
+        className: "jsx-4194456073" + " " + "btn btn-light"
       }, "C")), external__react__default.a.createElement("div", {
         id: "letters-available",
-        className: "jsx-3311417547"
+        className: "jsx-4194456073"
       }, this.state.lettersAvailable.map(function (letter, index) {
         return external__react__default.a.createElement("button", {
           id: "letter-available",
           value: index,
           onClick: _this2.handleLetterSelected,
-          className: "jsx-3311417547" + " " + "btn btn-primary"
+          className: "jsx-4194456073" + " " + "btn btn-primary"
         }, letter);
       })), external__react__default.a.createElement(style__default.a, {
-        styleId: "3311417547",
-        css: ["#cancel-btn.jsx-3311417547{margin-left:20px;margin-bottom:20px;}", "#letters-available.jsx-3311417547{margin-bottom:20px;}", "#letter-available.jsx-3311417547{margin:5px;}", "#instructions.jsx-3311417547{margin-bottom:15px;}"]
+        styleId: "4194456073",
+        css: ["#cancel-btn.jsx-4194456073{margin-left:20px;margin-bottom:20px;}", "#letters-available.jsx-4194456073{margin-bottom:20px;}", "#letter-available.jsx-4194456073{margin:5px;}", "#instructions.jsx-4194456073{margin-bottom:15px;}", "#instructions2.jsx-4194456073{margin-bottom:15px;}"]
       }));
     }
   }]);
@@ -1506,7 +1513,7 @@ function (_Page) {
     _this.state = {
       userName: "",
       activeUsers: ["LEW WEI HAO", "TAN YI KAN"],
-      lettersAssigned: [],
+      lettersAssigned: ["A", "B", "C"],
       userSelected: '',
       isWaitingForCounterPartyToVerify: false,
       isVerifyingForCounterParty: false,
@@ -1611,7 +1618,7 @@ function (_Page) {
         className: "jsx-2479897932" + " " + "form-group"
       }, external__react__default.a.createElement("label", {
         className: "jsx-2479897932"
-      }, "Fill in the details of the player you would like to exchange with.")), external__react__default.a.createElement(ExchangeRequest__default, {
+      }, "Fill in the details of the player you would like to exchange with below.")), external__react__default.a.createElement(ExchangeRequest__default, {
         targetUser: this.state.userSelected,
         userName: this.state.userName,
         onExchangeRequestSubmitSuccess: this.onExchangeRequestSubmitSuccess,

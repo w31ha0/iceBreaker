@@ -9,15 +9,10 @@
       <change beforePath="$PROJECT_DIR$/.next/BUILD_ID" beforeDir="false" afterPath="$PROJECT_DIR$/.next/BUILD_ID" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.next/build-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/.next/build-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.next/bundles/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/bundles/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/bundles/pages/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/bundles/pages/admin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.next/server/bundles/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/bundles/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ExchangeRequest.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/ExchangeRequest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants/endpoints.js" beforeDir="false" afterPath="$PROJECT_DIR$/constants/endpoints.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants/strings.js" beforeDir="false" afterPath="$PROJECT_DIR$/constants/strings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/LettersComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/LettersComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/SignIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/SignIn.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/utils.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -87,40 +82,73 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="env" value="1" />
-          <entry key="js" value="58" />
+          <entry key="js" value="61" />
           <entry key="json" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JSON" value="5" />
-          <entry key="JavaScript" value="58" />
+          <entry key="JavaScript" value="61" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="4042" />
+          <entry key="js" value="4569" />
           <entry key="json" value="113" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="113" />
-          <entry key="JavaScript" value="4042" />
+          <entry key="JavaScript" value="4569" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="147" column="13" selection-start-line="147" selection-start-column="13" selection-end-line="147" selection-end-column="13" />
+            <state relative-caret-position="208">
+              <caret line="356" column="107" selection-start-line="356" selection-start-column="99" selection-end-line="356" selection-end-column="107" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/components/SignIn.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="157">
+              <caret line="45" column="54" selection-start-line="45" selection-start-column="54" selection-end-line="45" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/components/LettersComponent.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="81" column="124" selection-start-line="81" selection-start-column="124" selection-end-line="81" selection-end-column="124" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/components/Exchange.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-431">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -166,31 +194,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/components/WaitingForVerification.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="94" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/constants/strings.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="357">
               <caret line="21" column="157" selection-start-line="21" selection-start-column="157" selection-end-line="21" selection-end-column="157" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/components/Layout.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="17" column="70" selection-start-line="17" selection-start-column="70" selection-end-line="17" selection-end-column="70" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -215,7 +222,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>PUSHER_NEW_EXCHANGE_REQUEST_EVENT</find>
       <find>exchangeRequest</find>
       <find>submitExchangeResponse</find>
       <find>credentials</find>
@@ -245,6 +251,7 @@
       <find>cancelEx</find>
       <find>this.exchangeReq</find>
       <find>notify.show</find>
+      <find>Fill in</find>
     </findStrings>
     <dirStrings>
       <dir>E:\iceBreaker\components</dir>
@@ -271,9 +278,7 @@
         <option value="$PROJECT_DIR$/utils/mongoUtils.js" />
         <option value="$PROJECT_DIR$/components/LoadingScreen.js" />
         <option value="$PROJECT_DIR$/pages/mainGame.js" />
-        <option value="$PROJECT_DIR$/components/LettersComponent.js" />
         <option value="$PROJECT_DIR$/data/dataSource.js" />
-        <option value="$PROJECT_DIR$/components/SignIn.js" />
         <option value="$PROJECT_DIR$/components/WaitingForVerification.js" />
         <option value="$PROJECT_DIR$/constants/config.js" />
         <option value="$PROJECT_DIR$/components/ExchangeResponse.js" />
@@ -288,6 +293,8 @@
         <option value="$PROJECT_DIR$/components/ExchangeRequest.js" />
         <option value="$PROJECT_DIR$/constants/strings.js" />
         <option value="$PROJECT_DIR$/pages/index.js" />
+        <option value="$PROJECT_DIR$/components/SignIn.js" />
+        <option value="$PROJECT_DIR$/components/LettersComponent.js" />
       </list>
     </option>
   </component>
@@ -410,12 +417,12 @@
       <workItem from="1534582907406" duration="16584000" />
       <workItem from="1534658333794" duration="5994000" />
       <workItem from="1534665812824" duration="3345000" />
-      <workItem from="1534774326922" duration="2114000" />
+      <workItem from="1534774326922" duration="3599000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99064000" />
+    <option name="totallyTimeSpent" value="100549000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -576,24 +583,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/SignIn.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="62" column="37" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/constants/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="20" column="96" selection-start-line="20" selection-start-column="96" selection-end-line="20" selection-end-column="96" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/LettersComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -608,13 +601,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="419">
           <caret line="67" selection-start-line="67" selection-end-line="71" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/Exchange.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
@@ -688,10 +674,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/components/Exchange.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-431">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pages/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="147" column="13" selection-start-line="147" selection-start-column="13" selection-end-line="147" selection-end-column="13" />
+        <state relative-caret-position="208">
+          <caret line="356" column="107" selection-start-line="356" selection-start-column="99" selection-end-line="356" selection-end-column="107" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/SignIn.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="45" column="54" selection-start-line="45" selection-start-column="54" selection-end-line="45" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/LettersComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="81" column="124" selection-start-line="81" selection-start-column="124" selection-end-line="81" selection-end-column="124" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>

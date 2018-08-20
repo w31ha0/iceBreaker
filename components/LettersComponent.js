@@ -75,8 +75,11 @@ export default class LetterComponent extends React.Component {
     render(){
         return(
             <div>
-                <div id="instructions">
-                    Use the letters below to form your username: {this.props.userName}
+                <div id="instructions2" className="form-group">
+                    <label>To complete the game, click on the blue boxes below to form your username: {this.props.userName}</label>
+                </div>
+                <div id="instructions" className="form-group">
+                    <label>To get the letters you need, click a player on the left to begin exchanging letters with him/her.</label>
                 </div>
                 <div>
                     {this.state.lettersUsed.join(' ')}
@@ -99,6 +102,9 @@ export default class LetterComponent extends React.Component {
                               margin: 5px;
                             }
                     #instructions {
+                              margin-bottom: 15px;
+                    }
+                    #instructions2 {
                               margin-bottom: 15px;
                     }
                 `}</style>

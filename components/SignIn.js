@@ -43,7 +43,7 @@ export default class extends React.Component {
         return(
             <div>
                 <div className="form-group">
-                    <label>Fill in your details to begin the game.</label>
+                    <label>Fill in your details below to join the game.</label>
                 </div>
                 <div className="form-group">
                     <label>Name</label>

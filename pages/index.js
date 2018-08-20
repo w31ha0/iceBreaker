@@ -23,7 +23,7 @@ export default class extends Page {
         this.state = {
             userName: "",
             activeUsers : ["LEW WEI HAO","TAN YI KAN"],
-            lettersAssigned: [],
+            lettersAssigned: ["A","B","C"],
             userSelected: '',
             isWaitingForCounterPartyToVerify: false,
             isVerifyingForCounterParty: false,
@@ -384,7 +384,7 @@ export default class extends Page {
                             <div className="page-content inset" data-spy="scroll" data-target="#spy">
                                 <LetterComponent userName={this.state.userName} lettersAssigned={this.state.lettersAssigned}/>
                                 <div style={{marginTop:'50px',marginBottom:'50px'}} className="form-group">
-                                    <label>Fill in the details of the player you would like to exchange with.</label>
+                                    <label>Fill in the details of the player you would like to exchange with below.</label>
                                 </div>
                                 <ExchangeRequest
                                     targetUser={this.state.userSelected}
