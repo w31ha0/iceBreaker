@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -80,10 +80,16 @@ module.exports = require("react");
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("axios");
+module.exports = require("react-notify-toast");
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 var API_LOGIN_USER = '/loginUser';
@@ -118,12 +124,6 @@ module.exports = {
 };
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-notify-toast");
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
@@ -131,6 +131,40 @@ module.exports = require("styled-jsx/style");
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports) {
+
+var DB_HOST = 'localhost';
+var DB_PORT = 27017;
+var DB_NAME = 'iceBreaker';
+var PROTOCOL = 'http';
+var HOST = 'localhost';
+var HOST_IP = '127.0.0.1';
+var PORT = 3000;
+var FULL_URI = PROTOCOL + '://' + HOST + ':' + PORT;
+var COOKIE_DURATION = 30 * 60 * 1000;
+var SESSION_SECRET = 'jakbgakegb545';
+var NOTIFICATION_TYPE = 'custom';
+var NOTIFICATION_TIMEOUT = 5000;
+var NOTIFICATION_BACKGROUND_COLOR = '#0E1717';
+var NOTIFICATION_TEXT_COLOR = '#FFFFFF';
+module.exports = {
+  DB_NAME: DB_NAME,
+  DB_PORT: DB_PORT,
+  DB_HOST: DB_HOST,
+  FULL_URI: FULL_URI,
+  HOST_IP: HOST_IP,
+  HOST: HOST,
+  PORT: PORT,
+  COOKIE_DURATION: COOKIE_DURATION,
+  SESSION_SECRET: SESSION_SECRET,
+  NOTIFICATION_TYPE: NOTIFICATION_TYPE,
+  NOTIFICATION_TIMEOUT: NOTIFICATION_TIMEOUT,
+  NOTIFICATION_BACKGROUND_COLOR: NOTIFICATION_BACKGROUND_COLOR,
+  NOTIFICATION_TEXT_COLOR: NOTIFICATION_TEXT_COLOR
+};
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports) {
 
 var PUSHER_CHANNEL = 'iceBreaker';
@@ -149,6 +183,10 @@ var NOTIFICATION_INCOMPLETE_DETAILS = 'Please fill in all details!';
 var NOTIFICATION_SAME_NAME_SELECTED = 'You are not allowed to exchange with yourself!';
 var NOTIFICATION_GAME_ALREADY_IN_PROGRESS = 'Game already in progress! Please wait to join the next session!';
 var NOTIFICATION_CANCEL_EXCHANGE = 'Exchange has been cancelled by the other party!';
+var NOTIFICATION_GAME_STARTED_SUCCESSFUL = 'Game has been started successfully!';
+var NOTIFICATION_GAME_STARTED_FAILED = 'Failed to start Game!';
+var NOTIFICATION_GAME_STOP_SUCCESSFUL = 'Game has been stopped successfully!';
+var NOTIFICATION_GAME_STOP_FAILED = 'Failed to stop Game!';
 module.exports = {
   PUSHER_CHANNEL: PUSHER_CHANNEL,
   PUSHER_USER_LIST_UPDATE_EVENT: PUSHER_USER_LIST_UPDATE_EVENT,
@@ -165,11 +203,15 @@ module.exports = {
   PUSHER_GAME_STOP_EVENT: PUSHER_GAME_STOP_EVENT,
   NOTIFICATION_GAME_ALREADY_IN_PROGRESS: NOTIFICATION_GAME_ALREADY_IN_PROGRESS,
   PUSHER_EXCHANGE_CANCELLED_EVENT: PUSHER_EXCHANGE_CANCELLED_EVENT,
-  NOTIFICATION_CANCEL_EXCHANGE: NOTIFICATION_CANCEL_EXCHANGE
+  NOTIFICATION_CANCEL_EXCHANGE: NOTIFICATION_CANCEL_EXCHANGE,
+  NOTIFICATION_GAME_STARTED_SUCCESSFUL: NOTIFICATION_GAME_STARTED_SUCCESSFUL,
+  NOTIFICATION_GAME_STARTED_FAILED: NOTIFICATION_GAME_STARTED_FAILED,
+  NOTIFICATION_GAME_STOP_SUCCESSFUL: NOTIFICATION_GAME_STOP_SUCCESSFUL,
+  NOTIFICATION_GAME_STOP_FAILED: NOTIFICATION_GAME_STOP_FAILED
 };
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -180,7 +222,7 @@ module.exports = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_head__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_reactstrap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -217,7 +259,7 @@ function (_React$Component) {
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_next_head___default.a, null, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("meta", {
         name: "viewport",
-        content: "width=device-width,height=device-height, initial-scale=2"
+        content: "width=device-width,height=device-height"
       }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("link", {
         rel: "stylesheet",
         href: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
@@ -239,12 +281,6 @@ function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-module.exports = require("pusher-js");
 
 /***/ }),
 /* 8 */
@@ -298,55 +334,6 @@ module.exports = require("reactstrap");
 /* 11 */
 /***/ (function(module, exports) {
 
-var PUSHER_APP_ID = '575034';
-var PUSHER_APP_KEY = '30d8dabc87d7db943336';
-var PUSHER_APP_SECRET = 'ed7e51b094c6d48e5475';
-var PUSHER_APP_CLUSTER = 'ap1';
-module.exports = {
-  PUSHER_APP_ID: PUSHER_APP_ID,
-  PUSHER_APP_KEY: PUSHER_APP_KEY,
-  PUSHER_APP_SECRET: PUSHER_APP_SECRET,
-  PUSHER_APP_CLUSTER: PUSHER_APP_CLUSTER
-};
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-var DB_HOST = 'localhost';
-var DB_PORT = 27017;
-var DB_NAME = 'iceBreaker';
-var PROTOCOL = 'http';
-var HOST = 'localhost';
-var HOST_IP = '127.0.0.1';
-var PORT = 3000;
-var FULL_URI = PROTOCOL + '://' + HOST + ':' + PORT;
-var COOKIE_DURATION = 30 * 60 * 1000;
-var SESSION_SECRET = 'jakbgakegb545';
-var NOTIFICATION_TYPE = 'custom';
-var NOTIFICATION_TIMEOUT = 5000;
-var NOTIFICATION_BACKGROUND_COLOR = '#0E1717';
-var NOTIFICATION_TEXT_COLOR = '#FFFFFF';
-module.exports = {
-  DB_NAME: DB_NAME,
-  DB_PORT: DB_PORT,
-  DB_HOST: DB_HOST,
-  FULL_URI: FULL_URI,
-  HOST_IP: HOST_IP,
-  HOST: HOST,
-  PORT: PORT,
-  COOKIE_DURATION: COOKIE_DURATION,
-  SESSION_SECRET: SESSION_SECRET,
-  NOTIFICATION_TYPE: NOTIFICATION_TYPE,
-  NOTIFICATION_TIMEOUT: NOTIFICATION_TIMEOUT,
-  NOTIFICATION_BACKGROUND_COLOR: NOTIFICATION_BACKGROUND_COLOR,
-  NOTIFICATION_TEXT_COLOR: NOTIFICATION_TEXT_COLOR
-};
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
 var FOOD_OPTIONS = ['hokkien mee', 'laksa', 'mee rebus'];
 var DESHU_OPTIONS = ['博A', '博B', '忍', '信', '公'];
 module.exports = {
@@ -355,23 +342,23 @@ module.exports = {
 };
 
 /***/ }),
-/* 14 */,
-/* 15 */,
-/* 16 */
+/* 12 */,
+/* 13 */,
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(17);
+module.exports = __webpack_require__(15);
 
 
 /***/ }),
-/* 17 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // EXTERNAL MODULE: external "@babel/runtime/regenerator"
-var regenerator_ = __webpack_require__(18);
+var regenerator_ = __webpack_require__(16);
 var regenerator__default = /*#__PURE__*/__webpack_require__.n(regenerator_);
 
 // EXTERNAL MODULE: external "styled-jsx/style"
@@ -379,7 +366,7 @@ var style_ = __webpack_require__(4);
 var style__default = /*#__PURE__*/__webpack_require__.n(style_);
 
 // EXTERNAL MODULE: external "axios"
-var external__axios_ = __webpack_require__(1);
+var external__axios_ = __webpack_require__(2);
 var external__axios__default = /*#__PURE__*/__webpack_require__.n(external__axios_);
 
 // EXTERNAL MODULE: external "react"
@@ -387,23 +374,27 @@ var external__react_ = __webpack_require__(0);
 var external__react__default = /*#__PURE__*/__webpack_require__.n(external__react_);
 
 // EXTERNAL MODULE: external "pusher-js"
-var external__pusher_js_ = __webpack_require__(7);
+var external__pusher_js_ = __webpack_require__(17);
 var external__pusher_js__default = /*#__PURE__*/__webpack_require__.n(external__pusher_js_);
 
 // EXTERNAL MODULE: ./utils/utils.js
-var utils = __webpack_require__(19);
+var utils = __webpack_require__(18);
 var utils_default = /*#__PURE__*/__webpack_require__.n(utils);
 
 // EXTERNAL MODULE: ./components/Page.js
 var Page = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./constants/config.js
-var config = __webpack_require__(12);
+var config = __webpack_require__(5);
 var config_default = /*#__PURE__*/__webpack_require__.n(config);
 
 // EXTERNAL MODULE: ./data/dataSource.js
-var dataSource = __webpack_require__(13);
+var dataSource = __webpack_require__(11);
 var dataSource_default = /*#__PURE__*/__webpack_require__.n(dataSource);
+
+// EXTERNAL MODULE: external "react-notify-toast"
+var external__react_notify_toast_ = __webpack_require__(1);
+var external__react_notify_toast__default = /*#__PURE__*/__webpack_require__.n(external__react_notify_toast_);
 
 // CONCATENATED MODULE: ./components/SignIn.js
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -419,6 +410,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 
 
 
@@ -494,7 +486,7 @@ function (_React$Component) {
 
       return external__react__default.a.createElement("div", null, external__react__default.a.createElement("div", {
         className: "form-group"
-      }, external__react__default.a.createElement("label", null, "Fill in your details to join the game.")), external__react__default.a.createElement("div", {
+      }, external__react__default.a.createElement("label", null, "Fill in your details below to join the game.")), external__react__default.a.createElement("div", {
         className: "form-group"
       }, external__react__default.a.createElement("label", null, "Name"), external__react__default.a.createElement("input", {
         onChange: this.handleNameChange,
@@ -551,22 +543,18 @@ function (_React$Component) {
 
 
 // EXTERNAL MODULE: ./constants/strings.js
-var strings = __webpack_require__(5);
+var strings = __webpack_require__(6);
 var strings_default = /*#__PURE__*/__webpack_require__.n(strings);
 
-// EXTERNAL MODULE: external "react-notify-toast"
-var external__react_notify_toast_ = __webpack_require__(3);
-var external__react_notify_toast__default = /*#__PURE__*/__webpack_require__.n(external__react_notify_toast_);
-
 // EXTERNAL MODULE: ./components/Layout.js
-var Layout = __webpack_require__(6);
+var Layout = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./constants/endpoints.js
-var endpoints = __webpack_require__(2);
+var endpoints = __webpack_require__(3);
 var endpoints_default = /*#__PURE__*/__webpack_require__.n(endpoints);
 
 // EXTERNAL MODULE: ./constants/credentials.js
-var credentials = __webpack_require__(11);
+var credentials = __webpack_require__(19);
 var credentials_default = /*#__PURE__*/__webpack_require__.n(credentials);
 
 // CONCATENATED MODULE: ./components/LoadingScreen.js
@@ -738,12 +726,12 @@ function (_React$Component) {
         className: "jsx-4194456073" + " " + "form-group"
       }, external__react__default.a.createElement("label", {
         className: "jsx-4194456073"
-      }, "Select a player on the left whom you want to exchange letter with.")), external__react__default.a.createElement("div", {
+      }, "To complete the game, click on the blue boxes below to form your username: ", this.props.userName)), external__react__default.a.createElement("div", {
         id: "instructions",
         className: "jsx-4194456073" + " " + "form-group"
       }, external__react__default.a.createElement("label", {
         className: "jsx-4194456073"
-      }, "To complete the game, click on the blue boxes below to form your username: ", this.props.userName)), external__react__default.a.createElement("div", {
+      }, "To get the letters you need, click a player on the left to begin exchanging letters with him/her.")), external__react__default.a.createElement("div", {
         className: "jsx-4194456073"
       }, this.state.lettersUsed.join(' '), external__react__default.a.createElement("button", {
         id: "cancel-btn",
@@ -1638,18 +1626,24 @@ function (_Page) {
 
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("@babel/runtime/regenerator");
 
 /***/ }),
-/* 19 */
+/* 17 */
+/***/ (function(module, exports) {
+
+module.exports = require("pusher-js");
+
+/***/ }),
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var axios = __webpack_require__(1);
+var axios = __webpack_require__(2);
 
-var endpoints = __webpack_require__(2);
+var endpoints = __webpack_require__(3);
 
 module.exports = {
   insertLetter: function insertLetter(lettersUsed, letterToInsert) {
@@ -1715,6 +1709,21 @@ module.exports = {
       console.log(response);
     });
   }
+};
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+var PUSHER_APP_ID = '575034';
+var PUSHER_APP_KEY = '30d8dabc87d7db943336';
+var PUSHER_APP_SECRET = 'ed7e51b094c6d48e5475';
+var PUSHER_APP_CLUSTER = 'ap1';
+module.exports = {
+  PUSHER_APP_ID: PUSHER_APP_ID,
+  PUSHER_APP_KEY: PUSHER_APP_KEY,
+  PUSHER_APP_SECRET: PUSHER_APP_SECRET,
+  PUSHER_APP_CLUSTER: PUSHER_APP_CLUSTER
 };
 
 /***/ })

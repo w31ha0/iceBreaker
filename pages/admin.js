@@ -1,11 +1,11 @@
 import axios from "axios";
-import Pusher from "pusher-js";
+import React from "react";
 import Page from '../components/Page';
-import strings from "../constants/strings";
 import Layout from '../components/Layout.js'
 import endpoints from "../constants/endpoints";
-import credentials from "../constants/credentials";
-import React from "react";
+import {notify} from "react-notify-toast";
+import config from "../constants/config";
+import strings from '../constants/strings'
 
 export default class extends Page{
 
@@ -30,9 +30,24 @@ export default class extends Page{
         })
         .then((response) => {
             console.log('Got start game result '+response.data.success)
+            notify.show(
+                strings.NOTIFICATION_GAME_STARTED_SUCCESSFUL,
+                config.NOTIFICATION_TYPE,
+                config.NOTIFICATION_TIMEOUT,
+                {
+                    background: config.NOTIFICATION_BACKGROUND_COLOR,
+                    text: config.NOTIFICATION_TEXT_COLOR
+                });
         })
         .catch(function (response) {
-            //handle error
+            notify.show(
+                strings.NOTIFICATION_GAME_STARTED_FAILED,
+                config.NOTIFICATION_TYPE,
+                config.NOTIFICATION_TIMEOUT,
+                {
+                    background: config.NOTIFICATION_BACKGROUND_COLOR,
+                    text: config.NOTIFICATION_TEXT_COLOR
+                });
             console.log(response);
         });
     }
@@ -45,9 +60,24 @@ export default class extends Page{
         })
         .then((response) => {
             console.log('Got start game result '+response.data.success)
+            notify.show(
+                strings.NOTIFICATION_GAME_STOP_SUCCESSFUL,
+                config.NOTIFICATION_TYPE,
+                config.NOTIFICATION_TIMEOUT,
+                {
+                    background: config.NOTIFICATION_BACKGROUND_COLOR,
+                    text: config.NOTIFICATION_TEXT_COLOR
+                });
         })
         .catch(function (response) {
-            //handle error
+            notify.show(
+                strings.NOTIFICATION_GAME_STOP_FAILED,
+                config.NOTIFICATION_TYPE,
+                config.NOTIFICATION_TIMEOUT,
+                {
+                    background: config.NOTIFICATION_BACKGROUND_COLOR,
+                    text: config.NOTIFICATION_TEXT_COLOR
+                });
             console.log(response);
         });
     }

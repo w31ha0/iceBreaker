@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -80,10 +80,16 @@ module.exports = require("react");
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("axios");
+module.exports = require("react-notify-toast");
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 var API_LOGIN_USER = '/loginUser';
@@ -118,12 +124,6 @@ module.exports = {
 };
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-notify-toast");
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
@@ -131,6 +131,40 @@ module.exports = require("styled-jsx/style");
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports) {
+
+var DB_HOST = 'localhost';
+var DB_PORT = 27017;
+var DB_NAME = 'iceBreaker';
+var PROTOCOL = 'http';
+var HOST = 'localhost';
+var HOST_IP = '127.0.0.1';
+var PORT = 3000;
+var FULL_URI = PROTOCOL + '://' + HOST + ':' + PORT;
+var COOKIE_DURATION = 30 * 60 * 1000;
+var SESSION_SECRET = 'jakbgakegb545';
+var NOTIFICATION_TYPE = 'custom';
+var NOTIFICATION_TIMEOUT = 5000;
+var NOTIFICATION_BACKGROUND_COLOR = '#0E1717';
+var NOTIFICATION_TEXT_COLOR = '#FFFFFF';
+module.exports = {
+  DB_NAME: DB_NAME,
+  DB_PORT: DB_PORT,
+  DB_HOST: DB_HOST,
+  FULL_URI: FULL_URI,
+  HOST_IP: HOST_IP,
+  HOST: HOST,
+  PORT: PORT,
+  COOKIE_DURATION: COOKIE_DURATION,
+  SESSION_SECRET: SESSION_SECRET,
+  NOTIFICATION_TYPE: NOTIFICATION_TYPE,
+  NOTIFICATION_TIMEOUT: NOTIFICATION_TIMEOUT,
+  NOTIFICATION_BACKGROUND_COLOR: NOTIFICATION_BACKGROUND_COLOR,
+  NOTIFICATION_TEXT_COLOR: NOTIFICATION_TEXT_COLOR
+};
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports) {
 
 var PUSHER_CHANNEL = 'iceBreaker';
@@ -149,6 +183,10 @@ var NOTIFICATION_INCOMPLETE_DETAILS = 'Please fill in all details!';
 var NOTIFICATION_SAME_NAME_SELECTED = 'You are not allowed to exchange with yourself!';
 var NOTIFICATION_GAME_ALREADY_IN_PROGRESS = 'Game already in progress! Please wait to join the next session!';
 var NOTIFICATION_CANCEL_EXCHANGE = 'Exchange has been cancelled by the other party!';
+var NOTIFICATION_GAME_STARTED_SUCCESSFUL = 'Game has been started successfully!';
+var NOTIFICATION_GAME_STARTED_FAILED = 'Failed to start Game!';
+var NOTIFICATION_GAME_STOP_SUCCESSFUL = 'Game has been stopped successfully!';
+var NOTIFICATION_GAME_STOP_FAILED = 'Failed to stop Game!';
 module.exports = {
   PUSHER_CHANNEL: PUSHER_CHANNEL,
   PUSHER_USER_LIST_UPDATE_EVENT: PUSHER_USER_LIST_UPDATE_EVENT,
@@ -165,11 +203,15 @@ module.exports = {
   PUSHER_GAME_STOP_EVENT: PUSHER_GAME_STOP_EVENT,
   NOTIFICATION_GAME_ALREADY_IN_PROGRESS: NOTIFICATION_GAME_ALREADY_IN_PROGRESS,
   PUSHER_EXCHANGE_CANCELLED_EVENT: PUSHER_EXCHANGE_CANCELLED_EVENT,
-  NOTIFICATION_CANCEL_EXCHANGE: NOTIFICATION_CANCEL_EXCHANGE
+  NOTIFICATION_CANCEL_EXCHANGE: NOTIFICATION_CANCEL_EXCHANGE,
+  NOTIFICATION_GAME_STARTED_SUCCESSFUL: NOTIFICATION_GAME_STARTED_SUCCESSFUL,
+  NOTIFICATION_GAME_STARTED_FAILED: NOTIFICATION_GAME_STARTED_FAILED,
+  NOTIFICATION_GAME_STOP_SUCCESSFUL: NOTIFICATION_GAME_STOP_SUCCESSFUL,
+  NOTIFICATION_GAME_STOP_FAILED: NOTIFICATION_GAME_STOP_FAILED
 };
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -180,7 +222,7 @@ module.exports = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_head__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_reactstrap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -217,7 +259,7 @@ function (_React$Component) {
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", null, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_next_head___default.a, null, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("meta", {
         name: "viewport",
-        content: "width=device-width,height=device-height, initial-scale=2"
+        content: "width=device-width,height=device-height"
       }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("link", {
         rel: "stylesheet",
         href: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
@@ -239,12 +281,6 @@ function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-module.exports = require("pusher-js");
 
 /***/ }),
 /* 8 */
@@ -295,31 +331,15 @@ module.exports = require("next/head");
 module.exports = require("reactstrap");
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-var PUSHER_APP_ID = '575034';
-var PUSHER_APP_KEY = '30d8dabc87d7db943336';
-var PUSHER_APP_SECRET = 'ed7e51b094c6d48e5475';
-var PUSHER_APP_CLUSTER = 'ap1';
-module.exports = {
-  PUSHER_APP_ID: PUSHER_APP_ID,
-  PUSHER_APP_KEY: PUSHER_APP_KEY,
-  PUSHER_APP_SECRET: PUSHER_APP_SECRET,
-  PUSHER_APP_CLUSTER: PUSHER_APP_CLUSTER
-};
-
-/***/ }),
-/* 12 */,
-/* 13 */,
-/* 14 */
+/* 11 */,
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(15);
+module.exports = __webpack_require__(13);
 
 
 /***/ }),
-/* 15 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -327,20 +347,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_styled_jsx_style__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_pusher_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Page__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_strings__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_strings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__constants_strings__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Layout_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__constants_endpoints__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__constants_endpoints___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__constants_endpoints__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_credentials__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_credentials___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__constants_credentials__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Layout_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_endpoints__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_endpoints___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__constants_endpoints__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_notify_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_notify_toast__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_config__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__constants_config__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__constants_strings__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__constants_strings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__constants_strings__);
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -394,14 +414,21 @@ function (_Page) {
       value: function value() {
         __WEBPACK_IMPORTED_MODULE_1_axios___default()({
           method: 'post',
-          url: __WEBPACK_IMPORTED_MODULE_6__constants_endpoints___default.a.API_START_GAME,
+          url: __WEBPACK_IMPORTED_MODULE_5__constants_endpoints___default.a.API_START_GAME,
           data: {
             password: _this.state.password
           }
         }).then(function (response) {
           console.log('Got start game result ' + response.data.success);
+          __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__["notify"].show(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.NOTIFICATION_GAME_STARTED_SUCCESSFUL, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TYPE, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TIMEOUT, {
+            background: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_BACKGROUND_COLOR,
+            text: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TEXT_COLOR
+          });
         }).catch(function (response) {
-          //handle error
+          __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__["notify"].show(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.NOTIFICATION_GAME_STARTED_FAILED, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TYPE, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TIMEOUT, {
+            background: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_BACKGROUND_COLOR,
+            text: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TEXT_COLOR
+          });
           console.log(response);
         });
       }
@@ -413,14 +440,21 @@ function (_Page) {
       value: function value() {
         __WEBPACK_IMPORTED_MODULE_1_axios___default()({
           method: 'post',
-          url: __WEBPACK_IMPORTED_MODULE_6__constants_endpoints___default.a.API_STOP_GAME,
+          url: __WEBPACK_IMPORTED_MODULE_5__constants_endpoints___default.a.API_STOP_GAME,
           data: {
             password: _this.state.password
           }
         }).then(function (response) {
           console.log('Got start game result ' + response.data.success);
+          __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__["notify"].show(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.NOTIFICATION_GAME_STOP_SUCCESSFUL, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TYPE, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TIMEOUT, {
+            background: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_BACKGROUND_COLOR,
+            text: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TEXT_COLOR
+          });
         }).catch(function (response) {
-          //handle error
+          __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__["notify"].show(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.NOTIFICATION_GAME_STOP_FAILED, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TYPE, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TIMEOUT, {
+            background: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_BACKGROUND_COLOR,
+            text: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TEXT_COLOR
+          });
           console.log(response);
         });
       }
@@ -434,28 +468,28 @@ function (_Page) {
   _createClass(_default, [{
     key: "render",
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__components_Layout_js__["a" /* default */], null, __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement("div", {
+      return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_Layout_js__["a" /* default */], null, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("div", {
         className: "jsx-3391191918" + " " + "form-group"
-      }, __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement("label", {
+      }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("label", {
         className: "jsx-3391191918"
-      }, "Password"), __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement("input", {
+      }, "Password"), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("input", {
         onChange: this.handlePasswordChange,
         name: "name",
         className: "jsx-3391191918" + " " + "form-control"
-      })), __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement("div", {
+      })), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("div", {
         id: "start-button",
         className: "jsx-3391191918"
-      }, __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement("button", {
+      }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("button", {
         onClick: this.startGame,
         type: "submit",
         className: "jsx-3391191918" + " " + "btn btn-primary"
-      }, "Start Game")), __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement("div", {
+      }, "Start Game")), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("div", {
         id: "stop-button",
         className: "jsx-3391191918"
-      }, __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement("button", {
+      }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("button", {
         onClick: this.stopGame,
         className: "jsx-3391191918" + " " + "btn btn-danger"
-      }, "Stop Game")), __WEBPACK_IMPORTED_MODULE_8_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default.a, {
+      }, "Stop Game")), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default.a, {
         styleId: "3391191918",
         css: ["#start-button.jsx-3391191918{margin-bottom:15px;}"]
       }));
