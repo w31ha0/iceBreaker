@@ -78,6 +78,20 @@ module.exports = {
                     reject(false)
             })
         })
+    },
+
+    cancelExchange(exchangeRequest){
+        axios({
+            method: 'post',
+            url: endpoints.API_CANCEL_EXCHANGE,
+            data: exchangeRequest
+        })
+        .then((response) => {
+        })
+        .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
     }
 
 }

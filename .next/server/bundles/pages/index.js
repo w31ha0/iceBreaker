@@ -99,6 +99,7 @@ var API_USER_COMPLETED_GAME = '/userCompletedGame';
 var API_CHECK_AUTHENTICATED = '/checkAuthenticated';
 var API_CHECK_GAME_STARTED = '/checkGameStarted';
 var API_STOP_GAME = '/stopGame';
+var API_CANCEL_EXCHANGE = '/cancelExchange';
 module.exports = {
   API_LOGIN_USER: API_LOGIN_USER,
   API_CHECK_SESSION_EXPIRED: API_CHECK_SESSION_EXPIRED,
@@ -112,7 +113,8 @@ module.exports = {
   API_USER_COMPLETED_GAME: API_USER_COMPLETED_GAME,
   API_CHECK_AUTHENTICATED: API_CHECK_AUTHENTICATED,
   API_CHECK_GAME_STARTED: API_CHECK_GAME_STARTED,
-  API_STOP_GAME: API_STOP_GAME
+  API_STOP_GAME: API_STOP_GAME,
+  API_CANCEL_EXCHANGE: API_CANCEL_EXCHANGE
 };
 
 /***/ }),
@@ -138,6 +140,7 @@ var PUSHER_NEW_EXCHANGE_REQUEST_EVENT = 'new-exchange-request';
 var PUSHER_NEW_EXCHANGE_RESPONSE_EVENT = 'new-exchange-response';
 var EXCHANGE_COMPLETED_EVENT = 'exchange-completed';
 var PUSHER_GAME_STOP_EVENT = 'game-stop';
+var PUSHER_EXCHANGE_CANCELLED_EVENT = 'cancel-exchange';
 var NOTIFICATION_GAME_BEGUN = 'Game has begun!';
 var NOTIFICATION_WRONG_DETAILS = 'You have entered the wrong details! Please try again!';
 var NOTIFICATION_EXCHANGE_SUCCESSFUL = 'Exchange of letters successful!';
@@ -145,6 +148,7 @@ var NOTIFICATION_DUPLICATE_NAME = 'Name has already been taken! Please choose an
 var NOTIFICATION_INCOMPLETE_DETAILS = 'Please fill in all details!';
 var NOTIFICATION_SAME_NAME_SELECTED = 'You are not allowed to exchange with yourself!';
 var NOTIFICATION_GAME_ALREADY_IN_PROGRESS = 'Game already in progress! Please wait to join the next session!';
+var NOTIFICATION_CANCEL_EXCHANGE = 'Exchange has been cancelled by the other party!';
 module.exports = {
   PUSHER_CHANNEL: PUSHER_CHANNEL,
   PUSHER_USER_LIST_UPDATE_EVENT: PUSHER_USER_LIST_UPDATE_EVENT,
@@ -159,7 +163,9 @@ module.exports = {
   NOTIFICATION_INCOMPLETE_DETAILS: NOTIFICATION_INCOMPLETE_DETAILS,
   NOTIFICATION_SAME_NAME_SELECTED: NOTIFICATION_SAME_NAME_SELECTED,
   PUSHER_GAME_STOP_EVENT: PUSHER_GAME_STOP_EVENT,
-  NOTIFICATION_GAME_ALREADY_IN_PROGRESS: NOTIFICATION_GAME_ALREADY_IN_PROGRESS
+  NOTIFICATION_GAME_ALREADY_IN_PROGRESS: NOTIFICATION_GAME_ALREADY_IN_PROGRESS,
+  PUSHER_EXCHANGE_CANCELLED_EVENT: PUSHER_EXCHANGE_CANCELLED_EVENT,
+  NOTIFICATION_CANCEL_EXCHANGE: NOTIFICATION_CANCEL_EXCHANGE
 };
 
 /***/ }),
@@ -989,7 +995,12 @@ function (_Exchange) {
           data: exchangeRequest
         }).then(function (response) {
           console.log('Response of ExchangeRequest: ' + JSON.stringify(response.data));
-          if (response.data.success == 1) _this.props.onExchangeRequestSubmitSuccess(_this.state.letterToExchange);else external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_WRONG_DETAILS, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
+
+          if (response.data.success == 1) {
+            _this.props.onExchangeRequestSubmitSuccess(_this.state.letterToExchange);
+
+            _this.props.updateExchangeRequest(exchangeRequest);
+          } else external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_WRONG_DETAILS, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
             background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
             text: config_default.a.NOTIFICATION_TEXT_COLOR
           });
@@ -1252,6 +1263,30 @@ function (_Page) {
             window.location.href = '/';
           }
         });
+
+        _this.channel.bind(strings_default.a.PUSHER_EXCHANGE_CANCELLED_EVENT, function (data) {
+          console.log("Received cancel request: " + JSON.stringify(data));
+
+          if (data.request_user == _this.state.userName && _this.state.isWaitingForCounterPartyToVerify) {
+            _this.setState({
+              isWaitingForCounterPartyToVerify: false
+            });
+
+            external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_CANCEL_EXCHANGE, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
+              background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
+              text: config_default.a.NOTIFICATION_TEXT_COLOR
+            });
+          } else if (data.respond_user == _this.state.userName && _this.state.isVerifyingForCounterParty) {
+            _this.setState({
+              isVerifyingForCounterParty: false
+            });
+
+            external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_CANCEL_EXCHANGE, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
+              background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
+              text: config_default.a.NOTIFICATION_TEXT_COLOR
+            });
+          }
+        });
       }
     });
     Object.defineProperty(pages__assertThisInitialized(_this), "checkGameState", {
@@ -1306,6 +1341,8 @@ function (_Page) {
         _this.setState({
           isWaitingForCounterPartyToVerify: false
         });
+
+        utils_default.a.cancelExchange(_this.exchangeRequest);
       }
     });
     Object.defineProperty(pages__assertThisInitialized(_this), "onExchangeRequestSubmitSuccess", {
@@ -1425,6 +1462,8 @@ function (_Page) {
         _this.setState({
           isVerifyingForCounterParty: false
         });
+
+        utils_default.a.cancelExchange(_this.exchangeRequest);
       }
     });
     Object.defineProperty(pages__assertThisInitialized(_this), "onSignIn", {
@@ -1454,6 +1493,14 @@ function (_Page) {
           //handle error
           console.log(response);
         });
+      }
+    });
+    Object.defineProperty(pages__assertThisInitialized(_this), "updateExchangeRequest", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(exchangeRequest) {
+        _this.exchangeRequest = exchangeRequest;
       }
     });
     _this.state = {
@@ -1569,7 +1616,8 @@ function (_Page) {
         userName: this.state.userName,
         onExchangeRequestSubmitSuccess: this.onExchangeRequestSubmitSuccess,
         userSelected: this.state.userSelected,
-        lettersAvailable: this.state.lettersAssigned
+        lettersAvailable: this.state.lettersAssigned,
+        updateExchangeRequest: this.updateExchangeRequest
       })))), external__react__default.a.createElement(style__default.a, {
         styleId: "2479897932",
         css: ["#wrapper.active.jsx-2479897932{padding-left:0;}", "#wrapper.active.jsx-2479897932 #sidebar-wrapper.jsx-2479897932{left:0;}", "#page-content-wrapper.jsx-2479897932{width:100%;}", ".sidebar-nav.jsx-2479897932 li.jsx-2479897932{line-height:40px;text-indent:20px;}", ".sidebar-nav.jsx-2479897932 li.jsx-2479897932 a.jsx-2479897932{color:#999999;display:block;-webkit-text-decoration:none;text-decoration:none;padding-left:60px;}", ".sidebar-nav.jsx-2479897932 li.jsx-2479897932 a.jsx-2479897932 span.jsx-2479897932:before{position:absolute;left:0;color:#41484c;text-align:center;width:20px;line-height:18px;}", ".sidebar-nav.jsx-2479897932 li.jsx-2479897932 a.jsx-2479897932:hover,.sidebar-nav.jsx-2479897932 li.active.jsx-2479897932{color:#fff;background:rgba(255,255,255,0.2);-webkit-text-decoration:none;text-decoration:none;}", ".sidebar-nav.jsx-2479897932 li.jsx-2479897932 a.jsx-2479897932:active,.sidebar-nav.jsx-2479897932 li.jsx-2479897932 a.jsx-2479897932:focus{-webkit-text-decoration:none;text-decoration:none;}", ".sidebar-nav.jsx-2479897932>.sidebar-brand.jsx-2479897932 a.jsx-2479897932{color:#999999;}", ".sidebar-nav.jsx-2479897932>.sidebar-brand.jsx-2479897932 a.jsx-2479897932:hover{color:#fff;background:none;}", ".inset.jsx-2479897932{padding:20px;}", "@media (min-width:1224px){#wrapper.jsx-2479897932{padding-left:250px;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;}#sidebar-wrapper.jsx-2479897932{margin-left:-250px;left:250px;width:250px;background:#000;position:fixed;height:100%;overflow-y:auto;z-index:1000;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;color:white;}.sidebar-nav.jsx-2479897932>.sidebar-brand.jsx-2479897932{height:65px;line-height:60px;font-size:18px;}.sidebar-nav.jsx-2479897932{position:absolute;top:0;width:250px;list-style:none;margin:0;padding:0;}}", "@media (max-width:1224px){#wrapper.jsx-2479897932{padding-left:100px;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;}#sidebar-wrapper.jsx-2479897932{margin-left:-100px;left:100px;width:100px;background:#000;position:fixed;height:100%;overflow-y:auto;z-index:1000;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;color:white;}.sidebar-nav.jsx-2479897932>.sidebar-brand.jsx-2479897932{height:65px;line-height:60px;font-size:10px;}.sidebar-nav.jsx-2479897932{position:absolute;top:0;width:100px;list-style:none;margin:0;padding:0;}}"]
@@ -1648,6 +1696,16 @@ module.exports = {
         console.log("filtered sessions " + JSON.stringify(filteredSessions));
         if (filteredSessions.length > 0) resolve(true);else reject(false);
       });
+    });
+  },
+  cancelExchange: function cancelExchange(exchangeRequest) {
+    axios({
+      method: 'post',
+      url: endpoints.API_CANCEL_EXCHANGE,
+      data: exchangeRequest
+    }).then(function (response) {}).catch(function (response) {
+      //handle error
+      console.log(response);
     });
   }
 };

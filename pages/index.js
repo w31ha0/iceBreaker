@@ -60,7 +60,7 @@ export default class extends Page {
         this.channel = this.pusher.subscribe(strings.PUSHER_CHANNEL);
 
         this.channel.bind(strings.PUSHER_USER_LIST_UPDATE_EVENT, (users) => {
-            console.log("Received new user list from Pusher: "+users)
+            console.log("Received new user list from Pusher: " + users)
             var newActiveUsers = users.map(user => user.name)
             this.setState({
                 activeUsers: newActiveUsers
@@ -68,8 +68,8 @@ export default class extends Page {
         });
 
         this.channel.bind(strings.PUSHER_NEW_EXCHANGE_REQUEST_EVENT, (exchangeRequest) => {
-            console.log("Received new exchange request: "+JSON.stringify(exchangeRequest))
-            if(exchangeRequest.respond_user == this.state.userName){
+            console.log("Received new exchange request: " + JSON.stringify(exchangeRequest))
+            if (exchangeRequest.respond_user == this.state.userName) {
                 console.log("Exchange request is for me.")
                 this.exchangeRequest = exchangeRequest
                 this.setState({
@@ -79,7 +79,7 @@ export default class extends Page {
         });
 
         this.channel.bind(strings.EXCHANGE_COMPLETED_EVENT, (data) => {
-            if(data.request_user == this.state.userName){
+            if (data.request_user == this.state.userName) {
                 notify.show(
                     strings.NOTIFICATION_EXCHANGE_SUCCESSFUL,
                     config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
@@ -87,8 +87,8 @@ export default class extends Page {
                         background: config.NOTIFICATION_BACKGROUND_COLOR,
                         text: config.NOTIFICATION_TEXT_COLOR
                     });
-                console.log("Exchange request has completed: "+JSON.stringify(data))
-                console.log("Letters assigned are now "+this.state.lettersAssigned)
+                console.log("Exchange request has completed: " + JSON.stringify(data))
+                console.log("Letters assigned are now " + this.state.lettersAssigned)
                 this.setState({
                     isWaitingForCounterPartyToVerify: false
                 })
@@ -97,7 +97,7 @@ export default class extends Page {
         });
 
         this.channel.bind(strings.PUSHER_GAME_START_EVENT, () => {
-            if(this.state.signedIn) {
+            if (this.state.signedIn) {
                 console.log("Game has started...loading main page...")
                 this.setState({
                     isWaitingForGameToStart: false
@@ -114,9 +114,37 @@ export default class extends Page {
         });
 
         this.channel.bind(strings.PUSHER_GAME_STOP_EVENT, () => {
-            if(this.state.signedIn){
+            if (this.state.signedIn) {
                 window.alert("Game has been forcefully stopped by game master")
                 window.location.href = '/'
+            }
+        });
+
+        this.channel.bind(strings.PUSHER_EXCHANGE_CANCELLED_EVENT, (data) => {
+            console.log("Received cancel request: "+JSON.stringify(data))
+            if (data.request_user == this.state.userName && this.state.isWaitingForCounterPartyToVerify) {
+                this.setState({
+                    isWaitingForCounterPartyToVerify: false
+                })
+                notify.show(
+                    strings.NOTIFICATION_CANCEL_EXCHANGE,
+                    config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
+                    {
+                        background: config.NOTIFICATION_BACKGROUND_COLOR,
+                        text: config.NOTIFICATION_TEXT_COLOR
+                    });
+            }
+            else if (data.respond_user == this.state.userName && this.state.isVerifyingForCounterParty) {
+                this.setState({
+                    isVerifyingForCounterParty: false
+                })
+                notify.show(
+                    strings.NOTIFICATION_CANCEL_EXCHANGE,
+                    config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
+                    {
+                        background: config.NOTIFICATION_BACKGROUND_COLOR,
+                        text: config.NOTIFICATION_TEXT_COLOR
+                    });
             }
         });
     }
@@ -158,6 +186,7 @@ export default class extends Page {
         this.setState({
             isWaitingForCounterPartyToVerify: false
         })
+        utils.cancelExchange(this.exchangeRequest)
     }
 
     onExchangeRequestSubmitSuccess = (letterToGive) => {
@@ -256,6 +285,7 @@ export default class extends Page {
         this.setState({
             isVerifyingForCounterParty: false
         })
+        utils.cancelExchange(this.exchangeRequest)
     }
 
     onSignIn = (name,birthday,favouriteFood,deshu) => {
@@ -290,6 +320,10 @@ export default class extends Page {
             //handle error
             console.log(response);
         });
+    }
+
+    updateExchangeRequest = (exchangeRequest) => {
+        this.exchangeRequest = exchangeRequest
     }
 
     render(){
@@ -357,7 +391,8 @@ export default class extends Page {
                                     userName={this.state.userName}
                                     onExchangeRequestSubmitSuccess={this.onExchangeRequestSubmitSuccess}
                                     userSelected={this.state.userSelected}
-                                    lettersAvailable={this.state.lettersAssigned}/>
+                                    lettersAvailable={this.state.lettersAssigned}
+                                    updateExchangeRequest={this.updateExchangeRequest}/>
                             </div>
                         </div>
                     </div>

@@ -44,6 +44,11 @@ nextApp
 
         //mongoose.connect('mongodb://'+config.DB_HOST+':'+config.DB_PORT+'/'+config.DB_NAME);
 
+        expressApp.post(endpoints.API_CANCEL_EXCHANGE,function(req,res){
+            console.log("Received cancel exchange request: "+JSON.stringify(req.body))
+            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_EXCHANGE_CANCELLED_EVENT, req.body);
+        })
+
         expressApp.post(endpoints.API_CHECK_GAME_STARTED,function (req,res) {
             res.json({result: gameStarted?1:0})
         })

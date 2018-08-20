@@ -25,8 +25,10 @@ export default class extends Exchange{
         })
         .then((response) => {
             console.log('Response of ExchangeRequest: '+JSON.stringify(response.data))
-            if(response.data.success == 1)
+            if(response.data.success == 1) {
                 this.props.onExchangeRequestSubmitSuccess(this.state.letterToExchange)
+                this.props.updateExchangeRequest(exchangeRequest)
+            }
             else
                 notify.show(
                     strings.NOTIFICATION_WRONG_DETAILS,
