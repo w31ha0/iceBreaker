@@ -222,6 +222,9 @@ function (_React$Component) {
         href: "https://unpkg.com/react-tabs@2/style/react-tabs.css"
       }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("meta", {
         charSet: "utf-8"
+      }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("meta", {
+        name: "mobile-web-app-capable",
+        content: "yes"
       })), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_reactstrap__["Container"], null, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default.a, null), this.props.children));
     }
   }]);
@@ -1455,7 +1458,7 @@ function (_Page) {
     });
     _this.state = {
       userName: "",
-      activeUsers: [],
+      activeUsers: ["LEW WEI HAO", "TAN YI KAN"],
       lettersAssigned: [],
       userSelected: '',
       isWaitingForCounterPartyToVerify: false,
@@ -1480,10 +1483,18 @@ function (_Page) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                screen.orientation.lock('landscape');
                 this.setupPusher();
                 this.checkGameState();
+                /*
+                this.setState({
+                    signedIn: true,
+                    authenticationChecked: true,
+                    gameStartedChecked: true,
+                    isWaitingForGameToStart: false,
+                })*/
 
-              case 2:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -1520,28 +1531,28 @@ function (_Page) {
         className: "btn btn-danger"
       }, "Cancel")));else return external__react__default.a.createElement(Layout["a" /* default */], null, external__react__default.a.createElement("div", {
         id: "wrapper",
-        className: "jsx-282015899"
+        className: "jsx-2479897932"
       }, external__react__default.a.createElement("div", {
         id: "sidebar-wrapper",
-        className: "jsx-282015899"
+        className: "jsx-2479897932"
       }, external__react__default.a.createElement("nav", {
         id: "spy",
-        className: "jsx-282015899"
+        className: "jsx-2479897932"
       }, external__react__default.a.createElement("ul", {
-        className: "jsx-282015899" + " " + "sidebar-nav nav"
+        className: "jsx-2479897932" + " " + "sidebar-nav nav"
       }, this.state.activeUsers.map(function (user, index) {
         return external__react__default.a.createElement("li", {
           id: index,
           onClick: _this2.onUserSelected,
-          className: "jsx-282015899" + " " + "sidebar-brand"
+          className: "jsx-2479897932" + " " + "sidebar-brand"
         }, user);
       })))), external__react__default.a.createElement("div", {
         id: "page-content-wrapper",
-        className: "jsx-282015899"
+        className: "jsx-2479897932"
       }, external__react__default.a.createElement("div", {
         "data-spy": "scroll",
         "data-target": "#spy",
-        className: "jsx-282015899" + " " + "page-content inset"
+        className: "jsx-2479897932" + " " + "page-content inset"
       }, external__react__default.a.createElement(LettersComponent_LetterComponent, {
         userName: this.state.userName,
         lettersAssigned: this.state.lettersAssigned
@@ -1550,9 +1561,9 @@ function (_Page) {
           marginTop: '50px',
           marginBottom: '50px'
         },
-        className: "jsx-282015899" + " " + "form-group"
+        className: "jsx-2479897932" + " " + "form-group"
       }, external__react__default.a.createElement("label", {
-        className: "jsx-282015899"
+        className: "jsx-2479897932"
       }, "Fill in the details of the player you would like to exchange with.")), external__react__default.a.createElement(ExchangeRequest__default, {
         targetUser: this.state.userSelected,
         userName: this.state.userName,
@@ -1560,8 +1571,8 @@ function (_Page) {
         userSelected: this.state.userSelected,
         lettersAvailable: this.state.lettersAssigned
       })))), external__react__default.a.createElement(style__default.a, {
-        styleId: "282015899",
-        css: ["#wrapper.jsx-282015899{padding-left:250px;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;}", "#sidebar-wrapper.jsx-282015899{margin-left:-250px;left:250px;width:250px;background:#000;position:fixed;height:100%;overflow-y:auto;z-index:1000;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;color:white;}", "#wrapper.active.jsx-282015899{padding-left:0;}", "#wrapper.active.jsx-282015899 #sidebar-wrapper.jsx-282015899{left:0;}", "#page-content-wrapper.jsx-282015899{width:100%;}", ".sidebar-nav.jsx-282015899{position:absolute;top:0;width:250px;list-style:none;margin:0;padding:0;}", ".sidebar-nav.jsx-282015899 li.jsx-282015899{line-height:40px;text-indent:20px;}", ".sidebar-nav.jsx-282015899 li.jsx-282015899 a.jsx-282015899{color:#999999;display:block;-webkit-text-decoration:none;text-decoration:none;padding-left:60px;}", ".sidebar-nav.jsx-282015899 li.jsx-282015899 a.jsx-282015899 span.jsx-282015899:before{position:absolute;left:0;color:#41484c;text-align:center;width:20px;line-height:18px;}", ".sidebar-nav.jsx-282015899 li.jsx-282015899 a.jsx-282015899:hover,.sidebar-nav.jsx-282015899 li.active.jsx-282015899{color:#fff;background:rgba(255,255,255,0.2);-webkit-text-decoration:none;text-decoration:none;}", ".sidebar-nav.jsx-282015899 li.jsx-282015899 a.jsx-282015899:active,.sidebar-nav.jsx-282015899 li.jsx-282015899 a.jsx-282015899:focus{-webkit-text-decoration:none;text-decoration:none;}", ".sidebar-nav.jsx-282015899>.sidebar-brand.jsx-282015899{height:65px;line-height:60px;font-size:18px;}", ".sidebar-nav.jsx-282015899>.sidebar-brand.jsx-282015899 a.jsx-282015899{color:#999999;}", ".sidebar-nav.jsx-282015899>.sidebar-brand.jsx-282015899 a.jsx-282015899:hover{color:#fff;background:none;}", ".inset.jsx-282015899{padding:20px;}", "@media (max-width:767px){#wrapper.jsx-282015899{padding-left:0;}#sidebar-wrapper.jsx-282015899{left:0;}#wrapper.active.jsx-282015899{position:relative;left:250px;}#wrapper.active.jsx-282015899 #sidebar-wrapper.jsx-282015899{left:250px;width:250px;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;}#menu-toggle.jsx-282015899{display:inline-block;}.inset.jsx-282015899{padding:15px;}}"]
+        styleId: "2479897932",
+        css: ["#wrapper.active.jsx-2479897932{padding-left:0;}", "#wrapper.active.jsx-2479897932 #sidebar-wrapper.jsx-2479897932{left:0;}", "#page-content-wrapper.jsx-2479897932{width:100%;}", ".sidebar-nav.jsx-2479897932 li.jsx-2479897932{line-height:40px;text-indent:20px;}", ".sidebar-nav.jsx-2479897932 li.jsx-2479897932 a.jsx-2479897932{color:#999999;display:block;-webkit-text-decoration:none;text-decoration:none;padding-left:60px;}", ".sidebar-nav.jsx-2479897932 li.jsx-2479897932 a.jsx-2479897932 span.jsx-2479897932:before{position:absolute;left:0;color:#41484c;text-align:center;width:20px;line-height:18px;}", ".sidebar-nav.jsx-2479897932 li.jsx-2479897932 a.jsx-2479897932:hover,.sidebar-nav.jsx-2479897932 li.active.jsx-2479897932{color:#fff;background:rgba(255,255,255,0.2);-webkit-text-decoration:none;text-decoration:none;}", ".sidebar-nav.jsx-2479897932 li.jsx-2479897932 a.jsx-2479897932:active,.sidebar-nav.jsx-2479897932 li.jsx-2479897932 a.jsx-2479897932:focus{-webkit-text-decoration:none;text-decoration:none;}", ".sidebar-nav.jsx-2479897932>.sidebar-brand.jsx-2479897932 a.jsx-2479897932{color:#999999;}", ".sidebar-nav.jsx-2479897932>.sidebar-brand.jsx-2479897932 a.jsx-2479897932:hover{color:#fff;background:none;}", ".inset.jsx-2479897932{padding:20px;}", "@media (min-width:1224px){#wrapper.jsx-2479897932{padding-left:250px;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;}#sidebar-wrapper.jsx-2479897932{margin-left:-250px;left:250px;width:250px;background:#000;position:fixed;height:100%;overflow-y:auto;z-index:1000;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;color:white;}.sidebar-nav.jsx-2479897932>.sidebar-brand.jsx-2479897932{height:65px;line-height:60px;font-size:18px;}.sidebar-nav.jsx-2479897932{position:absolute;top:0;width:250px;list-style:none;margin:0;padding:0;}}", "@media (max-width:1224px){#wrapper.jsx-2479897932{padding-left:100px;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;}#sidebar-wrapper.jsx-2479897932{margin-left:-100px;left:100px;width:100px;background:#000;position:fixed;height:100%;overflow-y:auto;z-index:1000;-webkit-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;color:white;}.sidebar-nav.jsx-2479897932>.sidebar-brand.jsx-2479897932{height:65px;line-height:60px;font-size:10px;}.sidebar-nav.jsx-2479897932{position:absolute;top:0;width:100px;list-style:none;margin:0;padding:0;}}"]
       }));
     }
   }]);

@@ -22,7 +22,7 @@ export default class extends Page {
         super()
         this.state = {
             userName: "",
-            activeUsers : [],
+            activeUsers : ["LEW WEI HAO","TAN YI KAN"],
             lettersAssigned: [],
             userSelected: '',
             isWaitingForCounterPartyToVerify: false,
@@ -38,8 +38,17 @@ export default class extends Page {
     }
 
     async componentDidMount(){
+        screen.orientation.lock('landscape');
         this.setupPusher()
         this.checkGameState()
+
+        /*
+        this.setState({
+            signedIn: true,
+            authenticationChecked: true,
+            gameStartedChecked: true,
+            isWaitingForGameToStart: false,
+        })*/
     }
 
     setupPusher = () => {
@@ -353,57 +362,25 @@ export default class extends Page {
                         </div>
                     </div>
                     <style jsx>{`
-                    #wrapper {
-                      padding-left: 250px;
-                      transition: all 0.4s ease 0s;
-                    }
-
-                    #sidebar-wrapper {
-                      margin-left: -250px;
-                      left: 250px;
-                      width: 250px;
-                      background: #000;
-                      position: fixed;
-                      height: 100%;
-                      overflow-y: auto;
-                      z-index: 1000;
-                      transition: all 0.4s ease 0s;
-                      color: white;
-                    }
-
                     #wrapper.active {
                       padding-left: 0;
                     }
-
                     #wrapper.active #sidebar-wrapper {
                       left: 0;
                     }
-
                     #page-content-wrapper {
                       width: 100%;
                     }
-
-                    .sidebar-nav {
-                      position: absolute;
-                      top: 0;
-                      width: 250px;
-                      list-style: none;
-                      margin: 0;
-                      padding: 0;
-                    }
-
                     .sidebar-nav li {
                       line-height: 40px;
                       text-indent: 20px;
                     }
-
                     .sidebar-nav li a {
                       color: #999999;
                       display: block;
                       text-decoration: none;
                       padding-left: 60px;
                     }
-
                     .sidebar-nav li a span:before {
                       position: absolute;
                       left: 0;
@@ -412,66 +389,94 @@ export default class extends Page {
                       width: 20px;
                       line-height: 18px;
                     }
-
                     .sidebar-nav li a:hover,
                     .sidebar-nav li.active {
                       color: #fff;
                       background: rgba(255,255,255,0.2);
                       text-decoration: none;
                     }
-
                     .sidebar-nav li a:active,
                     .sidebar-nav li a:focus {
                       text-decoration: none;
                     }
-
-                    .sidebar-nav > .sidebar-brand {
-                      height: 65px;
-                      line-height: 60px;
-                      font-size: 18px;
-                    }
-
                     .sidebar-nav > .sidebar-brand a {
                       color: #999999;
                     }
-
                     .sidebar-nav > .sidebar-brand a:hover {
                       color: #fff;
                       background: none;
                     }
-
                     .inset {
                       padding: 20px;
                     }
 
-                    @media (max-width:767px) {
+                    @media (min-width:1224px) {
+                        #wrapper {
+                          padding-left: 250px;
+                          transition: all 0.4s ease 0s;
+                        }
+                        #sidebar-wrapper {
+                          margin-left: -250px;
+                          left: 250px;
+                          width: 250px;
+                          background: #000;
+                          position: fixed;
+                          height: 100%;
+                          overflow-y: auto;
+                          z-index: 1000;
+                          transition: all 0.4s ease 0s;
+                          color: white;
+                        }
 
-                    #wrapper {
-                      padding-left: 0;
+                        .sidebar-nav > .sidebar-brand {
+                          height: 65px;
+                          line-height: 60px;
+                          font-size: 18px;
+                        }
+
+                        .sidebar-nav {
+                          position: absolute;
+                          top: 0;
+                          width: 250px;
+                          list-style: none;
+                          margin: 0;
+                          padding: 0;
+                        }
+
                     }
 
-                    #sidebar-wrapper {
-                      left: 0;
-                    }
+                    @media (max-width:1224px) {
+                        #wrapper {
+                          padding-left: 100px;
+                          transition: all 0.4s ease 0s;
+                        }
+                        #sidebar-wrapper {
+                          margin-left: -100px;
+                          left: 100px;
+                          width: 100px;
+                          background: #000;
+                          position: fixed;
+                          height: 100%;
+                          overflow-y: auto;
+                          z-index: 1000;
+                          transition: all 0.4s ease 0s;
+                          color: white;
+                        }
 
-                    #wrapper.active {
-                      position: relative;
-                      left: 250px;
-                    }
+                        .sidebar-nav > .sidebar-brand {
+                          height: 65px;
+                          line-height: 60px;
+                          font-size: 10px;
+                        }
 
-                    #wrapper.active #sidebar-wrapper {
-                      left: 250px;
-                      width: 250px;
-                      transition: all 0.4s ease 0s;
-                    }
-
-                    #menu-toggle {
-                      display: inline-block;
-                    }
-
-                    .inset {
-                      padding: 15px;
-                    }
+                        .sidebar-nav {
+                          position: absolute;
+                          top: 0;
+                          width: 100px;
+                          list-style: none;
+                          margin: 0;
+                          padding: 0;
+                        }
 
                     }
                     `}</style>
