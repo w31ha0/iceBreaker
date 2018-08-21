@@ -23,7 +23,7 @@ export default class extends Page {
         this.state = {
             userName: "",
             activeUsers : ["LEW WEI HAO","TAN YI KAN"],
-            lettersAssigned: ["A","B","C"],
+            lettersAssigned: ["A","B","C"," "],
             userSelected: '',
             isWaitingForCounterPartyToVerify: false,
             isVerifyingForCounterParty: false,
@@ -38,7 +38,6 @@ export default class extends Page {
     }
 
     async componentDidMount(){
-        screen.orientation.lock('landscape');
         this.setupPusher()
         this.checkGameState()
 

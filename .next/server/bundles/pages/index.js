@@ -636,9 +636,11 @@ function (_React$Component) {
       enumerable: true,
       writable: true,
       value: function value(e) {
+        console.log("Target value is" + e.target.value + ".");
         var lettersUsed = _this.state.lettersUsed;
         var lettersAvailable = _this.state.lettersAvailable;
         lettersUsed[lettersUsed.indexOf('-')] = _this.state.lettersAvailable[e.target.value];
+        console.log("Letters used are now " + lettersUsed.join(' '));
         lettersAvailable.splice(e.target.value, 1);
 
         _this.setState({
@@ -720,36 +722,38 @@ function (_React$Component) {
       var _this2 = this;
 
       return external__react__default.a.createElement("div", {
-        className: "jsx-4194456073"
+        className: "jsx-942445572"
       }, external__react__default.a.createElement("div", {
         id: "instructions2",
-        className: "jsx-4194456073" + " " + "form-group"
+        className: "jsx-942445572" + " " + "form-group"
       }, external__react__default.a.createElement("label", {
-        className: "jsx-4194456073"
+        className: "jsx-942445572"
       }, "To complete the game, click on the blue boxes below to form your username: ", this.props.userName)), external__react__default.a.createElement("div", {
         id: "instructions",
-        className: "jsx-4194456073" + " " + "form-group"
+        className: "jsx-942445572" + " " + "form-group"
       }, external__react__default.a.createElement("label", {
-        className: "jsx-4194456073"
+        className: "jsx-942445572"
       }, "To get the letters you need, click a player on the left to begin exchanging letters with him/her.")), external__react__default.a.createElement("div", {
-        className: "jsx-4194456073"
-      }, this.state.lettersUsed.join(' '), external__react__default.a.createElement("button", {
+        className: "jsx-942445572"
+      }, external__react__default.a.createElement("pre", {
+        className: "jsx-942445572"
+      }, this.state.lettersUsed.join(' ')), external__react__default.a.createElement("button", {
         id: "cancel-btn",
         onClick: this.removeOneCharFromLettersUsed,
-        className: "jsx-4194456073" + " " + "btn btn-light"
-      }, "C")), external__react__default.a.createElement("div", {
+        className: "jsx-942445572" + " " + "btn btn-light"
+      }, "Backspace")), external__react__default.a.createElement("div", {
         id: "letters-available",
-        className: "jsx-4194456073"
+        className: "jsx-942445572"
       }, this.state.lettersAvailable.map(function (letter, index) {
         return external__react__default.a.createElement("button", {
           id: "letter-available",
           value: index,
           onClick: _this2.handleLetterSelected,
-          className: "jsx-4194456073" + " " + "btn btn-primary"
-        }, letter);
+          className: "jsx-942445572" + " " + "btn btn-primary"
+        }, /\S/.test(letter) ? letter : "Space");
       })), external__react__default.a.createElement(style__default.a, {
-        styleId: "4194456073",
-        css: ["#cancel-btn.jsx-4194456073{margin-left:20px;margin-bottom:20px;}", "#letters-available.jsx-4194456073{margin-bottom:20px;}", "#letter-available.jsx-4194456073{margin:5px;}", "#instructions.jsx-4194456073{margin-bottom:15px;}", "#instructions2.jsx-4194456073{margin-bottom:15px;}"]
+        styleId: "942445572",
+        css: ["#cancel-btn.jsx-942445572{margin-left:0px;margin-bottom:20px;}", "#letters-available.jsx-942445572{margin-bottom:20px;}", "#letter-available.jsx-942445572{margin:5px;}", "#instructions.jsx-942445572{margin-bottom:15px;}", "#instructions2.jsx-942445572{margin-bottom:15px;}"]
       }));
     }
   }]);
@@ -917,7 +921,7 @@ function (_React$Component) {
         return external__react__default.a.createElement("option", {
           value: letter,
           className: "jsx-2910031397"
-        }, letter);
+        }, /\S/.test(letter) ? letter : "Space");
       }))), external__react__default.a.createElement("div", {
         id: "submit-button",
         className: "jsx-2910031397"
@@ -1501,7 +1505,7 @@ function (_Page) {
     _this.state = {
       userName: "",
       activeUsers: ["LEW WEI HAO", "TAN YI KAN"],
-      lettersAssigned: ["A", "B", "C"],
+      lettersAssigned: ["A", "B", "C", " "],
       userSelected: '',
       isWaitingForCounterPartyToVerify: false,
       isVerifyingForCounterParty: false,
@@ -1525,7 +1529,6 @@ function (_Page) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                screen.orientation.lock('landscape');
                 this.setupPusher();
                 this.checkGameState();
                 /*
@@ -1536,7 +1539,7 @@ function (_Page) {
                     isWaitingForGameToStart: false,
                 })*/
 
-              case 3:
+              case 2:
               case "end":
                 return _context.stop();
             }

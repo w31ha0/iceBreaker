@@ -76,7 +76,7 @@ export default class extends React.Component{
                             onChange={this.handleLetterToExchangeChange}>
                         <option disabled selected value>Select a letter to exchange away</option>
                         {this.props.lettersAvailable.map(letter => {
-                            return <option value={letter}>{letter}</option>
+                            return <option value={letter}>{/\S/.test(letter)?letter:"Space"}</option>
                         })}
                     </select>
                 </div>

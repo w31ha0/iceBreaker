@@ -21,9 +21,11 @@ export default class LetterComponent extends React.Component {
     }
 
     handleLetterSelected = (e) => {
+        console.log("Target value is"+e.target.value+".")
         var lettersUsed = this.state.lettersUsed
         var lettersAvailable = this.state.lettersAvailable
         lettersUsed[lettersUsed.indexOf('-')] = this.state.lettersAvailable[e.target.value]
+        console.log("Letters used are now "+lettersUsed.join(' '))
         lettersAvailable.splice(e.target.value, 1)
         this.setState({
             lettersUsed: lettersUsed,
@@ -82,17 +84,17 @@ export default class LetterComponent extends React.Component {
                     <label>To get the letters you need, click a player on the left to begin exchanging letters with him/her.</label>
                 </div>
                 <div>
-                    {this.state.lettersUsed.join(' ')}
-                    <button id="cancel-btn" onClick={this.removeOneCharFromLettersUsed} className="btn btn-light">C</button>
+                    <pre>{this.state.lettersUsed.join(' ')}</pre>
+                    <button id="cancel-btn" onClick={this.removeOneCharFromLettersUsed} className="btn btn-light">Backspace</button>
                 </div>
                 <div id="letters-available">
                     {this.state.lettersAvailable.map((letter,index) => {
-                        return <button id="letter-available" value={index} onClick={this.handleLetterSelected} className="btn btn-primary">{letter}</button>
+                        return <button id="letter-available" value={index} onClick={this.handleLetterSelected} className="btn btn-primary">{/\S/.test(letter)?letter:"Space"}</button>
                     })}
                 </div>
                 <style jsx>{`
                     #cancel-btn {
-                              margin-left: 20px;
+                              margin-left: 0px;
                               margin-bottom: 20px;
                             }
                     #letters-available {
