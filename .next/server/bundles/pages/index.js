@@ -273,6 +273,9 @@ function (_React$Component) {
       }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("meta", {
         name: "mobile-web-app-capable",
         content: "yes"
+      }), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("meta", {
+        name: "apple-mobile-web-app-capable",
+        content: "yes"
       })), __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_reactstrap__["Container"], null, __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default.a, null), this.props.children));
     }
   }]);
@@ -687,6 +690,7 @@ function (_React$Component) {
             method: 'post',
             url: endpoints_default.a.API_USER_COMPLETED_GAME
           }).then(function (response) {
+            localStorage.clear();
             window.alert("You have completed the game!");
             window.location.href = '/';
           }).catch(function (response) {
@@ -798,6 +802,8 @@ function (_React$Component) {
       enumerable: true,
       writable: true,
       value: function value(e) {
+        console.log(e.target.value);
+
         _this.setState({
           birthday: e.target.value
         });
@@ -808,7 +814,7 @@ function (_React$Component) {
       enumerable: true,
       writable: true,
       value: function value(e) {
-        console.log(e.target);
+        console.log(e.target.value);
 
         _this.setState({
           favouriteFood: e.target.value
@@ -820,6 +826,8 @@ function (_React$Component) {
       enumerable: true,
       writable: true,
       value: function value(e) {
+        console.log(e.target.value);
+
         _this.setState({
           letterToExchange: e.target.value
         });
@@ -830,25 +838,45 @@ function (_React$Component) {
       enumerable: true,
       writable: true,
       value: function value(e) {
-        console.log(e.target);
+        console.log(e.target.value);
 
         _this.setState({
           deshu: e.target.value
         });
       }
     });
+    Object.defineProperty(Exchange__assertThisInitialized(_this), "updateExchangeData", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(exchangeData) {
+        console.log("Updating exchange data");
+
+        _this.setState({
+          birthday: exchangeData.birthday,
+          favouriteFood: exchangeData.favouriteFood,
+          deshu: exchangeData.deshu
+        });
+      }
+    });
     _this.state = {
       birthday: '',
-      favouriteFood: '',
-      deshu: "",
+      favouriteFood: 'default',
+      deshu: "default",
       letterToExchange: ''
     };
     return _this;
   }
 
   Exchange__createClass(_default, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      this.retrieveFromCache();
+    }
+  }, {
     key: "render",
     value: function render() {
+      console.log("State is " + JSON.stringify(this.state));
       return external__react__default.a.createElement("div", {
         className: "jsx-2910031397"
       }, external__react__default.a.createElement("div", {
@@ -864,13 +892,13 @@ function (_React$Component) {
       }, external__react__default.a.createElement("label", {
         className: "jsx-2910031397"
       }, "Deshu"), external__react__default.a.createElement("select", {
+        value: this.state.deshu,
         onChange: this.handleDeshuChange,
         name: "deshu",
         className: "jsx-2910031397" + " " + "form-control"
       }, external__react__default.a.createElement("option", {
         disabled: true,
-        selected: true,
-        value: true,
+        value: "default",
         className: "jsx-2910031397"
       }, "Select his/her deshu."), dataSource_default.a.DESHU_OPTIONS.map(function (deshu) {
         return external__react__default.a.createElement("option", {
@@ -884,6 +912,7 @@ function (_React$Component) {
       }, "Birthday"), external__react__default.a.createElement("input", {
         type: "date",
         name: "birthday",
+        value: this.state.birthday,
         onChange: this.handleBirthdayChange,
         className: "jsx-2910031397" + " " + "form-control"
       })), external__react__default.a.createElement("div", {
@@ -891,13 +920,13 @@ function (_React$Component) {
       }, external__react__default.a.createElement("label", {
         className: "jsx-2910031397"
       }, "Favourite Food"), external__react__default.a.createElement("select", {
+        value: this.state.favouriteFood,
         name: "favouriteFood",
         onChange: this.handleFavouriteFoodChange,
         className: "jsx-2910031397" + " " + "form-control"
       }, external__react__default.a.createElement("option", {
         disabled: true,
-        selected: true,
-        value: true,
+        value: "default",
         className: "jsx-2910031397"
       }, "Select his/her favourite food"), dataSource_default.a.FOOD_OPTIONS.map(function (foodOption) {
         return external__react__default.a.createElement("option", {
@@ -996,7 +1025,7 @@ function (_Exchange) {
           console.log('Response of ExchangeRequest: ' + JSON.stringify(response.data));
 
           if (response.data.success == 1) {
-            _this.props.onExchangeRequestSubmitSuccess(_this.state.letterToExchange);
+            _this.props.onExchangeRequestSubmitSuccess(_this.state.letterToExchange, exchangeRequest);
 
             _this.props.updateExchangeRequest(exchangeRequest);
           } else external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_WRONG_DETAILS, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
@@ -1006,6 +1035,20 @@ function (_Exchange) {
         }).catch(function (response) {
           console.log(response);
         });
+      }
+    }), Object.defineProperty(ExchangeRequest__assertThisInitialized(_this), "retrieveFromCache", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        var counterParty = _this.props.userSelected;
+        var cachedObject = JSON.parse(localStorage.getItem(counterParty));
+
+        if (cachedObject !== null) {
+          console.log("Found cached data for " + counterParty + ": " + JSON.stringify(cachedObject));
+
+          _this.updateExchangeData(cachedObject);
+        } else console.log("No cache found for " + counterParty);
       }
     }), _temp));
   }
@@ -1070,7 +1113,7 @@ function (_Exchange) {
           data: exchangeResponse
         }).then(function (response) {
           console.log('Response of ExchangeResponse: ' + JSON.stringify(response.data));
-          if (response.data.success == 1) _this.props.onExchangeResponseSubmitSuccess();else external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_WRONG_DETAILS, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
+          if (response.data.success == 1) _this.props.onExchangeResponseSubmitSuccess(exchangeResponse);else external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_WRONG_DETAILS, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
             background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
             text: config_default.a.NOTIFICATION_TEXT_COLOR
           });
@@ -1078,6 +1121,20 @@ function (_Exchange) {
           //handle error
           console.log(response);
         });
+      }
+    }), Object.defineProperty(ExchangeResponse__assertThisInitialized(_this), "retrieveFromCache", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        var counterParty = _this.props.exchangeRequest.request_user;
+        var cachedObject = JSON.parse(localStorage.getItem(counterParty));
+
+        if (cachedObject !== null) {
+          console.log("Found cached data for " + counterParty + ": " + JSON.stringify(cachedObject));
+
+          _this.updateExchangeData(cachedObject);
+        } else console.log("No cache found for " + counterParty);
       }
     }), _temp));
   }
@@ -1258,6 +1315,7 @@ function (_Page) {
 
         _this.channel.bind(strings_default.a.PUSHER_GAME_STOP_EVENT, function () {
           if (_this.state.signedIn) {
+            localStorage.clear();
             window.alert("Game has been forcefully stopped by game master");
             window.location.href = '/';
           }
@@ -1348,10 +1406,16 @@ function (_Page) {
       configurable: true,
       enumerable: true,
       writable: true,
-      value: function value(letterToGive) {
+      value: function value(letterToGive, exchangeRequest) {
+        if (typeof localStorage !== 'undefined') {
+          console.log("Setting local storage " + exchangeRequest.respond_user + ":" + exchangeRequest);
+          localStorage.setItem(exchangeRequest.respond_user, JSON.stringify(exchangeRequest));
+        }
+
         _this.setState({
           isWaitingForCounterPartyToVerify: true,
-          letterToGive: letterToGive
+          letterToGive: letterToGive,
+          userSelected: ''
         });
       }
     });
@@ -1359,17 +1423,22 @@ function (_Page) {
       configurable: true,
       enumerable: true,
       writable: true,
-      value: function value() {
+      value: function value(exchangeResponse) {
         external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_EXCHANGE_SUCCESSFUL, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
           background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
           text: config_default.a.NOTIFICATION_TEXT_COLOR
         });
 
+        _this.retriveLetters();
+
+        if (typeof localStorage !== 'undefined') {
+          console.log("Setting local storage " + exchangeResponse.request_user + ":" + exchangeResponse);
+          localStorage.setItem(exchangeResponse.request_user, JSON.stringify(exchangeResponse));
+        }
+
         _this.setState({
           isVerifyingForCounterParty: false
         });
-
-        _this.retriveLetters();
       }
     });
     Object.defineProperty(pages__assertThisInitialized(_this), "onUserSelected", {
@@ -1556,6 +1625,7 @@ function (_Page) {
     value: function render() {
       var _this2 = this;
 
+      console.log("User selected: " + this.state.userSelected);
       if (!this.state.authenticationChecked || !this.state.gameStartedChecked) return external__react__default.a.createElement(Layout["a" /* default */], null);else if (!this.state.signedIn) return external__react__default.a.createElement(Layout["a" /* default */], null, external__react__default.a.createElement(SignIn__default, {
         onSignIn: this.onSignIn
       }));else if (this.state.isWaitingForGameToStart && this.state.signedIn) return external__react__default.a.createElement(Layout["a" /* default */], null, external__react__default.a.createElement(LoadingScreen__default, null));

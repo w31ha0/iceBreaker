@@ -16,6 +16,7 @@ export default class extends React.Component{
                     <link rel="stylesheet" href="https://unpkg.com/react-tabs@2/style/react-tabs.css"/>
                     <meta charSet="utf-8" />
                     <meta name="mobile-web-app-capable" content="yes"/>
+                    <meta name="apple-mobile-web-app-capable" content="yes"/>
                 </Head>
                 <Container>
                     <Notifications />

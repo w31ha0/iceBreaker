@@ -64,6 +64,7 @@ export default class LetterComponent extends React.Component {
                 url: endpoints.API_USER_COMPLETED_GAME
             })
             .then((response) => {
+                localStorage.clear()
                 window.alert("You have completed the game!")
                 window.location.href='/'
             })

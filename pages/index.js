@@ -114,6 +114,7 @@ export default class extends Page {
 
         this.channel.bind(strings.PUSHER_GAME_STOP_EVENT, () => {
             if (this.state.signedIn) {
+                localStorage.clear()
                 window.alert("Game has been forcefully stopped by game master")
                 window.location.href = '/'
             }
@@ -188,14 +189,19 @@ export default class extends Page {
         utils.cancelExchange(this.exchangeRequest)
     }
 
-    onExchangeRequestSubmitSuccess = (letterToGive) => {
+    onExchangeRequestSubmitSuccess = (letterToGive,exchangeRequest) => {
+        if(typeof localStorage !== 'undefined') {
+            console.log("Setting local storage "+exchangeRequest.respond_user+":"+exchangeRequest)
+            localStorage.setItem(exchangeRequest.respond_user, JSON.stringify(exchangeRequest))
+        }
         this.setState({
             isWaitingForCounterPartyToVerify: true,
-            letterToGive: letterToGive
+            letterToGive: letterToGive,
+            userSelected: ''
         })
     }
 
-    onExchangeResponseSubmitSuccess = () => {
+    onExchangeResponseSubmitSuccess = (exchangeResponse) => {
         notify.show(
             strings.NOTIFICATION_EXCHANGE_SUCCESSFUL,
             config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
@@ -203,10 +209,14 @@ export default class extends Page {
                 background: config.NOTIFICATION_BACKGROUND_COLOR,
                 text: config.NOTIFICATION_TEXT_COLOR
             });
+        this.retriveLetters()
+        if(typeof localStorage !== 'undefined') {
+            console.log("Setting local storage "+exchangeResponse.request_user+":"+exchangeResponse)
+            localStorage.setItem(exchangeResponse.request_user, JSON.stringify(exchangeResponse))
+        }
         this.setState({
             isVerifyingForCounterParty: false
         })
-        this.retriveLetters()
     }
 
     onUserSelected = (e) => {
@@ -326,6 +336,7 @@ export default class extends Page {
     }
 
     render(){
+        console.log("User selected: "+this.state.userSelected)
         if(!this.state.authenticationChecked || !this.state.gameStartedChecked)
             return(
                 <Layout>

@@ -27,7 +27,7 @@ export default class extends Exchange{
         .then((response) => {
             console.log('Response of ExchangeResponse: '+JSON.stringify(response.data))
             if(response.data.success == 1)
-                this.props.onExchangeResponseSubmitSuccess()
+                this.props.onExchangeResponseSubmitSuccess(exchangeResponse)
             else
                 notify.show(
                     strings.NOTIFICATION_WRONG_DETAILS,
@@ -42,5 +42,15 @@ export default class extends Exchange{
             //handle error
             console.log(response);
         });
+    }
+
+    retrieveFromCache = (props) => {
+        const counterParty = props.exchangeRequest.request_user
+        const cachedObject = JSON.parse(localStorage.getItem(counterParty))
+        if(cachedObject !== null){
+            console.log("Found cached data for "+counterParty+": "+JSON.stringify(cachedObject))
+            this.updateExchangeData(cachedObject)
+        }else
+            console.log("No cache found for "+counterParty)
     }
 }
