@@ -66,7 +66,8 @@ module.exports = {
                         return (session.user.name == targetUser &&
                             session.user.birthday == exchange.birthday &&
                             session.user.favouriteFood == exchange.favouriteFood &&
-                            session.user.deshu == exchange.deshu
+                            session.user.deshu == exchange.deshu &&
+                            exchange.letterToExchange
                         )
                     else
                         return false

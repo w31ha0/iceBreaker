@@ -194,10 +194,14 @@ export default class extends Page {
             console.log("Setting local storage "+exchangeRequest.respond_user+":"+exchangeRequest)
             localStorage.setItem(exchangeRequest.respond_user, JSON.stringify(exchangeRequest))
         }
+        const userSelected = this.state.userSelected
         this.setState({
             isWaitingForCounterPartyToVerify: true,
             letterToGive: letterToGive,
             userSelected: ''
+        })
+        this.setState({
+            userSelected: userSelected
         })
     }
 
@@ -336,7 +340,6 @@ export default class extends Page {
     }
 
     render(){
-        console.log("User selected: "+this.state.userSelected)
         if(!this.state.authenticationChecked || !this.state.gameStartedChecked)
             return(
                 <Layout>

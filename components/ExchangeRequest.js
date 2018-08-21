@@ -9,6 +9,21 @@ import config from "../constants/config";
 export default class extends Exchange{
 
     submitForm = (e) => {
+        if( !this.props.userSelected ||
+            !this.state.birthday ||
+            !this.state.favouriteFood ||
+            !this.state.deshu ||
+            !this.state.letterToExchange) {
+            notify.show(
+                strings.NOTIFICATION_INCOMPLETE_DETAILS,
+                config.NOTIFICATION_TYPE,
+                config.NOTIFICATION_TIMEOUT,
+                {
+                    background: config.NOTIFICATION_BACKGROUND_COLOR,
+                    text: config.NOTIFICATION_TEXT_COLOR
+                });
+            return
+        }
         let exchangeRequest = {
             respond_user: this.props.userSelected,
             birthday: this.state.birthday,
@@ -40,7 +55,6 @@ export default class extends Exchange{
                     });
         })
         .catch(function (response) {
-
             console.log(response);
         });
     }

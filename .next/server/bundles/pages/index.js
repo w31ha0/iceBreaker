@@ -869,9 +869,17 @@ function (_React$Component) {
   }
 
   Exchange__createClass(_default, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(props) {
+      console.log("Received new props " + JSON.stringify(props));
+      console.log("Trying to retrieve from cache");
+      this.retrieveFromCache(props);
+    }
+  }, {
     key: "componentWillMount",
     value: function componentWillMount() {
-      this.retrieveFromCache();
+      console.log("Component will mount");
+      this.retrieveFromCache(this.props);
     }
   }, {
     key: "render",
@@ -1008,6 +1016,14 @@ function (_Exchange) {
       enumerable: true,
       writable: true,
       value: function value(e) {
+        if (!_this.props.userSelected || !_this.state.birthday || !_this.state.favouriteFood || !_this.state.deshu || !_this.state.letterToExchange) {
+          external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_INCOMPLETE_DETAILS, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
+            background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
+            text: config_default.a.NOTIFICATION_TEXT_COLOR
+          });
+          return;
+        }
+
         var exchangeRequest = {
           respond_user: _this.props.userSelected,
           birthday: _this.state.birthday,
@@ -1040,8 +1056,8 @@ function (_Exchange) {
       configurable: true,
       enumerable: true,
       writable: true,
-      value: function value() {
-        var counterParty = _this.props.userSelected;
+      value: function value(props) {
+        var counterParty = props.userSelected;
         var cachedObject = JSON.parse(localStorage.getItem(counterParty));
 
         if (cachedObject !== null) {
@@ -1097,6 +1113,14 @@ function (_Exchange) {
       enumerable: true,
       writable: true,
       value: function value(e) {
+        if (!_this.state.birthday || !_this.state.favouriteFood || !_this.state.deshu || !_this.state.letterToExchange) {
+          external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_INCOMPLETE_DETAILS, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
+            background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
+            text: config_default.a.NOTIFICATION_TEXT_COLOR
+          });
+          return;
+        }
+
         var exchangeResponse = {
           request_user: _this.props.exchangeRequest.request_user,
           birthday: _this.state.birthday,
@@ -1126,8 +1150,8 @@ function (_Exchange) {
       configurable: true,
       enumerable: true,
       writable: true,
-      value: function value() {
-        var counterParty = _this.props.exchangeRequest.request_user;
+      value: function value(props) {
+        var counterParty = props.exchangeRequest.request_user;
         var cachedObject = JSON.parse(localStorage.getItem(counterParty));
 
         if (cachedObject !== null) {
@@ -1412,10 +1436,16 @@ function (_Page) {
           localStorage.setItem(exchangeRequest.respond_user, JSON.stringify(exchangeRequest));
         }
 
+        var userSelected = _this.state.userSelected;
+
         _this.setState({
           isWaitingForCounterPartyToVerify: true,
           letterToGive: letterToGive,
           userSelected: ''
+        });
+
+        _this.setState({
+          userSelected: userSelected
         });
       }
     });
@@ -1765,7 +1795,7 @@ module.exports = {
     return new Promise(function (resolve, reject) {
       store.all(function (err, sessions) {
         var filteredSessions = sessions.filter(function (session) {
-          if (session.hasOwnProperty('user')) return session.user.name == targetUser && session.user.birthday == exchange.birthday && session.user.favouriteFood == exchange.favouriteFood && session.user.deshu == exchange.deshu;else return false;
+          if (session.hasOwnProperty('user')) return session.user.name == targetUser && session.user.birthday == exchange.birthday && session.user.favouriteFood == exchange.favouriteFood && session.user.deshu == exchange.deshu && exchange.letterToExchange;else return false;
         });
         console.log("filtered sessions " + JSON.stringify(filteredSessions));
         if (filteredSessions.length > 0) resolve(true);else reject(false);
