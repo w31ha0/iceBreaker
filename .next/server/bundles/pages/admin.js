@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -80,13 +80,13 @@ module.exports = require("react");
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-notify-toast");
+module.exports = require("axios");
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("axios");
+module.exports = require("react-notify-toast");
 
 /***/ }),
 /* 3 */
@@ -187,6 +187,9 @@ var NOTIFICATION_GAME_STARTED_SUCCESSFUL = 'Game has been started successfully!'
 var NOTIFICATION_GAME_STARTED_FAILED = 'Failed to start Game!';
 var NOTIFICATION_GAME_STOP_SUCCESSFUL = 'Game has been stopped successfully!';
 var NOTIFICATION_GAME_STOP_FAILED = 'Failed to stop Game!';
+var NOTIFICATION_WRONG_PASSWORD = 'You have entered the wrong password!';
+var NOTIFICATION_GAME_ALREADY_STARTED = 'Game already in progress!';
+var NOTIFICATION_GAME_ALREADY_STOPPED = 'Game already stopped!';
 module.exports = {
   PUSHER_CHANNEL: PUSHER_CHANNEL,
   PUSHER_USER_LIST_UPDATE_EVENT: PUSHER_USER_LIST_UPDATE_EVENT,
@@ -207,7 +210,10 @@ module.exports = {
   NOTIFICATION_GAME_STARTED_SUCCESSFUL: NOTIFICATION_GAME_STARTED_SUCCESSFUL,
   NOTIFICATION_GAME_STARTED_FAILED: NOTIFICATION_GAME_STARTED_FAILED,
   NOTIFICATION_GAME_STOP_SUCCESSFUL: NOTIFICATION_GAME_STOP_SUCCESSFUL,
-  NOTIFICATION_GAME_STOP_FAILED: NOTIFICATION_GAME_STOP_FAILED
+  NOTIFICATION_GAME_STOP_FAILED: NOTIFICATION_GAME_STOP_FAILED,
+  NOTIFICATION_WRONG_PASSWORD: NOTIFICATION_WRONG_PASSWORD,
+  NOTIFICATION_GAME_ALREADY_STARTED: NOTIFICATION_GAME_ALREADY_STARTED,
+  NOTIFICATION_GAME_ALREADY_STOPPED: NOTIFICATION_GAME_ALREADY_STOPPED
 };
 
 /***/ }),
@@ -222,7 +228,7 @@ module.exports = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_head__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_reactstrap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -334,15 +340,110 @@ module.exports = require("next/head");
 module.exports = require("reactstrap");
 
 /***/ }),
-/* 11 */,
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = require("pusher-js");
+
+/***/ }),
 /* 12 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-module.exports = __webpack_require__(13);
-
+var PUSHER_APP_ID = '575034';
+var PUSHER_APP_KEY = '30d8dabc87d7db943336';
+var PUSHER_APP_SECRET = 'ed7e51b094c6d48e5475';
+var PUSHER_APP_CLUSTER = 'ap1';
+module.exports = {
+  PUSHER_APP_ID: PUSHER_APP_ID,
+  PUSHER_APP_KEY: PUSHER_APP_KEY,
+  PUSHER_APP_SECRET: PUSHER_APP_SECRET,
+  PUSHER_APP_CLUSTER: PUSHER_APP_CLUSTER
+};
 
 /***/ }),
 /* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var axios = __webpack_require__(1);
+
+var endpoints = __webpack_require__(3);
+
+module.exports = {
+  insertLetter: function insertLetter(lettersUsed, letterToInsert) {
+    var index = lettersUsed.findIndex('-');
+  },
+  shuffleString: function shuffleString(input) {
+    var a = input.split(""),
+        n = a.length;
+
+    for (var i = n - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+
+    return a.join("");
+  },
+  checkAuthenticated: function checkAuthenticated() {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_CHECK_AUTHENTICATED
+      }).then(function (response) {
+        if (response.data.result == 1) resolve(true);else reject(false);
+      }).catch(function (response) {
+        console.log(response);
+        reject(false);
+      });
+    });
+  },
+  checkGameStarted: function checkGameStarted() {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_CHECK_GAME_STARTED
+      }).then(function (response) {
+        if (response.data.result == 1) resolve(true);else reject(false);
+      }).catch(function (response) {
+        console.log(response);
+        reject(false);
+      });
+    });
+  },
+  validateUserInfo: function validateUserInfo(store, exchange, targetUser) {
+    return new Promise(function (resolve, reject) {
+      store.all(function (err, sessions) {
+        var filteredSessions = sessions.filter(function (session) {
+          if (session.hasOwnProperty('user')) return session.user.name == targetUser && session.user.birthday == exchange.birthday && session.user.favouriteFood == exchange.favouriteFood && session.user.deshu == exchange.deshu && exchange.letterToExchange;else return false;
+        });
+        console.log("filtered sessions " + JSON.stringify(filteredSessions));
+        if (filteredSessions.length > 0) resolve(true);else reject(false);
+      });
+    });
+  },
+  cancelExchange: function cancelExchange(exchangeRequest) {
+    axios({
+      method: 'post',
+      url: endpoints.API_CANCEL_EXCHANGE,
+      data: exchangeRequest
+    }).then(function (response) {}).catch(function (response) {
+      //handle error
+      console.log(response);
+    });
+  }
+};
+
+/***/ }),
+/* 14 */,
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(16);
+
+
+/***/ }),
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -350,7 +451,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_styled_jsx_style__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
@@ -358,12 +459,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Layout_js__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_endpoints__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_endpoints___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__constants_endpoints__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_notify_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_notify_toast__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_config__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__constants_config__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__constants_strings__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__constants_strings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__constants_strings__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_pusher_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_pusher_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__constants_credentials__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__constants_credentials___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__constants_credentials__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_utils__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__utils_utils__);
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -389,6 +496,9 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
+
+
 var _default =
 /*#__PURE__*/
 function (_Page) {
@@ -400,6 +510,64 @@ function (_Page) {
     _classCallCheck(this, _default);
 
     _this = _possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).call(this));
+    Object.defineProperty(_assertThisInitialized(_this), "retrieveActiveUsers", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        __WEBPACK_IMPORTED_MODULE_1_axios___default()({
+          method: 'post',
+          url: __WEBPACK_IMPORTED_MODULE_5__constants_endpoints___default.a.API_GET_ALL_ACTIVE_USERS
+        }).then(function (response) {
+          var activeUsers = response.data.map(function (session) {
+            return session.user.name;
+          });
+          console.log('Parsed active users as ' + activeUsers);
+
+          _this.setState({
+            activeUsers: activeUsers
+          });
+        }).catch(function (response) {
+          //handle error
+          console.log(response);
+        });
+      }
+    });
+    Object.defineProperty(_assertThisInitialized(_this), "setupPusher", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        _this.pusher = new __WEBPACK_IMPORTED_MODULE_9_pusher_js___default.a(__WEBPACK_IMPORTED_MODULE_10__constants_credentials___default.a.PUSHER_APP_KEY, {
+          cluster: __WEBPACK_IMPORTED_MODULE_10__constants_credentials___default.a.PUSHER_APP_CLUSTER,
+          encrypted: true
+        });
+        _this.channel = _this.pusher.subscribe(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.PUSHER_CHANNEL);
+
+        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.PUSHER_USER_LIST_UPDATE_EVENT, function (users) {
+          console.log("Received new user list from Pusher: " + users);
+          var newActiveUsers = users.map(function (user) {
+            return user.name;
+          });
+
+          _this.setState({
+            activeUsers: newActiveUsers
+          });
+        });
+
+        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.PUSHER_GAME_START_EVENT, function (users) {
+          _this.setState({
+            gameStatus: 'IN PROGRESS'
+          });
+        });
+
+        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.PUSHER_GAME_STOP_EVENT, function (users) {
+          _this.setState({
+            gameStatus: 'INACTIVE'
+          });
+        });
+      }
+    });
     Object.defineProperty(_assertThisInitialized(_this), "handlePasswordChange", {
       configurable: true,
       enumerable: true,
@@ -422,8 +590,9 @@ function (_Page) {
             password: _this.state.password
           }
         }).then(function (response) {
-          console.log('Got start game result ' + response.data.success);
-          __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__["notify"].show(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.NOTIFICATION_GAME_STARTED_SUCCESSFUL, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TYPE, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TIMEOUT, {
+          var notificationMessage = '';
+          if (response.data.success == 1) notificationMessage = __WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.NOTIFICATION_GAME_STARTED_SUCCESSFUL;else notificationMessage = response.data.message;
+          __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__["notify"].show(notificationMessage, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TYPE, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TIMEOUT, {
             background: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_BACKGROUND_COLOR,
             text: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TEXT_COLOR
           });
@@ -448,8 +617,9 @@ function (_Page) {
             password: _this.state.password
           }
         }).then(function (response) {
-          console.log('Got start game result ' + response.data.success);
-          __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__["notify"].show(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.NOTIFICATION_GAME_STOP_SUCCESSFUL, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TYPE, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TIMEOUT, {
+          var notificationMessage = '';
+          if (response.data.success == 1) notificationMessage = __WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.NOTIFICATION_GAME_ALREADY_STOPPED;else notificationMessage = response.data.message;
+          __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__["notify"].show(notificationMessage, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TYPE, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TIMEOUT, {
             background: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_BACKGROUND_COLOR,
             text: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TEXT_COLOR
           });
@@ -463,38 +633,74 @@ function (_Page) {
       }
     });
     _this.state = {
-      password: ''
+      password: '',
+      activeUsers: [],
+      gameStatus: 'INACTIVE'
     };
     return _this;
   }
 
   _createClass(_default, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.setupPusher();
+      this.retrieveActiveUsers();
+      this.retrieveGameStatus();
+    }
+  }, {
+    key: "retrieveGameStatus",
+    value: function retrieveGameStatus() {
+      __WEBPACK_IMPORTED_MODULE_11__utils_utils___default.a.checkGameStarted().then(function (success) {
+        this.setState({
+          gameStatus: 'IN PROGRESS'
+        });
+      }, function (failure) {
+        this.setState({
+          gameStatus: 'INACTIVE'
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_Layout_js__["a" /* default */], null, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("div", {
-        className: "jsx-3391191918" + " " + "form-group"
+        className: "jsx-2924920866" + " " + "form-group"
       }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("label", {
-        className: "jsx-3391191918"
+        className: "jsx-2924920866"
       }, "Password"), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("input", {
         onChange: this.handlePasswordChange,
         name: "name",
-        className: "jsx-3391191918" + " " + "form-control"
+        className: "jsx-2924920866" + " " + "form-control"
       })), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("div", {
-        id: "start-button",
-        className: "jsx-3391191918"
+        className: "jsx-2924920866"
       }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("button", {
+        id: "start-button",
         onClick: this.startGame,
         type: "submit",
-        className: "jsx-3391191918" + " " + "btn btn-primary"
-      }, "Start Game")), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("div", {
+        className: "jsx-2924920866" + " " + "btn btn-primary"
+      }, "Start Game"), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("button", {
         id: "stop-button",
-        className: "jsx-3391191918"
-      }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("button", {
         onClick: this.stopGame,
-        className: "jsx-3391191918" + " " + "btn btn-danger"
-      }, "Stop Game")), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default.a, {
-        styleId: "3391191918",
-        css: ["#start-button.jsx-3391191918{margin-bottom:15px;}"]
+        className: "jsx-2924920866" + " " + "btn btn-danger"
+      }, "Stop Game")), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("div", {
+        id: "game-status",
+        className: "jsx-2924920866"
+      }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("label", {
+        className: "jsx-2924920866"
+      }, "Current Game Status: ", this.state.gameStatus)), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("div", {
+        id: "players",
+        className: "jsx-2924920866"
+      }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("label", {
+        className: "jsx-2924920866"
+      }, "Current players in session"), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("ul", {
+        className: "jsx-2924920866" + " " + "list-group"
+      }, this.state.activeUsers.map(function (user, index) {
+        return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("li", {
+          className: "jsx-2924920866" + " " + "list-group-item"
+        }, user);
+      }))), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default.a, {
+        styleId: "2924920866",
+        css: ["#start-button.jsx-2924920866{margin-right:15px;}", "#players.jsx-2924920866{margin-top:15px;}", "#game-status.jsx-2924920866{margin-top:15px;}"]
       }));
     }
   }]);

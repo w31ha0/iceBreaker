@@ -83,30 +83,37 @@ nextApp
         expressApp.post(endpoints.API_START_GAME,function(req,res){
             console.log("Got Request to start game with password "+req.body.password)
             if(req.body.password === 'jxbcamp2019'){
-                console.log("Authentication succeeded...starting game")
-                allCharacters = utils.shuffleString(allCharacters)
-                console.log("Shuffled characters are now "+allCharacters)
-                pusher.trigger(strings.PUSHER_CHANNEL,strings.PUSHER_GAME_START_EVENT,{})
-                res.json({success: 1})
-                gameStarted = true
+                if(!gameStarted) {
+                    console.log("Authentication succeeded...starting game")
+                    allCharacters = utils.shuffleString(allCharacters)
+                    console.log("Shuffled characters are now " + allCharacters)
+                    pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_GAME_START_EVENT, {})
+                    res.json({success: 1})
+                    gameStarted = true
+                }else
+                    res.json({success: 0, message: strings.NOTIFICATION_GAME_ALREADY_STARTED})
             }
             else
-                res.json({success:0})
+                res.json({success: 0, message: strings.NOTIFICATION_WRONG_PASSWORD})
         })
 
         expressApp.post(endpoints.API_STOP_GAME,function(req,res){
             console.log("Got Request to stop game with password "+req.body.password)
             if(req.body.password === 'jxbcamp2019'){
-                console.log("All users have completed the game....")
-                sessionStore.clear()
-                allCharacters = ""
-                allUsers = []
-                gameStarted = false
-                assignedLetters = {}
-                pusher.trigger(strings.PUSHER_CHANNEL,strings.PUSHER_GAME_STOP_EVENT,{})
+                if(gameStarted) {
+                    console.log("All users have completed the game....")
+                    sessionStore.clear()
+                    allCharacters = ""
+                    allUsers = []
+                    gameStarted = false
+                    assignedLetters = {}
+                    pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_GAME_STOP_EVENT, {})
+                    pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
+                }else
+                    res.json({success: 0, message: strings.NOTIFICATION_GAME_ALREADY_STOPPED})
             }
             else
-                res.json({success:0})
+                res.json({success:0, message: strings.NOTIFICATION_WRONG_PASSWORD})
         })
 
         expressApp.post(endpoints.API_GET_ALL_ACTIVE_USERS,function (req,res) {

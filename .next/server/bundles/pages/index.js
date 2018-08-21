@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -80,13 +80,13 @@ module.exports = require("react");
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-notify-toast");
+module.exports = require("axios");
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("axios");
+module.exports = require("react-notify-toast");
 
 /***/ }),
 /* 3 */
@@ -187,6 +187,9 @@ var NOTIFICATION_GAME_STARTED_SUCCESSFUL = 'Game has been started successfully!'
 var NOTIFICATION_GAME_STARTED_FAILED = 'Failed to start Game!';
 var NOTIFICATION_GAME_STOP_SUCCESSFUL = 'Game has been stopped successfully!';
 var NOTIFICATION_GAME_STOP_FAILED = 'Failed to stop Game!';
+var NOTIFICATION_WRONG_PASSWORD = 'You have entered the wrong password!';
+var NOTIFICATION_GAME_ALREADY_STARTED = 'Game already in progress!';
+var NOTIFICATION_GAME_ALREADY_STOPPED = 'Game already stopped!';
 module.exports = {
   PUSHER_CHANNEL: PUSHER_CHANNEL,
   PUSHER_USER_LIST_UPDATE_EVENT: PUSHER_USER_LIST_UPDATE_EVENT,
@@ -207,7 +210,10 @@ module.exports = {
   NOTIFICATION_GAME_STARTED_SUCCESSFUL: NOTIFICATION_GAME_STARTED_SUCCESSFUL,
   NOTIFICATION_GAME_STARTED_FAILED: NOTIFICATION_GAME_STARTED_FAILED,
   NOTIFICATION_GAME_STOP_SUCCESSFUL: NOTIFICATION_GAME_STOP_SUCCESSFUL,
-  NOTIFICATION_GAME_STOP_FAILED: NOTIFICATION_GAME_STOP_FAILED
+  NOTIFICATION_GAME_STOP_FAILED: NOTIFICATION_GAME_STOP_FAILED,
+  NOTIFICATION_WRONG_PASSWORD: NOTIFICATION_WRONG_PASSWORD,
+  NOTIFICATION_GAME_ALREADY_STARTED: NOTIFICATION_GAME_ALREADY_STARTED,
+  NOTIFICATION_GAME_ALREADY_STOPPED: NOTIFICATION_GAME_ALREADY_STOPPED
 };
 
 /***/ }),
@@ -222,7 +228,7 @@ module.exports = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_head__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_reactstrap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -337,6 +343,101 @@ module.exports = require("reactstrap");
 /* 11 */
 /***/ (function(module, exports) {
 
+module.exports = require("pusher-js");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+var PUSHER_APP_ID = '575034';
+var PUSHER_APP_KEY = '30d8dabc87d7db943336';
+var PUSHER_APP_SECRET = 'ed7e51b094c6d48e5475';
+var PUSHER_APP_CLUSTER = 'ap1';
+module.exports = {
+  PUSHER_APP_ID: PUSHER_APP_ID,
+  PUSHER_APP_KEY: PUSHER_APP_KEY,
+  PUSHER_APP_SECRET: PUSHER_APP_SECRET,
+  PUSHER_APP_CLUSTER: PUSHER_APP_CLUSTER
+};
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var axios = __webpack_require__(1);
+
+var endpoints = __webpack_require__(3);
+
+module.exports = {
+  insertLetter: function insertLetter(lettersUsed, letterToInsert) {
+    var index = lettersUsed.findIndex('-');
+  },
+  shuffleString: function shuffleString(input) {
+    var a = input.split(""),
+        n = a.length;
+
+    for (var i = n - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+
+    return a.join("");
+  },
+  checkAuthenticated: function checkAuthenticated() {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_CHECK_AUTHENTICATED
+      }).then(function (response) {
+        if (response.data.result == 1) resolve(true);else reject(false);
+      }).catch(function (response) {
+        console.log(response);
+        reject(false);
+      });
+    });
+  },
+  checkGameStarted: function checkGameStarted() {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_CHECK_GAME_STARTED
+      }).then(function (response) {
+        if (response.data.result == 1) resolve(true);else reject(false);
+      }).catch(function (response) {
+        console.log(response);
+        reject(false);
+      });
+    });
+  },
+  validateUserInfo: function validateUserInfo(store, exchange, targetUser) {
+    return new Promise(function (resolve, reject) {
+      store.all(function (err, sessions) {
+        var filteredSessions = sessions.filter(function (session) {
+          if (session.hasOwnProperty('user')) return session.user.name == targetUser && session.user.birthday == exchange.birthday && session.user.favouriteFood == exchange.favouriteFood && session.user.deshu == exchange.deshu && exchange.letterToExchange;else return false;
+        });
+        console.log("filtered sessions " + JSON.stringify(filteredSessions));
+        if (filteredSessions.length > 0) resolve(true);else reject(false);
+      });
+    });
+  },
+  cancelExchange: function cancelExchange(exchangeRequest) {
+    axios({
+      method: 'post',
+      url: endpoints.API_CANCEL_EXCHANGE,
+      data: exchangeRequest
+    }).then(function (response) {}).catch(function (response) {
+      //handle error
+      console.log(response);
+    });
+  }
+};
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
 var FOOD_OPTIONS = ['hokkien mee', 'laksa', 'mee rebus'];
 var DESHU_OPTIONS = ['博A', '博B', '忍', '信', '公'];
 module.exports = {
@@ -345,23 +446,23 @@ module.exports = {
 };
 
 /***/ }),
-/* 12 */,
-/* 13 */,
-/* 14 */
+/* 15 */,
+/* 16 */,
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(15);
+module.exports = __webpack_require__(18);
 
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // EXTERNAL MODULE: external "@babel/runtime/regenerator"
-var regenerator_ = __webpack_require__(16);
+var regenerator_ = __webpack_require__(19);
 var regenerator__default = /*#__PURE__*/__webpack_require__.n(regenerator_);
 
 // EXTERNAL MODULE: external "styled-jsx/style"
@@ -369,7 +470,7 @@ var style_ = __webpack_require__(4);
 var style__default = /*#__PURE__*/__webpack_require__.n(style_);
 
 // EXTERNAL MODULE: external "axios"
-var external__axios_ = __webpack_require__(2);
+var external__axios_ = __webpack_require__(1);
 var external__axios__default = /*#__PURE__*/__webpack_require__.n(external__axios_);
 
 // EXTERNAL MODULE: external "react"
@@ -377,11 +478,11 @@ var external__react_ = __webpack_require__(0);
 var external__react__default = /*#__PURE__*/__webpack_require__.n(external__react_);
 
 // EXTERNAL MODULE: external "pusher-js"
-var external__pusher_js_ = __webpack_require__(17);
+var external__pusher_js_ = __webpack_require__(11);
 var external__pusher_js__default = /*#__PURE__*/__webpack_require__.n(external__pusher_js_);
 
 // EXTERNAL MODULE: ./utils/utils.js
-var utils = __webpack_require__(18);
+var utils = __webpack_require__(13);
 var utils_default = /*#__PURE__*/__webpack_require__.n(utils);
 
 // EXTERNAL MODULE: ./components/Page.js
@@ -392,11 +493,11 @@ var config = __webpack_require__(5);
 var config_default = /*#__PURE__*/__webpack_require__.n(config);
 
 // EXTERNAL MODULE: ./data/dataSource.js
-var dataSource = __webpack_require__(11);
+var dataSource = __webpack_require__(14);
 var dataSource_default = /*#__PURE__*/__webpack_require__.n(dataSource);
 
 // EXTERNAL MODULE: external "react-notify-toast"
-var external__react_notify_toast_ = __webpack_require__(1);
+var external__react_notify_toast_ = __webpack_require__(2);
 var external__react_notify_toast__default = /*#__PURE__*/__webpack_require__.n(external__react_notify_toast_);
 
 // CONCATENATED MODULE: ./components/SignIn.js
@@ -557,7 +658,7 @@ var endpoints = __webpack_require__(3);
 var endpoints_default = /*#__PURE__*/__webpack_require__.n(endpoints);
 
 // EXTERNAL MODULE: ./constants/credentials.js
-var credentials = __webpack_require__(19);
+var credentials = __webpack_require__(12);
 var credentials_default = /*#__PURE__*/__webpack_require__.n(credentials);
 
 // CONCATENATED MODULE: ./components/LoadingScreen.js
@@ -1655,7 +1756,6 @@ function (_Page) {
     value: function render() {
       var _this2 = this;
 
-      console.log("User selected: " + this.state.userSelected);
       if (!this.state.authenticationChecked || !this.state.gameStartedChecked) return external__react__default.a.createElement(Layout["a" /* default */], null);else if (!this.state.signedIn) return external__react__default.a.createElement(Layout["a" /* default */], null, external__react__default.a.createElement(SignIn__default, {
         onSignIn: this.onSignIn
       }));else if (this.state.isWaitingForGameToStart && this.state.signedIn) return external__react__default.a.createElement(Layout["a" /* default */], null, external__react__default.a.createElement(LoadingScreen__default, null));
@@ -1729,105 +1829,10 @@ function (_Page) {
 
 
 /***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-module.exports = require("@babel/runtime/regenerator");
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports) {
-
-module.exports = require("pusher-js");
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var axios = __webpack_require__(2);
-
-var endpoints = __webpack_require__(3);
-
-module.exports = {
-  insertLetter: function insertLetter(lettersUsed, letterToInsert) {
-    var index = lettersUsed.findIndex('-');
-  },
-  shuffleString: function shuffleString(input) {
-    var a = input.split(""),
-        n = a.length;
-
-    for (var i = n - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i];
-      a[i] = a[j];
-      a[j] = tmp;
-    }
-
-    return a.join("");
-  },
-  checkAuthenticated: function checkAuthenticated() {
-    return new Promise(function (resolve, reject) {
-      axios({
-        method: 'post',
-        url: endpoints.API_CHECK_AUTHENTICATED
-      }).then(function (response) {
-        if (response.data.result == 1) resolve(true);else reject(false);
-      }).catch(function (response) {
-        console.log(response);
-        reject(false);
-      });
-    });
-  },
-  checkGameStarted: function checkGameStarted() {
-    return new Promise(function (resolve, reject) {
-      axios({
-        method: 'post',
-        url: endpoints.API_CHECK_GAME_STARTED
-      }).then(function (response) {
-        if (response.data.result == 1) resolve(true);else reject(false);
-      }).catch(function (response) {
-        console.log(response);
-        reject(false);
-      });
-    });
-  },
-  validateUserInfo: function validateUserInfo(store, exchange, targetUser) {
-    return new Promise(function (resolve, reject) {
-      store.all(function (err, sessions) {
-        var filteredSessions = sessions.filter(function (session) {
-          if (session.hasOwnProperty('user')) return session.user.name == targetUser && session.user.birthday == exchange.birthday && session.user.favouriteFood == exchange.favouriteFood && session.user.deshu == exchange.deshu && exchange.letterToExchange;else return false;
-        });
-        console.log("filtered sessions " + JSON.stringify(filteredSessions));
-        if (filteredSessions.length > 0) resolve(true);else reject(false);
-      });
-    });
-  },
-  cancelExchange: function cancelExchange(exchangeRequest) {
-    axios({
-      method: 'post',
-      url: endpoints.API_CANCEL_EXCHANGE,
-      data: exchangeRequest
-    }).then(function (response) {}).catch(function (response) {
-      //handle error
-      console.log(response);
-    });
-  }
-};
-
-/***/ }),
 /* 19 */
 /***/ (function(module, exports) {
 
-var PUSHER_APP_ID = '575034';
-var PUSHER_APP_KEY = '30d8dabc87d7db943336';
-var PUSHER_APP_SECRET = 'ed7e51b094c6d48e5475';
-var PUSHER_APP_CLUSTER = 'ap1';
-module.exports = {
-  PUSHER_APP_ID: PUSHER_APP_ID,
-  PUSHER_APP_KEY: PUSHER_APP_KEY,
-  PUSHER_APP_SECRET: PUSHER_APP_SECRET,
-  PUSHER_APP_CLUSTER: PUSHER_APP_CLUSTER
-};
+module.exports = require("@babel/runtime/regenerator");
 
 /***/ })
 /******/ ]);
