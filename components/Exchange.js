@@ -1,7 +1,7 @@
 import React from "react";
 import data from "../data/dataSource";
-import notificationUtils from "../utils/notificationUtils"
 import strings from '../constants/strings'
+import notificationUtils from "../utils/notificationUtils"
 
 export default class extends React.Component{
 
@@ -14,15 +14,6 @@ export default class extends React.Component{
             letterToExchange: ''
         }
     }
-
-    checkIfFieldsAreComplete = (userSelected,birthday,favouriteFood,deshu,letterToExchange) => {
-        if( !userSelected || !birthday || !favouriteFood || !deshu || !letterToExchange){
-            notificationUtils.showNotification(strings.NOTIFICATION_INCOMPLETE_DETAILS)
-            return false;
-        }
-        return true;
-    }
-
 
     componentWillReceiveProps(props){
         console.log("Received new props "+JSON.stringify(props))
@@ -70,6 +61,23 @@ export default class extends React.Component{
             favouriteFood: exchangeData.favouriteFood,
             deshu: exchangeData.deshu,
         })
+    }
+
+    retrieveFromCacheByUserName = (counterParty) => {
+        const cachedObject = JSON.parse(localStorage.getItem(counterParty))
+        if(cachedObject !== null){
+            console.log("Found cached data for "+counterParty+": "+JSON.stringify(cachedObject))
+            this.updateExchangeData(cachedObject)
+        }else
+            console.log("No cache found for "+counterParty)
+    }
+
+    checkIfFieldsAreComplete = (userSelected,birthday,favouriteFood,deshu,letterToExchange) => {
+        if( !userSelected || !birthday || !favouriteFood || !deshu || !letterToExchange){
+            notificationUtils.showNotification(strings.NOTIFICATION_INCOMPLETE_DETAILS)
+            return false;
+        }
+        return true;
     }
 
     render(){

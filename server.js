@@ -9,6 +9,7 @@ const strings = require('./constants/strings')
 const gameUtils = require('./utils/gameUtils')
 const endpoints = require('./constants/endpoints')
 const credentials = require('./constants/credentials')
+const serverUtils = require('./utils/serverUtils')
 const MemoryStore = require('session-memory-store')(session);
 
 const sessionStore = new MemoryStore();
@@ -71,12 +72,7 @@ nextApp
             });
             res.json({success:1})
             if(allUsers.length == 0){
-                console.log("All users have completed the game....")
-                sessionStore.clear()
-                allCharacters = ""
-                allUsers = []
-                gameStarted = false
-                assignedLetters = {}
+                onGameCompleted(sessionStore,allCharacters,allUsers,gameStarted,assignedLetters,pusher)
             }
             pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
         })
@@ -102,14 +98,7 @@ nextApp
             console.log("Got Request to stop game with password "+req.body.password)
             if(req.body.password === 'jxbcamp2019'){
                 if(gameStarted) {
-                    console.log("All users have completed the game....")
-                    sessionStore.clear()
-                    allCharacters = ""
-                    allUsers = []
-                    gameStarted = false
-                    assignedLetters = {}
-                    pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_GAME_STOP_EVENT, {})
-                    pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
+                    onGameCompleted(sessionStore,allCharacters,allUsers,gameStarted,assignedLetters,pusher)
                 }else
                     res.json({success: 0, message: strings.NOTIFICATION_GAME_ALREADY_STOPPED})
             }
@@ -159,24 +148,12 @@ nextApp
             const userName = req.session.user.name
             console.log("Got letters request from: "+userName)
             if(!assignedLetters.hasOwnProperty(userName)) {
-                const lettersExtracted = allCharacters.slice(0, userName.length)
-                allCharacters = allCharacters.substring(userName.length)
-                const lettersAssigned = lettersExtracted.split("")
-                console.log("Assigned letters " + lettersAssigned + " to user " + userName);
+                const lettersAssigned = assignLetters(userName)
                 res.send(lettersAssigned)
                 assignedLetters[userName] = lettersAssigned
             }
             else
                 res.send(assignedLetters[userName])
-        })
-
-        expressApp.get(endpoints.API_CHECK_SESSION_EXPIRED,function (req,res) {
-            console.log("Current timestamp is "+new Date().getTime())
-            console.log("Cookie expiry: "+req.session.cookie.expires.getTime())
-            if (new Date().getTime() > req.session.cookie.expires.getTime())
-                console.log("cookie has expired")
-            else
-                console.log("cookie has not expired")
         })
 
         expressApp.post(endpoints.API_SUBMIT_EXCHANGE_REQUEST,function (req,res) {
@@ -195,15 +172,7 @@ nextApp
             console.log("Received Exchange Response: "+JSON.stringify(exchangeResponse))
             gameUtils.validateUserInfo(sessionStore,exchangeResponse,exchangeResponse.request_user).then(function(success){
                 res.json({success: 1})
-                var requestUserAssignedLetters = assignedLetters[exchangeResponse.request_user]
-                var respondUserAssignedLetters = assignedLetters[exchangeResponse.respond_user]
-                requestUserAssignedLetters[requestUserAssignedLetters.indexOf(exchangeResponse.letterToReceive)] = exchangeResponse.letterToExchange
-                respondUserAssignedLetters[respondUserAssignedLetters.indexOf(exchangeResponse.letterToExchange)] = exchangeResponse.letterToReceive
-                console.log("Exchange completed")
-                console.log(exchangeResponse.request_user+": "+requestUserAssignedLetters)
-                console.log(exchangeResponse.respond_user+": "+respondUserAssignedLetters)
-                assignedLetters[exchangeResponse.request_user] = requestUserAssignedLetters
-                assignedLetters[exchangeResponse.respond_user] = respondUserAssignedLetters
+                swapLetters(exchangeResponse)
                 pusher.trigger(strings.PUSHER_CHANNEL,strings.EXCHANGE_COMPLETED_EVENT,exchangeResponse)
             },function(failure){
                 res.json({success:0})
@@ -219,4 +188,37 @@ nextApp
             if (err) throw err
             console.log('Server is now running on '+config.FULL_URI)
         })
+
+        function onGameCompleted() {
+            console.log("All users have completed the game....")
+            sessionStore.clear()
+            allCharacters = ""
+            allUsers = []
+            gameStarted = false
+            assignedLetters = {}
+            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_GAME_STOP_EVENT, {})
+            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
+        }
+
+        function swapLetters(exchangeResponse){
+            var requestUserAssignedLetters = assignedLetters[exchangeResponse.request_user]
+            var respondUserAssignedLetters = assignedLetters[exchangeResponse.respond_user]
+            console.log("request "+requestUserAssignedLetters)
+            console.log("response "+respondUserAssignedLetters)
+            requestUserAssignedLetters[requestUserAssignedLetters.indexOf(exchangeResponse.letterToReceive)] = exchangeResponse.letterToExchange
+            respondUserAssignedLetters[respondUserAssignedLetters.indexOf(exchangeResponse.letterToExchange)] = exchangeResponse.letterToReceive
+            console.log("Exchange completed")
+            console.log(exchangeResponse.request_user+": "+requestUserAssignedLetters)
+            console.log(exchangeResponse.respond_user+": "+respondUserAssignedLetters)
+            assignedLetters[exchangeResponse.request_user] = requestUserAssignedLetters
+            assignedLetters[exchangeResponse.respond_user] = respondUserAssignedLetters
+        }
+
+        function assignLetters(userName){
+            const lettersExtracted = allCharacters.slice(0, userName.length)
+            allCharacters = allCharacters.substring(userName.length)
+            const lettersAssigned = lettersExtracted.split("")
+            console.log("Assigned letters " + lettersAssigned + " to user " + userName);
+            return lettersAssigned
+        }
     });

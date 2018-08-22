@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 19);
+/******/ 	return __webpack_require__(__webpack_require__.s = 18);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -80,17 +80,68 @@ module.exports = require("react");
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-notify-toast");
+var PUSHER_CHANNEL = 'iceBreaker';
+var PUSHER_USER_LIST_UPDATE_EVENT = 'update-user-list';
+var PUSHER_GAME_START_EVENT = 'game-start';
+var PUSHER_NEW_EXCHANGE_REQUEST_EVENT = 'new-exchange-request';
+var PUSHER_NEW_EXCHANGE_RESPONSE_EVENT = 'new-exchange-response';
+var EXCHANGE_COMPLETED_EVENT = 'exchange-completed';
+var PUSHER_GAME_STOP_EVENT = 'game-stop';
+var PUSHER_EXCHANGE_CANCELLED_EVENT = 'cancel-exchange';
+var NOTIFICATION_GAME_BEGUN = 'Game has begun!';
+var NOTIFICATION_WRONG_DETAILS = 'You have entered the wrong details! Please try again!';
+var NOTIFICATION_EXCHANGE_SUCCESSFUL = 'Exchange of letters successful!';
+var NOTIFICATION_DUPLICATE_NAME = 'Name has already been taken! Please choose another one!';
+var NOTIFICATION_INCOMPLETE_DETAILS = 'Please fill in all details!';
+var NOTIFICATION_SAME_NAME_SELECTED = 'You are not allowed to exchange with yourself!';
+var NOTIFICATION_GAME_ALREADY_IN_PROGRESS = 'Game already in progress! Please wait to join the next session!';
+var NOTIFICATION_CANCEL_EXCHANGE = 'Exchange has been cancelled by the other party!';
+var NOTIFICATION_GAME_STARTED_SUCCESSFUL = 'Game has been started successfully!';
+var NOTIFICATION_GAME_STARTED_FAILED = 'Failed to start Game!';
+var NOTIFICATION_GAME_STOP_SUCCESSFUL = 'Game has been stopped successfully!';
+var NOTIFICATION_GAME_STOP_FAILED = 'Failed to stop Game!';
+var NOTIFICATION_WRONG_PASSWORD = 'You have entered the wrong password!';
+var NOTIFICATION_GAME_ALREADY_STARTED = 'Game already in progress!';
+var NOTIFICATION_GAME_ALREADY_STOPPED = 'Game already stopped!';
+var GAME_STATUS_INACTIVE = 'INACTIVE';
+var GAME_STATUS_IN_PROGRESS = 'IN PROGRESS';
+module.exports = {
+  PUSHER_CHANNEL: PUSHER_CHANNEL,
+  PUSHER_USER_LIST_UPDATE_EVENT: PUSHER_USER_LIST_UPDATE_EVENT,
+  PUSHER_NEW_EXCHANGE_REQUEST_EVENT: PUSHER_NEW_EXCHANGE_REQUEST_EVENT,
+  PUSHER_NEW_EXCHANGE_RESPONSE_EVENT: PUSHER_NEW_EXCHANGE_RESPONSE_EVENT,
+  EXCHANGE_COMPLETED_EVENT: EXCHANGE_COMPLETED_EVENT,
+  PUSHER_GAME_START_EVENT: PUSHER_GAME_START_EVENT,
+  NOTIFICATION_GAME_BEGUN: NOTIFICATION_GAME_BEGUN,
+  NOTIFICATION_WRONG_DETAILS: NOTIFICATION_WRONG_DETAILS,
+  NOTIFICATION_EXCHANGE_SUCCESSFUL: NOTIFICATION_EXCHANGE_SUCCESSFUL,
+  NOTIFICATION_DUPLICATE_NAME: NOTIFICATION_DUPLICATE_NAME,
+  NOTIFICATION_INCOMPLETE_DETAILS: NOTIFICATION_INCOMPLETE_DETAILS,
+  NOTIFICATION_SAME_NAME_SELECTED: NOTIFICATION_SAME_NAME_SELECTED,
+  PUSHER_GAME_STOP_EVENT: PUSHER_GAME_STOP_EVENT,
+  NOTIFICATION_GAME_ALREADY_IN_PROGRESS: NOTIFICATION_GAME_ALREADY_IN_PROGRESS,
+  PUSHER_EXCHANGE_CANCELLED_EVENT: PUSHER_EXCHANGE_CANCELLED_EVENT,
+  NOTIFICATION_CANCEL_EXCHANGE: NOTIFICATION_CANCEL_EXCHANGE,
+  NOTIFICATION_GAME_STARTED_SUCCESSFUL: NOTIFICATION_GAME_STARTED_SUCCESSFUL,
+  NOTIFICATION_GAME_STARTED_FAILED: NOTIFICATION_GAME_STARTED_FAILED,
+  NOTIFICATION_GAME_STOP_SUCCESSFUL: NOTIFICATION_GAME_STOP_SUCCESSFUL,
+  NOTIFICATION_GAME_STOP_FAILED: NOTIFICATION_GAME_STOP_FAILED,
+  NOTIFICATION_WRONG_PASSWORD: NOTIFICATION_WRONG_PASSWORD,
+  NOTIFICATION_GAME_ALREADY_STARTED: NOTIFICATION_GAME_ALREADY_STARTED,
+  NOTIFICATION_GAME_ALREADY_STOPPED: NOTIFICATION_GAME_ALREADY_STOPPED,
+  GAME_STATUS_INACTIVE: GAME_STATUS_INACTIVE,
+  GAME_STATUS_IN_PROGRESS: GAME_STATUS_IN_PROGRESS
+};
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var axios = __webpack_require__(6);
+var axios = __webpack_require__(9);
 
-var strings = __webpack_require__(3);
+var strings = __webpack_require__(1);
 
-var endpoints = __webpack_require__(7);
+var endpoints = __webpack_require__(10);
 
 module.exports = {
   sendExchangeRequest: function sendExchangeRequest(exchangeRequest) {
@@ -284,62 +335,15 @@ module.exports = {
 /* 3 */
 /***/ (function(module, exports) {
 
-var PUSHER_CHANNEL = 'iceBreaker';
-var PUSHER_USER_LIST_UPDATE_EVENT = 'update-user-list';
-var PUSHER_GAME_START_EVENT = 'game-start';
-var PUSHER_NEW_EXCHANGE_REQUEST_EVENT = 'new-exchange-request';
-var PUSHER_NEW_EXCHANGE_RESPONSE_EVENT = 'new-exchange-response';
-var EXCHANGE_COMPLETED_EVENT = 'exchange-completed';
-var PUSHER_GAME_STOP_EVENT = 'game-stop';
-var PUSHER_EXCHANGE_CANCELLED_EVENT = 'cancel-exchange';
-var NOTIFICATION_GAME_BEGUN = 'Game has begun!';
-var NOTIFICATION_WRONG_DETAILS = 'You have entered the wrong details! Please try again!';
-var NOTIFICATION_EXCHANGE_SUCCESSFUL = 'Exchange of letters successful!';
-var NOTIFICATION_DUPLICATE_NAME = 'Name has already been taken! Please choose another one!';
-var NOTIFICATION_INCOMPLETE_DETAILS = 'Please fill in all details!';
-var NOTIFICATION_SAME_NAME_SELECTED = 'You are not allowed to exchange with yourself!';
-var NOTIFICATION_GAME_ALREADY_IN_PROGRESS = 'Game already in progress! Please wait to join the next session!';
-var NOTIFICATION_CANCEL_EXCHANGE = 'Exchange has been cancelled by the other party!';
-var NOTIFICATION_GAME_STARTED_SUCCESSFUL = 'Game has been started successfully!';
-var NOTIFICATION_GAME_STARTED_FAILED = 'Failed to start Game!';
-var NOTIFICATION_GAME_STOP_SUCCESSFUL = 'Game has been stopped successfully!';
-var NOTIFICATION_GAME_STOP_FAILED = 'Failed to stop Game!';
-var NOTIFICATION_WRONG_PASSWORD = 'You have entered the wrong password!';
-var NOTIFICATION_GAME_ALREADY_STARTED = 'Game already in progress!';
-var NOTIFICATION_GAME_ALREADY_STOPPED = 'Game already stopped!';
-module.exports = {
-  PUSHER_CHANNEL: PUSHER_CHANNEL,
-  PUSHER_USER_LIST_UPDATE_EVENT: PUSHER_USER_LIST_UPDATE_EVENT,
-  PUSHER_NEW_EXCHANGE_REQUEST_EVENT: PUSHER_NEW_EXCHANGE_REQUEST_EVENT,
-  PUSHER_NEW_EXCHANGE_RESPONSE_EVENT: PUSHER_NEW_EXCHANGE_RESPONSE_EVENT,
-  EXCHANGE_COMPLETED_EVENT: EXCHANGE_COMPLETED_EVENT,
-  PUSHER_GAME_START_EVENT: PUSHER_GAME_START_EVENT,
-  NOTIFICATION_GAME_BEGUN: NOTIFICATION_GAME_BEGUN,
-  NOTIFICATION_WRONG_DETAILS: NOTIFICATION_WRONG_DETAILS,
-  NOTIFICATION_EXCHANGE_SUCCESSFUL: NOTIFICATION_EXCHANGE_SUCCESSFUL,
-  NOTIFICATION_DUPLICATE_NAME: NOTIFICATION_DUPLICATE_NAME,
-  NOTIFICATION_INCOMPLETE_DETAILS: NOTIFICATION_INCOMPLETE_DETAILS,
-  NOTIFICATION_SAME_NAME_SELECTED: NOTIFICATION_SAME_NAME_SELECTED,
-  PUSHER_GAME_STOP_EVENT: PUSHER_GAME_STOP_EVENT,
-  NOTIFICATION_GAME_ALREADY_IN_PROGRESS: NOTIFICATION_GAME_ALREADY_IN_PROGRESS,
-  PUSHER_EXCHANGE_CANCELLED_EVENT: PUSHER_EXCHANGE_CANCELLED_EVENT,
-  NOTIFICATION_CANCEL_EXCHANGE: NOTIFICATION_CANCEL_EXCHANGE,
-  NOTIFICATION_GAME_STARTED_SUCCESSFUL: NOTIFICATION_GAME_STARTED_SUCCESSFUL,
-  NOTIFICATION_GAME_STARTED_FAILED: NOTIFICATION_GAME_STARTED_FAILED,
-  NOTIFICATION_GAME_STOP_SUCCESSFUL: NOTIFICATION_GAME_STOP_SUCCESSFUL,
-  NOTIFICATION_GAME_STOP_FAILED: NOTIFICATION_GAME_STOP_FAILED,
-  NOTIFICATION_WRONG_PASSWORD: NOTIFICATION_WRONG_PASSWORD,
-  NOTIFICATION_GAME_ALREADY_STARTED: NOTIFICATION_GAME_ALREADY_STARTED,
-  NOTIFICATION_GAME_ALREADY_STOPPED: NOTIFICATION_GAME_ALREADY_STOPPED
-};
+module.exports = require("react-notify-toast");
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var notify = __webpack_require__(1).notify;
+var notify = __webpack_require__(3).notify;
 
-var config = __webpack_require__(15);
+var config = __webpack_require__(14);
 
 console.log("Notify is " + JSON.stringify(notify));
 module.exports = {
@@ -359,58 +363,17 @@ module.exports = require("styled-jsx/style");
 
 /***/ }),
 /* 6 */
-/***/ (function(module, exports) {
-
-module.exports = require("axios");
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-var API_LOGIN_USER = '/loginUser';
-var API_CHECK_SESSION_EXPIRED = '/checkExpired';
-var API_GET_ALL_ACTIVE_USERS = '/getActiveUsers';
-var API_GET_SESSION = '/getSession';
-var API_GET_ASSIGNED_LETTERS = '/getAssignedLetters';
-var API_SUBMIT_EXCHANGE_REQUEST = '/submitExchangeRequest';
-var API_SUBMIT_EXCHANGE_RESPONSE = '/submitExchangeResponse';
-var API_EXCHANGE_COMPLETED = '/exchangeCompleted';
-var API_START_GAME = '/startGame';
-var API_USER_COMPLETED_GAME = '/userCompletedGame';
-var API_CHECK_AUTHENTICATED = '/checkAuthenticated';
-var API_CHECK_GAME_STARTED = '/checkGameStarted';
-var API_STOP_GAME = '/stopGame';
-var API_CANCEL_EXCHANGE = '/cancelExchange';
-module.exports = {
-  API_LOGIN_USER: API_LOGIN_USER,
-  API_CHECK_SESSION_EXPIRED: API_CHECK_SESSION_EXPIRED,
-  API_GET_ALL_ACTIVE_USERS: API_GET_ALL_ACTIVE_USERS,
-  API_GET_SESSION: API_GET_SESSION,
-  API_GET_ASSIGNED_LETTERS: API_GET_ASSIGNED_LETTERS,
-  API_SUBMIT_EXCHANGE_REQUEST: API_SUBMIT_EXCHANGE_REQUEST,
-  API_EXCHANGE_COMPLETED: API_EXCHANGE_COMPLETED,
-  API_SUBMIT_EXCHANGE_RESPONSE: API_SUBMIT_EXCHANGE_RESPONSE,
-  API_START_GAME: API_START_GAME,
-  API_USER_COMPLETED_GAME: API_USER_COMPLETED_GAME,
-  API_CHECK_AUTHENTICATED: API_CHECK_AUTHENTICATED,
-  API_CHECK_GAME_STARTED: API_CHECK_GAME_STARTED,
-  API_STOP_GAME: API_STOP_GAME,
-  API_CANCEL_EXCHANGE: API_CANCEL_EXCHANGE
-};
-
-/***/ }),
-/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _default; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_head__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_reactstrap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -474,40 +437,13 @@ function (_React$Component) {
 
 
 /***/ }),
-/* 9 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = require("pusher-js");
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var axios = __webpack_require__(6);
-
-var endpoints = __webpack_require__(7);
-
-module.exports = {
-  insertLetter: function insertLetter(lettersUsed, letterToInsert) {
-    var index = lettersUsed.findIndex('-');
-  },
-  shuffleString: function shuffleString(input) {
-    var a = input.split(""),
-        n = a.length;
-
-    for (var i = n - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i];
-      a[i] = a[j];
-      a[j] = tmp;
-    }
-
-    return a.join("");
-  }
-};
-
-/***/ }),
-/* 11 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -543,19 +479,58 @@ function (_React$Component) {
 
 
 /***/ }),
-/* 12 */
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+var API_LOGIN_USER = '/loginUser';
+var API_GET_ALL_ACTIVE_USERS = '/getActiveUsers';
+var API_GET_SESSION = '/getSession';
+var API_GET_ASSIGNED_LETTERS = '/getAssignedLetters';
+var API_SUBMIT_EXCHANGE_REQUEST = '/submitExchangeRequest';
+var API_SUBMIT_EXCHANGE_RESPONSE = '/submitExchangeResponse';
+var API_EXCHANGE_COMPLETED = '/exchangeCompleted';
+var API_START_GAME = '/startGame';
+var API_USER_COMPLETED_GAME = '/userCompletedGame';
+var API_CHECK_AUTHENTICATED = '/checkAuthenticated';
+var API_CHECK_GAME_STARTED = '/checkGameStarted';
+var API_STOP_GAME = '/stopGame';
+var API_CANCEL_EXCHANGE = '/cancelExchange';
+module.exports = {
+  API_LOGIN_USER: API_LOGIN_USER,
+  API_GET_ALL_ACTIVE_USERS: API_GET_ALL_ACTIVE_USERS,
+  API_GET_SESSION: API_GET_SESSION,
+  API_GET_ASSIGNED_LETTERS: API_GET_ASSIGNED_LETTERS,
+  API_SUBMIT_EXCHANGE_REQUEST: API_SUBMIT_EXCHANGE_REQUEST,
+  API_EXCHANGE_COMPLETED: API_EXCHANGE_COMPLETED,
+  API_SUBMIT_EXCHANGE_RESPONSE: API_SUBMIT_EXCHANGE_RESPONSE,
+  API_START_GAME: API_START_GAME,
+  API_USER_COMPLETED_GAME: API_USER_COMPLETED_GAME,
+  API_CHECK_AUTHENTICATED: API_CHECK_AUTHENTICATED,
+  API_CHECK_GAME_STARTED: API_CHECK_GAME_STARTED,
+  API_STOP_GAME: API_STOP_GAME,
+  API_CANCEL_EXCHANGE: API_CANCEL_EXCHANGE
+};
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("next/head");
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("reactstrap");
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports) {
 
 var PUSHER_APP_ID = '575034';
@@ -570,7 +545,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports) {
 
 var DB_HOST = 'localhost';
@@ -604,7 +579,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports) {
 
 var FOOD_OPTIONS = ['hokkien mee', 'laksa', 'mee rebus'];
@@ -615,24 +590,20 @@ module.exports = {
 };
 
 /***/ }),
+/* 16 */,
 /* 17 */,
-/* 18 */,
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(20);
+module.exports = __webpack_require__(19);
 
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-
-// EXTERNAL MODULE: external "@babel/runtime/regenerator"
-var regenerator_ = __webpack_require__(21);
-var regenerator__default = /*#__PURE__*/__webpack_require__.n(regenerator_);
 
 // EXTERNAL MODULE: external "styled-jsx/style"
 var style_ = __webpack_require__(5);
@@ -643,28 +614,37 @@ var external__react_ = __webpack_require__(0);
 var external__react__default = /*#__PURE__*/__webpack_require__.n(external__react_);
 
 // EXTERNAL MODULE: external "pusher-js"
-var external__pusher_js_ = __webpack_require__(9);
+var external__pusher_js_ = __webpack_require__(7);
 var external__pusher_js__default = /*#__PURE__*/__webpack_require__.n(external__pusher_js_);
 
+// CONCATENATED MODULE: ./models/User.js
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var User__default = function _default(name, birthday, deshu, favouriteFood) {
+  _classCallCheck(this, _default);
+
+  this.name = name;
+  this.birthday = birthday;
+  this.favouriteFood = favouriteFood;
+  this.deshu = deshu;
+};
+
+
 // EXTERNAL MODULE: ./utils/utils.js
-var utils = __webpack_require__(10);
+var utils = __webpack_require__(20);
 var utils_default = /*#__PURE__*/__webpack_require__.n(utils);
 
 // EXTERNAL MODULE: ./components/Page.js
-var Page = __webpack_require__(11);
+var Page = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./data/dataSource.js
-var dataSource = __webpack_require__(16);
+var dataSource = __webpack_require__(15);
 var dataSource_default = /*#__PURE__*/__webpack_require__.n(dataSource);
-
-// EXTERNAL MODULE: external "react-notify-toast"
-var external__react_notify_toast_ = __webpack_require__(1);
-var external__react_notify_toast__default = /*#__PURE__*/__webpack_require__.n(external__react_notify_toast_);
 
 // CONCATENATED MODULE: ./components/SignIn.js
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function SignIn__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -679,7 +659,6 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
-
 var SignIn__default =
 /*#__PURE__*/
 function (_React$Component) {
@@ -688,7 +667,7 @@ function (_React$Component) {
   function _default() {
     var _this;
 
-    _classCallCheck(this, _default);
+    SignIn__classCallCheck(this, _default);
 
     _this = _possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).call(this));
     Object.defineProperty(_assertThisInitialized(_this), "handleNameChange", {
@@ -808,18 +787,22 @@ function (_React$Component) {
 
 
 // EXTERNAL MODULE: ./constants/strings.js
-var strings = __webpack_require__(3);
+var strings = __webpack_require__(1);
 var strings_default = /*#__PURE__*/__webpack_require__.n(strings);
+
+// EXTERNAL MODULE: external "react-notify-toast"
+var external__react_notify_toast_ = __webpack_require__(3);
+var external__react_notify_toast__default = /*#__PURE__*/__webpack_require__.n(external__react_notify_toast_);
 
 // EXTERNAL MODULE: ./utils/gameUtils.js
 var gameUtils = __webpack_require__(2);
 var gameUtils_default = /*#__PURE__*/__webpack_require__.n(gameUtils);
 
 // EXTERNAL MODULE: ./components/Layout.js
-var Layout = __webpack_require__(8);
+var Layout = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./constants/credentials.js
-var credentials = __webpack_require__(14);
+var credentials = __webpack_require__(13);
 var credentials_default = /*#__PURE__*/__webpack_require__.n(credentials);
 
 // CONCATENATED MODULE: ./components/LoadingScreen.js
@@ -1056,19 +1039,6 @@ function (_React$Component) {
     Exchange__classCallCheck(this, _default);
 
     _this = Exchange__possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).call(this));
-    Object.defineProperty(Exchange__assertThisInitialized(_this), "checkIfFieldsAreComplete", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: function value(userSelected, birthday, favouriteFood, deshu, letterToExchange) {
-        if (!userSelected || !birthday || !favouriteFood || !deshu || !letterToExchange) {
-          notificationUtils_default.a.showNotification(strings_default.a.NOTIFICATION_INCOMPLETE_DETAILS);
-          return false;
-        }
-
-        return true;
-      }
-    });
     Object.defineProperty(Exchange__assertThisInitialized(_this), "handleBirthdayChange", {
       configurable: true,
       enumerable: true,
@@ -1129,6 +1099,33 @@ function (_React$Component) {
           favouriteFood: exchangeData.favouriteFood,
           deshu: exchangeData.deshu
         });
+      }
+    });
+    Object.defineProperty(Exchange__assertThisInitialized(_this), "retrieveFromCacheByUserName", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(counterParty) {
+        var cachedObject = JSON.parse(localStorage.getItem(counterParty));
+
+        if (cachedObject !== null) {
+          console.log("Found cached data for " + counterParty + ": " + JSON.stringify(cachedObject));
+
+          _this.updateExchangeData(cachedObject);
+        } else console.log("No cache found for " + counterParty);
+      }
+    });
+    Object.defineProperty(Exchange__assertThisInitialized(_this), "checkIfFieldsAreComplete", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(userSelected, birthday, favouriteFood, deshu, letterToExchange) {
+        if (!userSelected || !birthday || !favouriteFood || !deshu || !letterToExchange) {
+          notificationUtils_default.a.showNotification(strings_default.a.NOTIFICATION_INCOMPLETE_DETAILS);
+          return false;
+        }
+
+        return true;
       }
     });
     _this.state = {
@@ -1327,14 +1324,7 @@ function (_Exchange) {
       enumerable: true,
       writable: true,
       value: function value(props) {
-        var counterParty = props.userSelected;
-        var cachedObject = JSON.parse(localStorage.getItem(counterParty));
-
-        if (cachedObject !== null) {
-          console.log("Found cached data for " + counterParty + ": " + JSON.stringify(cachedObject));
-
-          _this.updateExchangeData(cachedObject);
-        } else console.log("No cache found for " + counterParty);
+        _this.retrieveFromCacheByUserName(props.userSelected);
       }
     }), _temp));
   }
@@ -1404,14 +1394,7 @@ function (_Exchange) {
       enumerable: true,
       writable: true,
       value: function value(props) {
-        var counterParty = props.exchangeRequest.request_user;
-        var cachedObject = JSON.parse(localStorage.getItem(counterParty));
-
-        if (cachedObject !== null) {
-          console.log("Found cached data for " + counterParty + ": " + JSON.stringify(cachedObject));
-
-          _this.updateExchangeData(cachedObject);
-        } else console.log("No cache found for " + counterParty);
+        _this.retrieveFromCacheByUserName(props.exchangeRequest.request_user);
       }
     }), _temp));
   }
@@ -1475,10 +1458,7 @@ function (_React$Component) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return pages__default; });
 
 
-
 function pages__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { pages__typeof = function _typeof(obj) { return typeof obj; }; } else { pages__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return pages__typeof(obj); }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
 
 function pages__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1491,6 +1471,7 @@ function pages__possibleConstructorReturn(self, call) { if (call && (pages__type
 function pages__inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function pages__assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 
 
 
@@ -1671,11 +1652,7 @@ function (_Page) {
       enumerable: true,
       writable: true,
       value: function value(letterToGive, exchangeRequest) {
-        if (typeof localStorage !== 'undefined') {
-          console.log("Setting local storage " + exchangeRequest.respond_user + ":" + exchangeRequest);
-          localStorage.setItem(exchangeRequest.respond_user, JSON.stringify(exchangeRequest));
-        }
-
+        utils_default.a.saveToLocalStorage(exchangeRequest.respond_user, JSON.stringify(exchangeRequest));
         var userSelected = _this.state.userSelected;
 
         _this.setState({
@@ -1698,10 +1675,7 @@ function (_Page) {
 
         _this.retriveLetters();
 
-        if (typeof localStorage !== 'undefined') {
-          console.log("Setting local storage " + exchangeResponse.request_user + ":" + exchangeResponse);
-          localStorage.setItem(exchangeResponse.request_user, JSON.stringify(exchangeResponse));
-        }
+        utils_default.a.saveToLocalStorage(exchangeResponse.request_user, JSON.stringify(exchangeResponse));
 
         _this.setState({
           isVerifyingForCounterParty: false
@@ -1777,13 +1751,8 @@ function (_Page) {
       value: function value(name, birthday, favouriteFood, deshu) {
         name = name.toUpperCase();
         console.log("Signing in..." + name);
-        var data = {
-          name: name,
-          birthday: birthday,
-          favouriteFood: favouriteFood,
-          deshu: deshu
-        };
-        gameUtils_default.a.loginUser(data).then(function (succeed) {
+        var user = new User__default(name, birthday, deshu, favouriteFood);
+        gameUtils_default.a.loginUser(user).then(function (succeed) {
           _this.setState({
             signedIn: true
           });
@@ -1802,8 +1771,8 @@ function (_Page) {
     });
     _this.state = {
       userName: "",
-      activeUsers: ["LEW WEI HAO", "TAN YI KAN"],
-      lettersAssigned: ["A", "B", "C", " "],
+      activeUsers: [],
+      lettersAssigned: [],
       userSelected: '',
       isWaitingForCounterPartyToVerify: false,
       isVerifyingForCounterParty: false,
@@ -1820,36 +1789,17 @@ function (_Page) {
 
   pages__createClass(_default, [{
     key: "componentDidMount",
-    value: function () {
-      var _componentDidMount = _asyncToGenerator(
-      /*#__PURE__*/
-      regenerator__default.a.mark(function _callee() {
-        return regenerator__default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                this.setupPusher();
-                this.checkGameState();
-                /*
-                this.setState({
-                    signedIn: true,
-                    authenticationChecked: true,
-                    gameStartedChecked: true,
-                    isWaitingForGameToStart: false,
-                })*/
-
-              case 2:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      return function componentDidMount() {
-        return _componentDidMount.apply(this, arguments);
-      };
-    }()
+    value: function componentDidMount() {
+      this.setupPusher();
+      this.checkGameState();
+      /*
+      this.setState({
+          signedIn: true,
+          authenticationChecked: true,
+          gameStartedChecked: true,
+          isWaitingForGameToStart: false,
+      })*/
+    }
   }, {
     key: "render",
     value: function render() {
@@ -1928,10 +1878,33 @@ function (_Page) {
 
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports) {
 
-module.exports = require("@babel/runtime/regenerator");
+module.exports = {
+  insertLetter: function insertLetter(lettersUsed, letterToInsert) {
+    var index = lettersUsed.findIndex('-');
+  },
+  shuffleString: function shuffleString(input) {
+    var a = input.split(""),
+        n = a.length;
+
+    for (var i = n - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i];
+      a[i] = a[j];
+      a[j] = tmp;
+    }
+
+    return a.join("");
+  },
+  saveToLocalStorage: function saveToLocalStorage(key, value) {
+    if (typeof localStorage !== 'undefined') {
+      console.log("Setting local storage " + key + ":" + value);
+      localStorage.setItem(key, value);
+    }
+  }
+};
 
 /***/ })
 /******/ ]);

@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -80,17 +80,68 @@ module.exports = require("react");
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-notify-toast");
+var PUSHER_CHANNEL = 'iceBreaker';
+var PUSHER_USER_LIST_UPDATE_EVENT = 'update-user-list';
+var PUSHER_GAME_START_EVENT = 'game-start';
+var PUSHER_NEW_EXCHANGE_REQUEST_EVENT = 'new-exchange-request';
+var PUSHER_NEW_EXCHANGE_RESPONSE_EVENT = 'new-exchange-response';
+var EXCHANGE_COMPLETED_EVENT = 'exchange-completed';
+var PUSHER_GAME_STOP_EVENT = 'game-stop';
+var PUSHER_EXCHANGE_CANCELLED_EVENT = 'cancel-exchange';
+var NOTIFICATION_GAME_BEGUN = 'Game has begun!';
+var NOTIFICATION_WRONG_DETAILS = 'You have entered the wrong details! Please try again!';
+var NOTIFICATION_EXCHANGE_SUCCESSFUL = 'Exchange of letters successful!';
+var NOTIFICATION_DUPLICATE_NAME = 'Name has already been taken! Please choose another one!';
+var NOTIFICATION_INCOMPLETE_DETAILS = 'Please fill in all details!';
+var NOTIFICATION_SAME_NAME_SELECTED = 'You are not allowed to exchange with yourself!';
+var NOTIFICATION_GAME_ALREADY_IN_PROGRESS = 'Game already in progress! Please wait to join the next session!';
+var NOTIFICATION_CANCEL_EXCHANGE = 'Exchange has been cancelled by the other party!';
+var NOTIFICATION_GAME_STARTED_SUCCESSFUL = 'Game has been started successfully!';
+var NOTIFICATION_GAME_STARTED_FAILED = 'Failed to start Game!';
+var NOTIFICATION_GAME_STOP_SUCCESSFUL = 'Game has been stopped successfully!';
+var NOTIFICATION_GAME_STOP_FAILED = 'Failed to stop Game!';
+var NOTIFICATION_WRONG_PASSWORD = 'You have entered the wrong password!';
+var NOTIFICATION_GAME_ALREADY_STARTED = 'Game already in progress!';
+var NOTIFICATION_GAME_ALREADY_STOPPED = 'Game already stopped!';
+var GAME_STATUS_INACTIVE = 'INACTIVE';
+var GAME_STATUS_IN_PROGRESS = 'IN PROGRESS';
+module.exports = {
+  PUSHER_CHANNEL: PUSHER_CHANNEL,
+  PUSHER_USER_LIST_UPDATE_EVENT: PUSHER_USER_LIST_UPDATE_EVENT,
+  PUSHER_NEW_EXCHANGE_REQUEST_EVENT: PUSHER_NEW_EXCHANGE_REQUEST_EVENT,
+  PUSHER_NEW_EXCHANGE_RESPONSE_EVENT: PUSHER_NEW_EXCHANGE_RESPONSE_EVENT,
+  EXCHANGE_COMPLETED_EVENT: EXCHANGE_COMPLETED_EVENT,
+  PUSHER_GAME_START_EVENT: PUSHER_GAME_START_EVENT,
+  NOTIFICATION_GAME_BEGUN: NOTIFICATION_GAME_BEGUN,
+  NOTIFICATION_WRONG_DETAILS: NOTIFICATION_WRONG_DETAILS,
+  NOTIFICATION_EXCHANGE_SUCCESSFUL: NOTIFICATION_EXCHANGE_SUCCESSFUL,
+  NOTIFICATION_DUPLICATE_NAME: NOTIFICATION_DUPLICATE_NAME,
+  NOTIFICATION_INCOMPLETE_DETAILS: NOTIFICATION_INCOMPLETE_DETAILS,
+  NOTIFICATION_SAME_NAME_SELECTED: NOTIFICATION_SAME_NAME_SELECTED,
+  PUSHER_GAME_STOP_EVENT: PUSHER_GAME_STOP_EVENT,
+  NOTIFICATION_GAME_ALREADY_IN_PROGRESS: NOTIFICATION_GAME_ALREADY_IN_PROGRESS,
+  PUSHER_EXCHANGE_CANCELLED_EVENT: PUSHER_EXCHANGE_CANCELLED_EVENT,
+  NOTIFICATION_CANCEL_EXCHANGE: NOTIFICATION_CANCEL_EXCHANGE,
+  NOTIFICATION_GAME_STARTED_SUCCESSFUL: NOTIFICATION_GAME_STARTED_SUCCESSFUL,
+  NOTIFICATION_GAME_STARTED_FAILED: NOTIFICATION_GAME_STARTED_FAILED,
+  NOTIFICATION_GAME_STOP_SUCCESSFUL: NOTIFICATION_GAME_STOP_SUCCESSFUL,
+  NOTIFICATION_GAME_STOP_FAILED: NOTIFICATION_GAME_STOP_FAILED,
+  NOTIFICATION_WRONG_PASSWORD: NOTIFICATION_WRONG_PASSWORD,
+  NOTIFICATION_GAME_ALREADY_STARTED: NOTIFICATION_GAME_ALREADY_STARTED,
+  NOTIFICATION_GAME_ALREADY_STOPPED: NOTIFICATION_GAME_ALREADY_STOPPED,
+  GAME_STATUS_INACTIVE: GAME_STATUS_INACTIVE,
+  GAME_STATUS_IN_PROGRESS: GAME_STATUS_IN_PROGRESS
+};
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var axios = __webpack_require__(6);
+var axios = __webpack_require__(9);
 
-var strings = __webpack_require__(3);
+var strings = __webpack_require__(1);
 
-var endpoints = __webpack_require__(7);
+var endpoints = __webpack_require__(10);
 
 module.exports = {
   sendExchangeRequest: function sendExchangeRequest(exchangeRequest) {
@@ -284,62 +335,15 @@ module.exports = {
 /* 3 */
 /***/ (function(module, exports) {
 
-var PUSHER_CHANNEL = 'iceBreaker';
-var PUSHER_USER_LIST_UPDATE_EVENT = 'update-user-list';
-var PUSHER_GAME_START_EVENT = 'game-start';
-var PUSHER_NEW_EXCHANGE_REQUEST_EVENT = 'new-exchange-request';
-var PUSHER_NEW_EXCHANGE_RESPONSE_EVENT = 'new-exchange-response';
-var EXCHANGE_COMPLETED_EVENT = 'exchange-completed';
-var PUSHER_GAME_STOP_EVENT = 'game-stop';
-var PUSHER_EXCHANGE_CANCELLED_EVENT = 'cancel-exchange';
-var NOTIFICATION_GAME_BEGUN = 'Game has begun!';
-var NOTIFICATION_WRONG_DETAILS = 'You have entered the wrong details! Please try again!';
-var NOTIFICATION_EXCHANGE_SUCCESSFUL = 'Exchange of letters successful!';
-var NOTIFICATION_DUPLICATE_NAME = 'Name has already been taken! Please choose another one!';
-var NOTIFICATION_INCOMPLETE_DETAILS = 'Please fill in all details!';
-var NOTIFICATION_SAME_NAME_SELECTED = 'You are not allowed to exchange with yourself!';
-var NOTIFICATION_GAME_ALREADY_IN_PROGRESS = 'Game already in progress! Please wait to join the next session!';
-var NOTIFICATION_CANCEL_EXCHANGE = 'Exchange has been cancelled by the other party!';
-var NOTIFICATION_GAME_STARTED_SUCCESSFUL = 'Game has been started successfully!';
-var NOTIFICATION_GAME_STARTED_FAILED = 'Failed to start Game!';
-var NOTIFICATION_GAME_STOP_SUCCESSFUL = 'Game has been stopped successfully!';
-var NOTIFICATION_GAME_STOP_FAILED = 'Failed to stop Game!';
-var NOTIFICATION_WRONG_PASSWORD = 'You have entered the wrong password!';
-var NOTIFICATION_GAME_ALREADY_STARTED = 'Game already in progress!';
-var NOTIFICATION_GAME_ALREADY_STOPPED = 'Game already stopped!';
-module.exports = {
-  PUSHER_CHANNEL: PUSHER_CHANNEL,
-  PUSHER_USER_LIST_UPDATE_EVENT: PUSHER_USER_LIST_UPDATE_EVENT,
-  PUSHER_NEW_EXCHANGE_REQUEST_EVENT: PUSHER_NEW_EXCHANGE_REQUEST_EVENT,
-  PUSHER_NEW_EXCHANGE_RESPONSE_EVENT: PUSHER_NEW_EXCHANGE_RESPONSE_EVENT,
-  EXCHANGE_COMPLETED_EVENT: EXCHANGE_COMPLETED_EVENT,
-  PUSHER_GAME_START_EVENT: PUSHER_GAME_START_EVENT,
-  NOTIFICATION_GAME_BEGUN: NOTIFICATION_GAME_BEGUN,
-  NOTIFICATION_WRONG_DETAILS: NOTIFICATION_WRONG_DETAILS,
-  NOTIFICATION_EXCHANGE_SUCCESSFUL: NOTIFICATION_EXCHANGE_SUCCESSFUL,
-  NOTIFICATION_DUPLICATE_NAME: NOTIFICATION_DUPLICATE_NAME,
-  NOTIFICATION_INCOMPLETE_DETAILS: NOTIFICATION_INCOMPLETE_DETAILS,
-  NOTIFICATION_SAME_NAME_SELECTED: NOTIFICATION_SAME_NAME_SELECTED,
-  PUSHER_GAME_STOP_EVENT: PUSHER_GAME_STOP_EVENT,
-  NOTIFICATION_GAME_ALREADY_IN_PROGRESS: NOTIFICATION_GAME_ALREADY_IN_PROGRESS,
-  PUSHER_EXCHANGE_CANCELLED_EVENT: PUSHER_EXCHANGE_CANCELLED_EVENT,
-  NOTIFICATION_CANCEL_EXCHANGE: NOTIFICATION_CANCEL_EXCHANGE,
-  NOTIFICATION_GAME_STARTED_SUCCESSFUL: NOTIFICATION_GAME_STARTED_SUCCESSFUL,
-  NOTIFICATION_GAME_STARTED_FAILED: NOTIFICATION_GAME_STARTED_FAILED,
-  NOTIFICATION_GAME_STOP_SUCCESSFUL: NOTIFICATION_GAME_STOP_SUCCESSFUL,
-  NOTIFICATION_GAME_STOP_FAILED: NOTIFICATION_GAME_STOP_FAILED,
-  NOTIFICATION_WRONG_PASSWORD: NOTIFICATION_WRONG_PASSWORD,
-  NOTIFICATION_GAME_ALREADY_STARTED: NOTIFICATION_GAME_ALREADY_STARTED,
-  NOTIFICATION_GAME_ALREADY_STOPPED: NOTIFICATION_GAME_ALREADY_STOPPED
-};
+module.exports = require("react-notify-toast");
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var notify = __webpack_require__(1).notify;
+var notify = __webpack_require__(3).notify;
 
-var config = __webpack_require__(15);
+var config = __webpack_require__(14);
 
 console.log("Notify is " + JSON.stringify(notify));
 module.exports = {
@@ -359,58 +363,17 @@ module.exports = require("styled-jsx/style");
 
 /***/ }),
 /* 6 */
-/***/ (function(module, exports) {
-
-module.exports = require("axios");
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-var API_LOGIN_USER = '/loginUser';
-var API_CHECK_SESSION_EXPIRED = '/checkExpired';
-var API_GET_ALL_ACTIVE_USERS = '/getActiveUsers';
-var API_GET_SESSION = '/getSession';
-var API_GET_ASSIGNED_LETTERS = '/getAssignedLetters';
-var API_SUBMIT_EXCHANGE_REQUEST = '/submitExchangeRequest';
-var API_SUBMIT_EXCHANGE_RESPONSE = '/submitExchangeResponse';
-var API_EXCHANGE_COMPLETED = '/exchangeCompleted';
-var API_START_GAME = '/startGame';
-var API_USER_COMPLETED_GAME = '/userCompletedGame';
-var API_CHECK_AUTHENTICATED = '/checkAuthenticated';
-var API_CHECK_GAME_STARTED = '/checkGameStarted';
-var API_STOP_GAME = '/stopGame';
-var API_CANCEL_EXCHANGE = '/cancelExchange';
-module.exports = {
-  API_LOGIN_USER: API_LOGIN_USER,
-  API_CHECK_SESSION_EXPIRED: API_CHECK_SESSION_EXPIRED,
-  API_GET_ALL_ACTIVE_USERS: API_GET_ALL_ACTIVE_USERS,
-  API_GET_SESSION: API_GET_SESSION,
-  API_GET_ASSIGNED_LETTERS: API_GET_ASSIGNED_LETTERS,
-  API_SUBMIT_EXCHANGE_REQUEST: API_SUBMIT_EXCHANGE_REQUEST,
-  API_EXCHANGE_COMPLETED: API_EXCHANGE_COMPLETED,
-  API_SUBMIT_EXCHANGE_RESPONSE: API_SUBMIT_EXCHANGE_RESPONSE,
-  API_START_GAME: API_START_GAME,
-  API_USER_COMPLETED_GAME: API_USER_COMPLETED_GAME,
-  API_CHECK_AUTHENTICATED: API_CHECK_AUTHENTICATED,
-  API_CHECK_GAME_STARTED: API_CHECK_GAME_STARTED,
-  API_STOP_GAME: API_STOP_GAME,
-  API_CANCEL_EXCHANGE: API_CANCEL_EXCHANGE
-};
-
-/***/ }),
-/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _default; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_head__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_reactstrap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -474,40 +437,13 @@ function (_React$Component) {
 
 
 /***/ }),
-/* 9 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = require("pusher-js");
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var axios = __webpack_require__(6);
-
-var endpoints = __webpack_require__(7);
-
-module.exports = {
-  insertLetter: function insertLetter(lettersUsed, letterToInsert) {
-    var index = lettersUsed.findIndex('-');
-  },
-  shuffleString: function shuffleString(input) {
-    var a = input.split(""),
-        n = a.length;
-
-    for (var i = n - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i];
-      a[i] = a[j];
-      a[j] = tmp;
-    }
-
-    return a.join("");
-  }
-};
-
-/***/ }),
-/* 11 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -543,19 +479,58 @@ function (_React$Component) {
 
 
 /***/ }),
-/* 12 */
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+var API_LOGIN_USER = '/loginUser';
+var API_GET_ALL_ACTIVE_USERS = '/getActiveUsers';
+var API_GET_SESSION = '/getSession';
+var API_GET_ASSIGNED_LETTERS = '/getAssignedLetters';
+var API_SUBMIT_EXCHANGE_REQUEST = '/submitExchangeRequest';
+var API_SUBMIT_EXCHANGE_RESPONSE = '/submitExchangeResponse';
+var API_EXCHANGE_COMPLETED = '/exchangeCompleted';
+var API_START_GAME = '/startGame';
+var API_USER_COMPLETED_GAME = '/userCompletedGame';
+var API_CHECK_AUTHENTICATED = '/checkAuthenticated';
+var API_CHECK_GAME_STARTED = '/checkGameStarted';
+var API_STOP_GAME = '/stopGame';
+var API_CANCEL_EXCHANGE = '/cancelExchange';
+module.exports = {
+  API_LOGIN_USER: API_LOGIN_USER,
+  API_GET_ALL_ACTIVE_USERS: API_GET_ALL_ACTIVE_USERS,
+  API_GET_SESSION: API_GET_SESSION,
+  API_GET_ASSIGNED_LETTERS: API_GET_ASSIGNED_LETTERS,
+  API_SUBMIT_EXCHANGE_REQUEST: API_SUBMIT_EXCHANGE_REQUEST,
+  API_EXCHANGE_COMPLETED: API_EXCHANGE_COMPLETED,
+  API_SUBMIT_EXCHANGE_RESPONSE: API_SUBMIT_EXCHANGE_RESPONSE,
+  API_START_GAME: API_START_GAME,
+  API_USER_COMPLETED_GAME: API_USER_COMPLETED_GAME,
+  API_CHECK_AUTHENTICATED: API_CHECK_AUTHENTICATED,
+  API_CHECK_GAME_STARTED: API_CHECK_GAME_STARTED,
+  API_STOP_GAME: API_STOP_GAME,
+  API_CANCEL_EXCHANGE: API_CANCEL_EXCHANGE
+};
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("next/head");
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("reactstrap");
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports) {
 
 var PUSHER_APP_ID = '575034';
@@ -570,7 +545,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports) {
 
 var DB_HOST = 'localhost';
@@ -604,15 +579,15 @@ module.exports = {
 };
 
 /***/ }),
-/* 16 */,
-/* 17 */
+/* 15 */,
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(18);
+module.exports = __webpack_require__(17);
 
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -622,20 +597,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_pusher_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_utils__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__utils_utils__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Page__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Page__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_strings__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_strings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__constants_strings__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__utils_gameUtils__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__constants_strings__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__constants_strings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__constants_strings__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_Layout_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__constants_credentials__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__constants_credentials___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__constants_credentials__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__utils_notificationUtils__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__utils_notificationUtils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__utils_notificationUtils__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Layout_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_credentials__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_credentials___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__constants_credentials__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_notificationUtils__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_notificationUtils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__utils_notificationUtils__);
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -651,7 +624,6 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 
 
 
@@ -690,13 +662,13 @@ function (_Page) {
       enumerable: true,
       writable: true,
       value: function value() {
-        _this.pusher = new __WEBPACK_IMPORTED_MODULE_2_pusher_js___default.a(__WEBPACK_IMPORTED_MODULE_8__constants_credentials___default.a.PUSHER_APP_KEY, {
-          cluster: __WEBPACK_IMPORTED_MODULE_8__constants_credentials___default.a.PUSHER_APP_CLUSTER,
+        _this.pusher = new __WEBPACK_IMPORTED_MODULE_2_pusher_js___default.a(__WEBPACK_IMPORTED_MODULE_7__constants_credentials___default.a.PUSHER_APP_KEY, {
+          cluster: __WEBPACK_IMPORTED_MODULE_7__constants_credentials___default.a.PUSHER_APP_CLUSTER,
           encrypted: true
         });
-        _this.channel = _this.pusher.subscribe(__WEBPACK_IMPORTED_MODULE_6__constants_strings___default.a.PUSHER_CHANNEL);
+        _this.channel = _this.pusher.subscribe(__WEBPACK_IMPORTED_MODULE_4__constants_strings___default.a.PUSHER_CHANNEL);
 
-        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_6__constants_strings___default.a.PUSHER_USER_LIST_UPDATE_EVENT, function (users) {
+        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_4__constants_strings___default.a.PUSHER_USER_LIST_UPDATE_EVENT, function (users) {
           console.log("Received new user list from Pusher: " + users);
           var newActiveUsers = users.map(function (user) {
             return user.name;
@@ -707,13 +679,13 @@ function (_Page) {
           });
         });
 
-        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_6__constants_strings___default.a.PUSHER_GAME_START_EVENT, function (users) {
+        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_4__constants_strings___default.a.PUSHER_GAME_START_EVENT, function (users) {
           _this.setState({
             gameStatus: 'IN PROGRESS'
           });
         });
 
-        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_6__constants_strings___default.a.PUSHER_GAME_STOP_EVENT, function (users) {
+        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_4__constants_strings___default.a.PUSHER_GAME_STOP_EVENT, function (users) {
           _this.setState({
             gameStatus: 'INACTIVE'
           });
@@ -736,9 +708,9 @@ function (_Page) {
       writable: true,
       value: function value() {
         __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils___default.a.startGame(_this.state.password).then(function (notificationMessage) {
-          __WEBPACK_IMPORTED_MODULE_9__utils_notificationUtils___default.a.showNotification(notificationMessage);
+          __WEBPACK_IMPORTED_MODULE_8__utils_notificationUtils___default.a.showNotification(notificationMessage);
         }, function (notificationMessage) {
-          __WEBPACK_IMPORTED_MODULE_9__utils_notificationUtils___default.a.showNotification(notificationMessage);
+          __WEBPACK_IMPORTED_MODULE_8__utils_notificationUtils___default.a.showNotification(notificationMessage);
         });
       }
     });
@@ -748,16 +720,16 @@ function (_Page) {
       writable: true,
       value: function value() {
         __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils___default.a.stopGame(_this.state.password).then(function (notificationMessage) {
-          __WEBPACK_IMPORTED_MODULE_9__utils_notificationUtils___default.a.showNotification(notificationMessage);
+          __WEBPACK_IMPORTED_MODULE_8__utils_notificationUtils___default.a.showNotification(notificationMessage);
         }, function (notificationMessage) {
-          __WEBPACK_IMPORTED_MODULE_9__utils_notificationUtils___default.a.showNotification(notificationMessage);
+          __WEBPACK_IMPORTED_MODULE_8__utils_notificationUtils___default.a.showNotification(notificationMessage);
         });
       }
     });
     _this.state = {
       password: '',
       activeUsers: [],
-      gameStatus: 'INACTIVE'
+      gameStatus: __WEBPACK_IMPORTED_MODULE_4__constants_strings___default.a.GAME_STATUS_INACTIVE
     };
     return _this;
   }
@@ -774,18 +746,18 @@ function (_Page) {
     value: function retrieveGameStatus() {
       __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils___default.a.checkGameStarted().then(function (success) {
         this.setState({
-          gameStatus: 'IN PROGRESS'
+          gameStatus: __WEBPACK_IMPORTED_MODULE_4__constants_strings___default.a.GAME_STATUS_IN_PROGRESS
         });
       }, function (failure) {
         this.setState({
-          gameStatus: 'INACTIVE'
+          gameStatus: __WEBPACK_IMPORTED_MODULE_4__constants_strings___default.a.GAME_STATUS_INACTIVE
         });
       });
     }
   }, {
     key: "render",
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__components_Layout_js__["a" /* default */], null, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", {
+      return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_Layout_js__["a" /* default */], null, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", {
         className: "jsx-2924920866" + " " + "form-group"
       }, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("label", {
         className: "jsx-2924920866"
@@ -828,7 +800,7 @@ function (_Page) {
   }]);
 
   return _default;
-}(__WEBPACK_IMPORTED_MODULE_4__components_Page__["a" /* default */]);
+}(__WEBPACK_IMPORTED_MODULE_3__components_Page__["a" /* default */]);
 
 
 

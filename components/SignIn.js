@@ -1,6 +1,5 @@
 import data from '../data/dataSource'
 import React from "react";
-import {notify} from "react-notify-toast";
 
 export default class extends React.Component {
 

@@ -1,6 +1,7 @@
 import React from "react";
 import Pusher from 'pusher-js';
-import utils from '../utils/utils'
+import User from '../models/User'
+import utils from "../utils/utils"
 import Page from '../components/Page';
 import SignIn from "../components/SignIn"
 import strings from '../constants/strings'
@@ -22,8 +23,8 @@ export default class extends Page {
         super()
         this.state = {
             userName: "",
-            activeUsers : ["LEW WEI HAO","TAN YI KAN"],
-            lettersAssigned: ["A","B","C"," "],
+            activeUsers : [],
+            lettersAssigned: [],
             userSelected: '',
             isWaitingForCounterPartyToVerify: false,
             isVerifyingForCounterParty: false,
@@ -38,7 +39,7 @@ export default class extends Page {
 
     }
 
-    async componentDidMount(){
+    componentDidMount(){
         this.setupPusher()
         this.checkGameState()
 
@@ -167,10 +168,7 @@ export default class extends Page {
     }
 
     onExchangeRequestSubmitSuccess = (letterToGive,exchangeRequest) => {
-        if(typeof localStorage !== 'undefined') {
-            console.log("Setting local storage "+exchangeRequest.respond_user+":"+exchangeRequest)
-            localStorage.setItem(exchangeRequest.respond_user, JSON.stringify(exchangeRequest))
-        }
+        utils.saveToLocalStorage(exchangeRequest.respond_user,JSON.stringify(exchangeRequest))
         const userSelected = this.state.userSelected
         this.setState({
             isWaitingForCounterPartyToVerify: true,
@@ -185,10 +183,7 @@ export default class extends Page {
     onExchangeResponseSubmitSuccess = (exchangeResponse) => {
         notificationUtils.showNotification(strings.NOTIFICATION_EXCHANGE_SUCCESSFUL)
         this.retriveLetters()
-        if(typeof localStorage !== 'undefined') {
-            console.log("Setting local storage "+exchangeResponse.request_user+":"+exchangeResponse)
-            localStorage.setItem(exchangeResponse.request_user, JSON.stringify(exchangeResponse))
-        }
+        utils.saveToLocalStorage(exchangeResponse.request_user,JSON.stringify(exchangeResponse))
         this.setState({
             isVerifyingForCounterParty: false
         })
@@ -239,8 +234,8 @@ export default class extends Page {
     onSignIn = (name,birthday,favouriteFood,deshu) => {
         name = name.toUpperCase()
         console.log("Signing in..."+name)
-        const data = { name: name, birthday: birthday, favouriteFood: favouriteFood, deshu: deshu}
-        gameUtils.loginUser(data).then((succeed)=>{
+        const user = new User(name,birthday,deshu,favouriteFood)
+        gameUtils.loginUser(user).then((succeed)=>{
             this.setState({
                 signedIn: true
             })

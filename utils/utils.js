@@ -1,5 +1,3 @@
-const axios = require("axios");
-const endpoints = require("../constants/endpoints");
 
 module.exports = {
 
@@ -18,6 +16,13 @@ module.exports = {
             a[j] = tmp;
         }
         return a.join("");
+    },
+
+    saveToLocalStorage(key,value){
+        if(typeof localStorage !== 'undefined') {
+            console.log("Setting local storage "+key+":"+value)
+            localStorage.setItem(key, value)
+        }
     },
 
 }

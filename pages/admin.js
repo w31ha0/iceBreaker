@@ -1,9 +1,8 @@
 import React from "react";
 import Pusher from "pusher-js";
-import utils from "../utils/utils"
 import Page from '../components/Page';
-import gameUtils from "../utils/gameUtils";
 import strings from '../constants/strings'
+import gameUtils from "../utils/gameUtils";
 import Layout from '../components/Layout.js'
 import credentials from "../constants/credentials";
 import notificationUtils from "../utils/notificationUtils"
@@ -15,7 +14,7 @@ export default class extends Page{
         this.state = {
             password:'',
             activeUsers: [],
-            gameStatus: 'INACTIVE'
+            gameStatus: strings.GAME_STATUS_INACTIVE
         }
     }
 
@@ -28,11 +27,11 @@ export default class extends Page{
     retrieveGameStatus(){
         gameUtils.checkGameStarted().then(function(success){
             this.setState({
-                gameStatus: 'IN PROGRESS'
+                gameStatus: strings.GAME_STATUS_IN_PROGRESS
             })
         },function(failure){
             this.setState({
-                gameStatus: 'INACTIVE'
+                gameStatus: strings.GAME_STATUS_INACTIVE
             })
         })
     }

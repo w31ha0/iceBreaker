@@ -27,13 +27,7 @@ export default class extends Exchange{
     }
 
     retrieveFromCache = (props) => {
-        const counterParty = props.userSelected
-        const cachedObject = JSON.parse(localStorage.getItem(counterParty))
-        if(cachedObject !== null){
-            console.log("Found cached data for "+counterParty+": "+JSON.stringify(cachedObject))
-            this.updateExchangeData(cachedObject)
-        }else
-            console.log("No cache found for "+counterParty)
+        this.retrieveFromCacheByUserName(props.userSelected)
     }
 
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 import gameUtils from "../utils/gameUtils";
 
-
 export default class LetterComponent extends React.Component {
 
     constructor(props){
