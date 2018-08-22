@@ -127,7 +127,7 @@ export default class extends Page {
     }
 
     checkGameState = () => {
-        utils.checkAuthenticated().then((res) => {
+        gameUtils.checkAuthenticated().then((res) => {
             this.setState({
                 signedIn: true,
                 authenticationChecked: true,
@@ -138,7 +138,7 @@ export default class extends Page {
             })
         })
 
-        utils.checkGameStarted().then((res) => {
+        gameUtils.checkGameStarted().then((res) => {
             this.setState({
                 isWaitingForGameToStart: false
             })
@@ -163,7 +163,7 @@ export default class extends Page {
         this.setState({
             isWaitingForCounterPartyToVerify: false
         })
-        utils.cancelExchange(this.exchangeRequest)
+        gameUtils.cancelExchange(this.exchangeRequest)
     }
 
     onExchangeRequestSubmitSuccess = (letterToGive,exchangeRequest) => {
@@ -233,7 +233,7 @@ export default class extends Page {
         this.setState({
             isVerifyingForCounterParty: false
         })
-        utils.cancelExchange(this.exchangeRequest)
+        gameUtils.cancelExchange(this.exchangeRequest)
     }
 
     onSignIn = (name,birthday,favouriteFood,deshu) => {

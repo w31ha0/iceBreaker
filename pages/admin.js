@@ -26,7 +26,7 @@ export default class extends Page{
     }
 
     retrieveGameStatus(){
-        utils.checkGameStarted().then(function(success){
+        gameUtils.checkGameStarted().then(function(success){
             this.setState({
                 gameStatus: 'IN PROGRESS'
             })

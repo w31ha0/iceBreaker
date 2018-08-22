@@ -230,6 +230,53 @@ module.exports = {
         console.log(err);
       });
     });
+  },
+  checkAuthenticated: function checkAuthenticated() {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_CHECK_AUTHENTICATED
+      }).then(function (response) {
+        if (response.data.result == 1) resolve(true);else reject(false);
+      }).catch(function (response) {
+        console.log(response);
+        reject(false);
+      });
+    });
+  },
+  checkGameStarted: function checkGameStarted() {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_CHECK_GAME_STARTED
+      }).then(function (response) {
+        if (response.data.result == 1) resolve(true);else reject(false);
+      }).catch(function (response) {
+        console.log(response);
+        reject(false);
+      });
+    });
+  },
+  validateUserInfo: function validateUserInfo(store, exchange, targetUser) {
+    return new Promise(function (resolve, reject) {
+      store.all(function (err, sessions) {
+        var filteredSessions = sessions.filter(function (session) {
+          if (session.hasOwnProperty('user')) return session.user.name == targetUser && session.user.birthday == exchange.birthday && session.user.favouriteFood == exchange.favouriteFood && session.user.deshu == exchange.deshu && exchange.letterToExchange;else return false;
+        });
+        console.log("filtered sessions " + JSON.stringify(filteredSessions));
+        if (filteredSessions.length > 0) resolve(true);else reject(false);
+      });
+    });
+  },
+  cancelExchange: function cancelExchange(exchangeRequest) {
+    axios({
+      method: 'post',
+      url: endpoints.API_CANCEL_EXCHANGE,
+      data: exchangeRequest
+    }).then(function (response) {}).catch(function (response) {
+      //handle error
+      console.log(response);
+    });
   }
 };
 
@@ -456,53 +503,6 @@ module.exports = {
     }
 
     return a.join("");
-  },
-  checkAuthenticated: function checkAuthenticated() {
-    return new Promise(function (resolve, reject) {
-      axios({
-        method: 'post',
-        url: endpoints.API_CHECK_AUTHENTICATED
-      }).then(function (response) {
-        if (response.data.result == 1) resolve(true);else reject(false);
-      }).catch(function (response) {
-        console.log(response);
-        reject(false);
-      });
-    });
-  },
-  checkGameStarted: function checkGameStarted() {
-    return new Promise(function (resolve, reject) {
-      axios({
-        method: 'post',
-        url: endpoints.API_CHECK_GAME_STARTED
-      }).then(function (response) {
-        if (response.data.result == 1) resolve(true);else reject(false);
-      }).catch(function (response) {
-        console.log(response);
-        reject(false);
-      });
-    });
-  },
-  validateUserInfo: function validateUserInfo(store, exchange, targetUser) {
-    return new Promise(function (resolve, reject) {
-      store.all(function (err, sessions) {
-        var filteredSessions = sessions.filter(function (session) {
-          if (session.hasOwnProperty('user')) return session.user.name == targetUser && session.user.birthday == exchange.birthday && session.user.favouriteFood == exchange.favouriteFood && session.user.deshu == exchange.deshu && exchange.letterToExchange;else return false;
-        });
-        console.log("filtered sessions " + JSON.stringify(filteredSessions));
-        if (filteredSessions.length > 0) resolve(true);else reject(false);
-      });
-    });
-  },
-  cancelExchange: function cancelExchange(exchangeRequest) {
-    axios({
-      method: 'post',
-      url: endpoints.API_CANCEL_EXCHANGE,
-      data: exchangeRequest
-    }).then(function (response) {}).catch(function (response) {
-      //handle error
-      console.log(response);
-    });
   }
 };
 
@@ -772,7 +772,7 @@ function (_Page) {
   }, {
     key: "retrieveGameStatus",
     value: function retrieveGameStatus() {
-      __WEBPACK_IMPORTED_MODULE_3__utils_utils___default.a.checkGameStarted().then(function (success) {
+      __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils___default.a.checkGameStarted().then(function (success) {
         this.setState({
           gameStatus: 'IN PROGRESS'
         });

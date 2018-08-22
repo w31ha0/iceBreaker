@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const config = require('./constants/config')
 const strings = require('./constants/strings')
+const gameUtils = require('./utils/gameUtils')
 const endpoints = require('./constants/endpoints')
 const credentials = require('./constants/credentials')
 const MemoryStore = require('session-memory-store')(session);
@@ -181,7 +182,7 @@ nextApp
         expressApp.post(endpoints.API_SUBMIT_EXCHANGE_REQUEST,function (req,res) {
             const exchangeRequest = req.body
             console.log("Received Exchange Request: "+JSON.stringify(exchangeRequest))
-            utils.validateUserInfo(sessionStore,exchangeRequest,exchangeRequest.respond_user).then(function(success){
+            gameUtils.validateUserInfo(sessionStore,exchangeRequest,exchangeRequest.respond_user).then(function(success){
                 res.json({success: 1})
                 pusher.trigger(strings.PUSHER_CHANNEL,strings.PUSHER_NEW_EXCHANGE_REQUEST_EVENT,exchangeRequest)
             },function(failure){
@@ -192,7 +193,7 @@ nextApp
         expressApp.post(endpoints.API_SUBMIT_EXCHANGE_RESPONSE,function (req,res) {
             const exchangeResponse = req.body
             console.log("Received Exchange Response: "+JSON.stringify(exchangeResponse))
-            utils.validateUserInfo(sessionStore,exchangeResponse,exchangeResponse.request_user).then(function(success){
+            gameUtils.validateUserInfo(sessionStore,exchangeResponse,exchangeResponse.request_user).then(function(success){
                 res.json({success: 1})
                 var requestUserAssignedLetters = assignedLetters[exchangeResponse.request_user]
                 var respondUserAssignedLetters = assignedLetters[exchangeResponse.respond_user]
