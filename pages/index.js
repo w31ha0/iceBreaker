@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React from "react";
 import Pusher from 'pusher-js';
 import utils from '../utils/utils'
@@ -6,8 +5,8 @@ import Page from '../components/Page';
 import SignIn from "../components/SignIn"
 import strings from '../constants/strings'
 import {notify} from "react-notify-toast";
+import gameUtils from "../utils/gameUtils"
 import Layout from '../components/Layout.js'
-import endpoints from '../constants/endpoints'
 import credentials from '../constants/credentials'
 import LoadingScreen from "../components/LoadingScreen"
 import notificationUtils from "../utils/notificationUtils"
@@ -207,57 +206,27 @@ export default class extends Page {
     }
 
     retriveLetters = () => {
-        axios({
-            method: 'post',
-            url: endpoints.API_GET_ASSIGNED_LETTERS
-        })
-        .then((response) => {
-            console.log('Got letters assigned as '+response.data)
+        gameUtils.getAssignedLetters().then((letters) => {
             this.setState({
-                lettersAssigned : response.data
+                lettersAssigned : letters
             })
-        })
-        .catch(function (response) {
-            //handle error
-            console.log(response);
-        });
+        },function(err){})
     }
 
     retrieveActiveUsers = () => {
-        axios({
-            method: 'post',
-            url: endpoints.API_GET_ALL_ACTIVE_USERS
-        })
-        .then((response) => {
-            const activeUsers = response.data.map(session => session.user.name)
-            console.log('Parsed active users as '+activeUsers)
+        gameUtils.getActiveUsers().then((activeUsers) => {
             this.setState({
                 activeUsers : activeUsers
             })
-        })
-        .catch(function (response) {
-            //handle error
-            console.log(response);
-        });
+        },function(err){})
     }
 
     retriveUserName = () => {
-        axios({
-            method: 'post',
-            url: endpoints.API_GET_SESSION
-        })
-        .then((response) => {
-            if (typeof response.data.user === 'undefined')
-                return
-            console.log('Received username as  '+response.data.user.name)
+        gameUtils.getUserName().then((userName) => {
             this.setState({
-                userName : response.data.user.name
+                userName: userName
             })
-        })
-        .catch(function (response) {
-            //handle error
-            console.log(response);
-        });
+        },function(err){})
     }
 
     cancelRespondToRequester = () => {
@@ -270,28 +239,14 @@ export default class extends Page {
     onSignIn = (name,birthday,favouriteFood,deshu) => {
         name = name.toUpperCase()
         console.log("Signing in..."+name)
-        axios({
-            method: 'post',
-            url: endpoints.API_LOGIN_USER,
-            data: {
-                    name: name,
-                    birthday: birthday,
-                    favouriteFood: favouriteFood,
-                    deshu: deshu
-            }
+        const data = { name: name, birthday: birthday, favouriteFood: favouriteFood, deshu: deshu}
+        gameUtils.loginUser(data).then((succeed)=>{
+            this.setState({
+                signedIn: true
+            })
+        },function(errMessage){
+            notificationUtils.showNotification(errMessage)
         })
-        .then((response) => {
-            if(response.data.result == 1)
-                this.setState({
-                    signedIn: true
-                })
-            else
-                notificationUtils.showNotification(response.data.message)
-        })
-        .catch(function (response) {
-            //handle error
-            console.log(response);
-        });
     }
 
     updateExchangeRequest = (exchangeRequest) => {

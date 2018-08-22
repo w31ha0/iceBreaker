@@ -1,13 +1,12 @@
-import axios from "axios";
 import React from "react";
-import Page from '../components/Page';
-import Layout from '../components/Layout.js'
-import endpoints from "../constants/endpoints";
-import notificationUtils from "../utils/notificationUtils"
-import strings from '../constants/strings'
 import Pusher from "pusher-js";
-import credentials from "../constants/credentials";
 import utils from "../utils/utils"
+import Page from '../components/Page';
+import gameUtils from "../utils/gameUtils";
+import strings from '../constants/strings'
+import Layout from '../components/Layout.js'
+import credentials from "../constants/credentials";
+import notificationUtils from "../utils/notificationUtils"
 
 export default class extends Page{
 
@@ -39,21 +38,11 @@ export default class extends Page{
     }
 
     retrieveActiveUsers = () => {
-        axios({
-            method: 'post',
-            url: endpoints.API_GET_ALL_ACTIVE_USERS
-        })
-        .then((response) => {
-            const activeUsers = response.data.map(session => session.user.name)
-            console.log('Parsed active users as '+activeUsers)
+        gameUtils.getActiveUsers().then((activeUsers) => {
             this.setState({
                 activeUsers : activeUsers
             })
-        })
-        .catch(function (response) {
-            //handle error
-            console.log(response);
-        });
+        },function(err){})
     }
 
     setupPusher = () => {
@@ -92,43 +81,19 @@ export default class extends Page{
     }
 
     startGame = () => {
-        axios({
-            method: 'post',
-            url: endpoints.API_START_GAME,
-            data: {password: this.state.password}
+        gameUtils.startGame(this.state.password).then((notificationMessage) => {
+            notificationUtils.showNotification(notificationMessage)
+        },(notificationMessage) => {
+            notificationUtils.showNotification(notificationMessage)
         })
-        .then((response) => {
-            var notificationMessage = ''
-            if(response.data.success == 1)
-                notificationMessage = strings.NOTIFICATION_GAME_STARTED_SUCCESSFUL
-            else
-                notificationMessage = response.data.message
-                notificationUtils.showNotification(notificationMessage)
-        })
-        .catch(function (response) {
-            notificationUtils.showNotification(strings.NOTIFICATION_GAME_STARTED_FAILED)
-            console.log(response);
-        });
     }
 
     stopGame = () => {
-        axios({
-            method: 'post',
-            url: endpoints.API_STOP_GAME,
-            data: {password: this.state.password}
-        })
-        .then((response) => {
-            var notificationMessage = ''
-            if(response.data.success == 1)
-                notificationMessage = strings.NOTIFICATION_GAME_ALREADY_STOPPED
-            else
-                notificationMessage = response.data.message
+        gameUtils.stopGame(this.state.password).then((notificationMessage) => {
+            notificationUtils.showNotification(notificationMessage)
+        },(notificationMessage) => {
             notificationUtils.showNotification(notificationMessage)
         })
-        .catch(function (response) {
-            notificationUtils.showNotification(strings.NOTIFICATION_GAME_STOP_FAILED)
-            console.log(response);
-        });
     }
 
     render(){

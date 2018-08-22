@@ -1,8 +1,6 @@
 import React from 'react'
-import axios from "axios";
 import Exchange from './Exchange'
-import endpoints from "../constants/endpoints";
-import strings from "../constants/strings";
+import gameUtils from "../utils/gameUtils"
 import ExchangeEntity from "../models/ExchangeEntity";
 import notificationUtils from "../utils/notificationUtils"
 
@@ -19,23 +17,12 @@ export default class extends Exchange{
         if (this.checkIfFieldsAreComplete(respond_user,birthday,favouriteFood,deshu,letterToExchange)){
             var exchangeRequest = new ExchangeEntity(request_user,respond_user,birthday,favouriteFood,deshu,letterToExchange,letterToReceive)
             console.log("ExchangeRequest: " + JSON.stringify(exchangeRequest))
-            axios({
-                method: 'post',
-                url: endpoints.API_SUBMIT_EXCHANGE_REQUEST,
-                data: exchangeRequest
+            gameUtils.sendExchangeRequest(exchangeRequest).then((succeed) => {
+                this.props.onExchangeRequestSubmitSuccess(this.state.letterToExchange, exchangeRequest)
+                this.props.updateExchangeRequest(exchangeRequest)
+            },function(errMessage){
+                notificationUtils.showNotification(errMessage)
             })
-            .then((response) => {
-                console.log('Response of ExchangeRequest: ' + JSON.stringify(response.data))
-                if (response.data.success == 1) {
-                    this.props.onExchangeRequestSubmitSuccess(this.state.letterToExchange, exchangeRequest)
-                    this.props.updateExchangeRequest(exchangeRequest)
-                }
-                else
-                    notificationUtils.showNotification(strings.NOTIFICATION_WRONG_DETAILS)
-            })
-            .catch(function (response) {
-                console.log(response);
-            });
         }
     }
 

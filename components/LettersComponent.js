@@ -1,6 +1,6 @@
 import React from 'react'
-import axios from "axios";
-import endpoints from "../constants/endpoints";
+import gameUtils from "../utils/gameUtils";
+
 
 export default class LetterComponent extends React.Component {
 
@@ -58,21 +58,13 @@ export default class LetterComponent extends React.Component {
     }
 
     handleLettersChanged = () => {
-        if(this.state.lettersUsed.join('') === this.props.userName && typeof window !== 'undefined'){
-            axios({
-                method: 'post',
-                url: endpoints.API_USER_COMPLETED_GAME
-            })
-            .then((response) => {
+        if(this.state.lettersUsed.join('') === this.props.userName && typeof window !== 'undefined')
+            gameUtils.completeGame().then(()=>{
                 localStorage.clear()
                 window.alert("You have completed the game!")
                 window.location.href='/'
-            })
-            .catch(function (response) {
-                //handle error
-                console.log(response);
-            });
-        }}
+            },function(err){})
+    }
 
 
     render(){

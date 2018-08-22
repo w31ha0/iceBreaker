@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -80,69 +80,161 @@ module.exports = require("react");
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("axios");
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-var API_LOGIN_USER = '/loginUser';
-var API_CHECK_SESSION_EXPIRED = '/checkExpired';
-var API_GET_ALL_ACTIVE_USERS = '/getActiveUsers';
-var API_GET_SESSION = '/getSession';
-var API_GET_ASSIGNED_LETTERS = '/getAssignedLetters';
-var API_SUBMIT_EXCHANGE_REQUEST = '/submitExchangeRequest';
-var API_SUBMIT_EXCHANGE_RESPONSE = '/submitExchangeResponse';
-var API_EXCHANGE_COMPLETED = '/exchangeCompleted';
-var API_START_GAME = '/startGame';
-var API_USER_COMPLETED_GAME = '/userCompletedGame';
-var API_CHECK_AUTHENTICATED = '/checkAuthenticated';
-var API_CHECK_GAME_STARTED = '/checkGameStarted';
-var API_STOP_GAME = '/stopGame';
-var API_CANCEL_EXCHANGE = '/cancelExchange';
-module.exports = {
-  API_LOGIN_USER: API_LOGIN_USER,
-  API_CHECK_SESSION_EXPIRED: API_CHECK_SESSION_EXPIRED,
-  API_GET_ALL_ACTIVE_USERS: API_GET_ALL_ACTIVE_USERS,
-  API_GET_SESSION: API_GET_SESSION,
-  API_GET_ASSIGNED_LETTERS: API_GET_ASSIGNED_LETTERS,
-  API_SUBMIT_EXCHANGE_REQUEST: API_SUBMIT_EXCHANGE_REQUEST,
-  API_EXCHANGE_COMPLETED: API_EXCHANGE_COMPLETED,
-  API_SUBMIT_EXCHANGE_RESPONSE: API_SUBMIT_EXCHANGE_RESPONSE,
-  API_START_GAME: API_START_GAME,
-  API_USER_COMPLETED_GAME: API_USER_COMPLETED_GAME,
-  API_CHECK_AUTHENTICATED: API_CHECK_AUTHENTICATED,
-  API_CHECK_GAME_STARTED: API_CHECK_GAME_STARTED,
-  API_STOP_GAME: API_STOP_GAME,
-  API_CANCEL_EXCHANGE: API_CANCEL_EXCHANGE
-};
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
 module.exports = require("react-notify-toast");
 
 /***/ }),
-/* 4 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var notify = __webpack_require__(3).notify;
+var axios = __webpack_require__(6);
 
-var config = __webpack_require__(11);
+var strings = __webpack_require__(3);
 
-console.log("Notify is " + JSON.stringify(notify));
+var endpoints = __webpack_require__(7);
+
 module.exports = {
-  showNotification: function showNotification(message) {
-    notify.show(message, config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT, {
-      background: config.NOTIFICATION_BACKGROUND_COLOR,
-      text: config.NOTIFICATION_TEXT_COLOR
+  sendExchangeRequest: function sendExchangeRequest(exchangeRequest) {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_SUBMIT_EXCHANGE_REQUEST,
+        data: exchangeRequest
+      }).then(function (response) {
+        console.log('Response of ExchangeRequest: ' + JSON.stringify(response.data));
+
+        if (response.data.success == 1) {
+          resolve(1);
+        } else reject(strings.NOTIFICATION_WRONG_DETAILS);
+      }).catch(function (response) {
+        console.log(response);
+      });
+    });
+  },
+  sendExchangeResponse: function sendExchangeResponse(exchangeResponse) {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_SUBMIT_EXCHANGE_RESPONSE,
+        data: exchangeResponse
+      }).then(function (response) {
+        console.log('Response of ExchangeResponse: ' + JSON.stringify(response.data));
+        if (response.data.success == 1) resolve(exchangeResponse);else reject(strings.NOTIFICATION_WRONG_DETAILS);
+      }).catch(function (err) {
+        reject(err);
+        console.log(err);
+      });
+    });
+  },
+  getAssignedLetters: function getAssignedLetters() {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_GET_ASSIGNED_LETTERS
+      }).then(function (response) {
+        var letters = response.data;
+        console.log('Got letters assigned as ' + letters);
+        resolve(letters);
+      }).catch(function (err) {
+        reject(err);
+      });
+    });
+  },
+  getActiveUsers: function getActiveUsers() {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_GET_ALL_ACTIVE_USERS
+      }).then(function (response) {
+        var activeUsers = response.data.map(function (session) {
+          return session.user.name;
+        });
+        console.log('Parsed active users as ' + activeUsers);
+        resolve(activeUsers);
+      }).catch(function (err) {
+        reject(err);
+        console.log(err);
+      });
+    });
+  },
+  getUserName: function getUserName() {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_GET_SESSION
+      }).then(function (response) {
+        var userName = response.data.user.name;
+        if (typeof response.data.user === 'undefined') reject(0);
+        console.log('Received username as  ' + userName);
+        resolve(userName);
+      }).catch(function (err) {
+        reject(err);
+        console.log(err);
+      });
+    });
+  },
+  loginUser: function loginUser(user) {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_LOGIN_USER,
+        data: user
+      }).then(function (response) {
+        if (response.data.result == 1) resolve(1);else reject(response.data.message);
+      }).catch(function (err) {
+        reject(err);
+        console.log(err);
+      });
+    });
+  },
+  startGame: function startGame(password) {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_START_GAME,
+        data: {
+          password: password
+        }
+      }).then(function (response) {
+        if (response.data.success == 1) resolve(strings.NOTIFICATION_GAME_STARTED_SUCCESSFUL);else reject(response.data.message);
+      }).catch(function (err) {
+        reject(strings.NOTIFICATION_GAME_STARTED_FAILED);
+        console.log(err);
+      });
+    });
+  },
+  stopGame: function stopGame(password) {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_STOP_GAME,
+        data: {
+          password: password
+        }
+      }).then(function (response) {
+        if (response.data.success == 1) resolve(strings.NOTIFICATION_GAME_STOP_SUCCESSFUL);else reject(response.data.message);
+      }).catch(function (err) {
+        reject(strings.NOTIFICATION_GAME_STOP_FAILED);
+        console.log(err);
+      });
+    });
+  },
+  completeGame: function completeGame() {
+    return new Promise(function (resolve, reject) {
+      axios({
+        method: 'post',
+        url: endpoints.API_USER_COMPLETED_GAME
+      }).then(function (response) {
+        resolve(1);
+      }).catch(function (err) {
+        reject(err);
+        console.log(err);
+      });
     });
   }
 };
 
 /***/ }),
-/* 5 */
+/* 3 */
 /***/ (function(module, exports) {
 
 var PUSHER_CHANNEL = 'iceBreaker';
@@ -195,24 +287,83 @@ module.exports = {
 };
 
 /***/ }),
-/* 6 */
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var notify = __webpack_require__(1).notify;
+
+var config = __webpack_require__(15);
+
+console.log("Notify is " + JSON.stringify(notify));
+module.exports = {
+  showNotification: function showNotification(message) {
+    notify.show(message, config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT, {
+      background: config.NOTIFICATION_BACKGROUND_COLOR,
+      text: config.NOTIFICATION_TEXT_COLOR
+    });
+  }
+};
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("styled-jsx/style");
 
 /***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
+
+/***/ }),
 /* 7 */
+/***/ (function(module, exports) {
+
+var API_LOGIN_USER = '/loginUser';
+var API_CHECK_SESSION_EXPIRED = '/checkExpired';
+var API_GET_ALL_ACTIVE_USERS = '/getActiveUsers';
+var API_GET_SESSION = '/getSession';
+var API_GET_ASSIGNED_LETTERS = '/getAssignedLetters';
+var API_SUBMIT_EXCHANGE_REQUEST = '/submitExchangeRequest';
+var API_SUBMIT_EXCHANGE_RESPONSE = '/submitExchangeResponse';
+var API_EXCHANGE_COMPLETED = '/exchangeCompleted';
+var API_START_GAME = '/startGame';
+var API_USER_COMPLETED_GAME = '/userCompletedGame';
+var API_CHECK_AUTHENTICATED = '/checkAuthenticated';
+var API_CHECK_GAME_STARTED = '/checkGameStarted';
+var API_STOP_GAME = '/stopGame';
+var API_CANCEL_EXCHANGE = '/cancelExchange';
+module.exports = {
+  API_LOGIN_USER: API_LOGIN_USER,
+  API_CHECK_SESSION_EXPIRED: API_CHECK_SESSION_EXPIRED,
+  API_GET_ALL_ACTIVE_USERS: API_GET_ALL_ACTIVE_USERS,
+  API_GET_SESSION: API_GET_SESSION,
+  API_GET_ASSIGNED_LETTERS: API_GET_ASSIGNED_LETTERS,
+  API_SUBMIT_EXCHANGE_REQUEST: API_SUBMIT_EXCHANGE_REQUEST,
+  API_EXCHANGE_COMPLETED: API_EXCHANGE_COMPLETED,
+  API_SUBMIT_EXCHANGE_RESPONSE: API_SUBMIT_EXCHANGE_RESPONSE,
+  API_START_GAME: API_START_GAME,
+  API_USER_COMPLETED_GAME: API_USER_COMPLETED_GAME,
+  API_CHECK_AUTHENTICATED: API_CHECK_AUTHENTICATED,
+  API_CHECK_GAME_STARTED: API_CHECK_GAME_STARTED,
+  API_STOP_GAME: API_STOP_GAME,
+  API_CANCEL_EXCHANGE: API_CANCEL_EXCHANGE
+};
+
+/***/ }),
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _default; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_head__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_reactstrap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -276,115 +427,18 @@ function (_React$Component) {
 
 
 /***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _default; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-var _default =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(_default, _React$Component);
-
-  function _default() {
-    _classCallCheck(this, _default);
-
-    return _possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).apply(this, arguments));
-  }
-
-  return _default;
-}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
-
-
-
-/***/ }),
 /* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("next/head");
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("reactstrap");
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-var DB_HOST = 'localhost';
-var DB_PORT = 27017;
-var DB_NAME = 'iceBreaker';
-var PROTOCOL = 'http';
-var HOST = 'localhost';
-var HOST_IP = '127.0.0.1';
-var PORT = 3000;
-var FULL_URI = PROTOCOL + '://' + HOST + ':' + PORT;
-var COOKIE_DURATION = 30 * 60 * 1000;
-var SESSION_SECRET = 'jakbgakegb545';
-var NOTIFICATION_TYPE = 'custom';
-var NOTIFICATION_TIMEOUT = 5000;
-var NOTIFICATION_BACKGROUND_COLOR = '#0E1717';
-var NOTIFICATION_TEXT_COLOR = '#FFFFFF';
-module.exports = {
-  DB_NAME: DB_NAME,
-  DB_PORT: DB_PORT,
-  DB_HOST: DB_HOST,
-  FULL_URI: FULL_URI,
-  HOST_IP: HOST_IP,
-  HOST: HOST,
-  PORT: PORT,
-  COOKIE_DURATION: COOKIE_DURATION,
-  SESSION_SECRET: SESSION_SECRET,
-  NOTIFICATION_TYPE: NOTIFICATION_TYPE,
-  NOTIFICATION_TIMEOUT: NOTIFICATION_TIMEOUT,
-  NOTIFICATION_BACKGROUND_COLOR: NOTIFICATION_BACKGROUND_COLOR,
-  NOTIFICATION_TEXT_COLOR: NOTIFICATION_TEXT_COLOR
-};
-
-/***/ }),
-/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("pusher-js");
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
-var PUSHER_APP_ID = '575034';
-var PUSHER_APP_KEY = '30d8dabc87d7db943336';
-var PUSHER_APP_SECRET = 'ed7e51b094c6d48e5475';
-var PUSHER_APP_CLUSTER = 'ap1';
-module.exports = {
-  PUSHER_APP_ID: PUSHER_APP_ID,
-  PUSHER_APP_KEY: PUSHER_APP_KEY,
-  PUSHER_APP_SECRET: PUSHER_APP_SECRET,
-  PUSHER_APP_CLUSTER: PUSHER_APP_CLUSTER
-};
-
-/***/ }),
-/* 14 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var axios = __webpack_require__(1);
+var axios = __webpack_require__(6);
 
-var endpoints = __webpack_require__(2);
+var endpoints = __webpack_require__(7);
 
 module.exports = {
   insertLetter: function insertLetter(lettersUsed, letterToInsert) {
@@ -453,40 +507,135 @@ module.exports = {
 };
 
 /***/ }),
-/* 15 */,
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__(17);
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _default; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var _default =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(_default, _React$Component);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).apply(this, arguments));
+  }
+
+  return _default;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
 
 
 /***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("next/head");
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+module.exports = require("reactstrap");
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+var PUSHER_APP_ID = '575034';
+var PUSHER_APP_KEY = '30d8dabc87d7db943336';
+var PUSHER_APP_SECRET = 'ed7e51b094c6d48e5475';
+var PUSHER_APP_CLUSTER = 'ap1';
+module.exports = {
+  PUSHER_APP_ID: PUSHER_APP_ID,
+  PUSHER_APP_KEY: PUSHER_APP_KEY,
+  PUSHER_APP_SECRET: PUSHER_APP_SECRET,
+  PUSHER_APP_CLUSTER: PUSHER_APP_CLUSTER
+};
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+var DB_HOST = 'localhost';
+var DB_PORT = 27017;
+var DB_NAME = 'iceBreaker';
+var PROTOCOL = 'http';
+var HOST = 'localhost';
+var HOST_IP = '127.0.0.1';
+var PORT = 3000;
+var FULL_URI = PROTOCOL + '://' + HOST + ':' + PORT;
+var COOKIE_DURATION = 30 * 60 * 1000;
+var SESSION_SECRET = 'jakbgakegb545';
+var NOTIFICATION_TYPE = 'custom';
+var NOTIFICATION_TIMEOUT = 5000;
+var NOTIFICATION_BACKGROUND_COLOR = '#0E1717';
+var NOTIFICATION_TEXT_COLOR = '#FFFFFF';
+module.exports = {
+  DB_NAME: DB_NAME,
+  DB_PORT: DB_PORT,
+  DB_HOST: DB_HOST,
+  FULL_URI: FULL_URI,
+  HOST_IP: HOST_IP,
+  HOST: HOST,
+  PORT: PORT,
+  COOKIE_DURATION: COOKIE_DURATION,
+  SESSION_SECRET: SESSION_SECRET,
+  NOTIFICATION_TYPE: NOTIFICATION_TYPE,
+  NOTIFICATION_TIMEOUT: NOTIFICATION_TIMEOUT,
+  NOTIFICATION_BACKGROUND_COLOR: NOTIFICATION_BACKGROUND_COLOR,
+  NOTIFICATION_TEXT_COLOR: NOTIFICATION_TEXT_COLOR
+};
+
+/***/ }),
+/* 16 */,
 /* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(18);
+
+
+/***/ }),
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_styled_jsx_style__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_styled_jsx_style__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Page__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Layout_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_endpoints__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_endpoints___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__constants_endpoints__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_notificationUtils__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_notificationUtils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__utils_notificationUtils__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_strings__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_strings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__constants_strings__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_pusher_js__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_pusher_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__constants_credentials__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__constants_credentials___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__constants_credentials__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__utils_utils__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__utils_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__utils_utils__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_pusher_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_utils__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__utils_utils__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Page__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__utils_gameUtils__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__constants_strings__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__constants_strings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__constants_strings__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_Layout_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__constants_credentials__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__constants_credentials___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__constants_credentials__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__utils_notificationUtils__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__utils_notificationUtils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__utils_notificationUtils__);
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -502,7 +651,6 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 
 
 
@@ -530,22 +678,11 @@ function (_Page) {
       enumerable: true,
       writable: true,
       value: function value() {
-        __WEBPACK_IMPORTED_MODULE_1_axios___default()({
-          method: 'post',
-          url: __WEBPACK_IMPORTED_MODULE_5__constants_endpoints___default.a.API_GET_ALL_ACTIVE_USERS
-        }).then(function (response) {
-          var activeUsers = response.data.map(function (session) {
-            return session.user.name;
-          });
-          console.log('Parsed active users as ' + activeUsers);
-
+        __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils___default.a.getActiveUsers().then(function (activeUsers) {
           _this.setState({
             activeUsers: activeUsers
           });
-        }).catch(function (response) {
-          //handle error
-          console.log(response);
-        });
+        }, function (err) {});
       }
     });
     Object.defineProperty(_assertThisInitialized(_this), "setupPusher", {
@@ -553,13 +690,13 @@ function (_Page) {
       enumerable: true,
       writable: true,
       value: function value() {
-        _this.pusher = new __WEBPACK_IMPORTED_MODULE_8_pusher_js___default.a(__WEBPACK_IMPORTED_MODULE_9__constants_credentials___default.a.PUSHER_APP_KEY, {
-          cluster: __WEBPACK_IMPORTED_MODULE_9__constants_credentials___default.a.PUSHER_APP_CLUSTER,
+        _this.pusher = new __WEBPACK_IMPORTED_MODULE_2_pusher_js___default.a(__WEBPACK_IMPORTED_MODULE_8__constants_credentials___default.a.PUSHER_APP_KEY, {
+          cluster: __WEBPACK_IMPORTED_MODULE_8__constants_credentials___default.a.PUSHER_APP_CLUSTER,
           encrypted: true
         });
-        _this.channel = _this.pusher.subscribe(__WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.PUSHER_CHANNEL);
+        _this.channel = _this.pusher.subscribe(__WEBPACK_IMPORTED_MODULE_6__constants_strings___default.a.PUSHER_CHANNEL);
 
-        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.PUSHER_USER_LIST_UPDATE_EVENT, function (users) {
+        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_6__constants_strings___default.a.PUSHER_USER_LIST_UPDATE_EVENT, function (users) {
           console.log("Received new user list from Pusher: " + users);
           var newActiveUsers = users.map(function (user) {
             return user.name;
@@ -570,13 +707,13 @@ function (_Page) {
           });
         });
 
-        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.PUSHER_GAME_START_EVENT, function (users) {
+        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_6__constants_strings___default.a.PUSHER_GAME_START_EVENT, function (users) {
           _this.setState({
             gameStatus: 'IN PROGRESS'
           });
         });
 
-        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.PUSHER_GAME_STOP_EVENT, function (users) {
+        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_6__constants_strings___default.a.PUSHER_GAME_STOP_EVENT, function (users) {
           _this.setState({
             gameStatus: 'INACTIVE'
           });
@@ -598,19 +735,10 @@ function (_Page) {
       enumerable: true,
       writable: true,
       value: function value() {
-        __WEBPACK_IMPORTED_MODULE_1_axios___default()({
-          method: 'post',
-          url: __WEBPACK_IMPORTED_MODULE_5__constants_endpoints___default.a.API_START_GAME,
-          data: {
-            password: _this.state.password
-          }
-        }).then(function (response) {
-          var notificationMessage = '';
-          if (response.data.success == 1) notificationMessage = __WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.NOTIFICATION_GAME_STARTED_SUCCESSFUL;else notificationMessage = response.data.message;
-          __WEBPACK_IMPORTED_MODULE_6__utils_notificationUtils___default.a.showNotification(notificationMessage);
-        }).catch(function (response) {
-          __WEBPACK_IMPORTED_MODULE_6__utils_notificationUtils___default.a.showNotification(__WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.NOTIFICATION_GAME_STARTED_FAILED);
-          console.log(response);
+        __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils___default.a.startGame(_this.state.password).then(function (notificationMessage) {
+          __WEBPACK_IMPORTED_MODULE_9__utils_notificationUtils___default.a.showNotification(notificationMessage);
+        }, function (notificationMessage) {
+          __WEBPACK_IMPORTED_MODULE_9__utils_notificationUtils___default.a.showNotification(notificationMessage);
         });
       }
     });
@@ -619,19 +747,10 @@ function (_Page) {
       enumerable: true,
       writable: true,
       value: function value() {
-        __WEBPACK_IMPORTED_MODULE_1_axios___default()({
-          method: 'post',
-          url: __WEBPACK_IMPORTED_MODULE_5__constants_endpoints___default.a.API_STOP_GAME,
-          data: {
-            password: _this.state.password
-          }
-        }).then(function (response) {
-          var notificationMessage = '';
-          if (response.data.success == 1) notificationMessage = __WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.NOTIFICATION_GAME_ALREADY_STOPPED;else notificationMessage = response.data.message;
-          __WEBPACK_IMPORTED_MODULE_6__utils_notificationUtils___default.a.showNotification(notificationMessage);
-        }).catch(function (response) {
-          __WEBPACK_IMPORTED_MODULE_6__utils_notificationUtils___default.a.showNotification(__WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.NOTIFICATION_GAME_STOP_FAILED);
-          console.log(response);
+        __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils___default.a.stopGame(_this.state.password).then(function (notificationMessage) {
+          __WEBPACK_IMPORTED_MODULE_9__utils_notificationUtils___default.a.showNotification(notificationMessage);
+        }, function (notificationMessage) {
+          __WEBPACK_IMPORTED_MODULE_9__utils_notificationUtils___default.a.showNotification(notificationMessage);
         });
       }
     });
@@ -653,7 +772,7 @@ function (_Page) {
   }, {
     key: "retrieveGameStatus",
     value: function retrieveGameStatus() {
-      __WEBPACK_IMPORTED_MODULE_10__utils_utils___default.a.checkGameStarted().then(function (success) {
+      __WEBPACK_IMPORTED_MODULE_3__utils_utils___default.a.checkGameStarted().then(function (success) {
         this.setState({
           gameStatus: 'IN PROGRESS'
         });
@@ -666,42 +785,42 @@ function (_Page) {
   }, {
     key: "render",
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__components_Layout_js__["a" /* default */], null, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("div", {
+      return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__components_Layout_js__["a" /* default */], null, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", {
         className: "jsx-2924920866" + " " + "form-group"
-      }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("label", {
+      }, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("label", {
         className: "jsx-2924920866"
-      }, "Password"), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("input", {
+      }, "Password"), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("input", {
         onChange: this.handlePasswordChange,
         name: "name",
         className: "jsx-2924920866" + " " + "form-control"
-      })), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("div", {
+      })), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", {
         className: "jsx-2924920866"
-      }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("button", {
+      }, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("button", {
         id: "start-button",
         onClick: this.startGame,
         type: "submit",
         className: "jsx-2924920866" + " " + "btn btn-primary"
-      }, "Start Game"), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("button", {
+      }, "Start Game"), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("button", {
         id: "stop-button",
         onClick: this.stopGame,
         className: "jsx-2924920866" + " " + "btn btn-danger"
-      }, "Stop Game")), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("div", {
+      }, "Stop Game")), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", {
         id: "game-status",
         className: "jsx-2924920866"
-      }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("label", {
+      }, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("label", {
         className: "jsx-2924920866"
-      }, "Current Game Status: ", this.state.gameStatus)), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("div", {
+      }, "Current Game Status: ", this.state.gameStatus)), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", {
         id: "players",
         className: "jsx-2924920866"
-      }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("label", {
+      }, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("label", {
         className: "jsx-2924920866"
-      }, "Current players in session"), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("ul", {
+      }, "Current players in session"), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("ul", {
         className: "jsx-2924920866" + " " + "list-group"
       }, this.state.activeUsers.map(function (user, index) {
-        return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("li", {
+        return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("li", {
           className: "jsx-2924920866" + " " + "list-group-item"
         }, user);
-      }))), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default.a, {
+      }))), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default.a, {
         styleId: "2924920866",
         css: ["#start-button.jsx-2924920866{margin-right:15px;}", "#players.jsx-2924920866{margin-top:15px;}", "#game-status.jsx-2924920866{margin-top:15px;}"]
       }));
@@ -709,7 +828,7 @@ function (_Page) {
   }]);
 
   return _default;
-}(__WEBPACK_IMPORTED_MODULE_3__components_Page__["a" /* default */]);
+}(__WEBPACK_IMPORTED_MODULE_4__components_Page__["a" /* default */]);
 
 
 
