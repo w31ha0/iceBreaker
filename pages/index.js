@@ -3,7 +3,6 @@ import React from "react";
 import Pusher from 'pusher-js';
 import utils from '../utils/utils'
 import Page from '../components/Page';
-import config from '../constants/config'
 import SignIn from "../components/SignIn"
 import strings from '../constants/strings'
 import {notify} from "react-notify-toast";
@@ -11,10 +10,12 @@ import Layout from '../components/Layout.js'
 import endpoints from '../constants/endpoints'
 import credentials from '../constants/credentials'
 import LoadingScreen from "../components/LoadingScreen"
+import notificationUtils from "../utils/notificationUtils"
 import LetterComponent from '../components/LettersComponent'
 import ExchangeRequest from '../components/ExchangeRequest'
 import ExchangeResponse from '../components/ExchangeResponse'
 import WaitingForVerification from '../components/WaitingForVerification'
+
 
 export default class extends Page {
 
@@ -33,6 +34,7 @@ export default class extends Page {
             authenticationChecked: false,
             gameStartedChecked: false
         }
+        console.log("notify from index is "+JSON.stringify(notify))
         this.exchangeRequest = {}
 
     }
@@ -79,13 +81,7 @@ export default class extends Page {
 
         this.channel.bind(strings.EXCHANGE_COMPLETED_EVENT, (data) => {
             if (data.request_user == this.state.userName) {
-                notify.show(
-                    strings.NOTIFICATION_EXCHANGE_SUCCESSFUL,
-                    config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
-                    {
-                        background: config.NOTIFICATION_BACKGROUND_COLOR,
-                        text: config.NOTIFICATION_TEXT_COLOR
-                    });
+                notificationUtils.showNotification(strings.NOTIFICATION_EXCHANGE_SUCCESSFUL)
                 console.log("Exchange request has completed: " + JSON.stringify(data))
                 console.log("Letters assigned are now " + this.state.lettersAssigned)
                 this.setState({
@@ -102,13 +98,7 @@ export default class extends Page {
                     isWaitingForGameToStart: false
                 })
                 this.retrieveAllGameInformation()
-                notify.show(
-                    strings.NOTIFICATION_GAME_BEGUN,
-                    config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
-                    {
-                        background: config.NOTIFICATION_BACKGROUND_COLOR,
-                        text: config.NOTIFICATION_TEXT_COLOR
-                    });
+                notificationUtils.showNotification(strings.NOTIFICATION_GAME_BEGUN)
             }
         });
 
@@ -126,25 +116,13 @@ export default class extends Page {
                 this.setState({
                     isWaitingForCounterPartyToVerify: false
                 })
-                notify.show(
-                    strings.NOTIFICATION_CANCEL_EXCHANGE,
-                    config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
-                    {
-                        background: config.NOTIFICATION_BACKGROUND_COLOR,
-                        text: config.NOTIFICATION_TEXT_COLOR
-                    });
+                notificationUtils.showNotification(strings.NOTIFICATION_CANCEL_EXCHANGE)
             }
             else if (data.respond_user == this.state.userName && this.state.isVerifyingForCounterParty) {
                 this.setState({
                     isVerifyingForCounterParty: false
                 })
-                notify.show(
-                    strings.NOTIFICATION_CANCEL_EXCHANGE,
-                    config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
-                    {
-                        background: config.NOTIFICATION_BACKGROUND_COLOR,
-                        text: config.NOTIFICATION_TEXT_COLOR
-                    });
+                notificationUtils.showNotification(strings.NOTIFICATION_CANCEL_EXCHANGE)
             }
         });
     }
@@ -206,13 +184,7 @@ export default class extends Page {
     }
 
     onExchangeResponseSubmitSuccess = (exchangeResponse) => {
-        notify.show(
-            strings.NOTIFICATION_EXCHANGE_SUCCESSFUL,
-            config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
-            {
-                background: config.NOTIFICATION_BACKGROUND_COLOR,
-                text: config.NOTIFICATION_TEXT_COLOR
-            });
+        notificationUtils.showNotification(strings.NOTIFICATION_EXCHANGE_SUCCESSFUL)
         this.retriveLetters()
         if(typeof localStorage !== 'undefined') {
             console.log("Setting local storage "+exchangeResponse.request_user+":"+exchangeResponse)
@@ -225,13 +197,7 @@ export default class extends Page {
 
     onUserSelected = (e) => {
         if(this.state.activeUsers[e.target.id] === this.state.userName)
-            notify.show(
-                strings.NOTIFICATION_SAME_NAME_SELECTED,
-                config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT,
-                {
-                    background: config.NOTIFICATION_BACKGROUND_COLOR,
-                    text: config.NOTIFICATION_TEXT_COLOR
-                });
+            notificationUtils.showNotification(strings.NOTIFICATION_SAME_NAME_SELECTED)
         else {
             console.log("Setting user selected to " + e.target.id)
             this.setState({
@@ -320,14 +286,7 @@ export default class extends Page {
                     signedIn: true
                 })
             else
-                notify.show(
-                    response.data.message,
-                    config.NOTIFICATION_TYPE,
-                    config.NOTIFICATION_TIMEOUT,
-                    {
-                        background: config.NOTIFICATION_BACKGROUND_COLOR,
-                        text: config.NOTIFICATION_TEXT_COLOR
-                    });
+                notificationUtils.showNotification(response.data.message)
         })
         .catch(function (response) {
             //handle error

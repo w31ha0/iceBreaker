@@ -3,8 +3,7 @@ import React from "react";
 import Page from '../components/Page';
 import Layout from '../components/Layout.js'
 import endpoints from "../constants/endpoints";
-import {notify} from "react-notify-toast";
-import config from "../constants/config";
+import notificationUtils from "../utils/notificationUtils"
 import strings from '../constants/strings'
 import Pusher from "pusher-js";
 import credentials from "../constants/credentials";
@@ -104,24 +103,10 @@ export default class extends Page{
                 notificationMessage = strings.NOTIFICATION_GAME_STARTED_SUCCESSFUL
             else
                 notificationMessage = response.data.message
-            notify.show(
-                notificationMessage,
-                config.NOTIFICATION_TYPE,
-                config.NOTIFICATION_TIMEOUT,
-                {
-                    background: config.NOTIFICATION_BACKGROUND_COLOR,
-                    text: config.NOTIFICATION_TEXT_COLOR
-                });
+                notificationUtils.showNotification(notificationMessage)
         })
         .catch(function (response) {
-            notify.show(
-                strings.NOTIFICATION_GAME_STARTED_FAILED,
-                config.NOTIFICATION_TYPE,
-                config.NOTIFICATION_TIMEOUT,
-                {
-                    background: config.NOTIFICATION_BACKGROUND_COLOR,
-                    text: config.NOTIFICATION_TEXT_COLOR
-                });
+            notificationUtils.showNotification(strings.NOTIFICATION_GAME_STARTED_FAILED)
             console.log(response);
         });
     }
@@ -138,24 +123,10 @@ export default class extends Page{
                 notificationMessage = strings.NOTIFICATION_GAME_ALREADY_STOPPED
             else
                 notificationMessage = response.data.message
-            notify.show(
-                notificationMessage,
-                config.NOTIFICATION_TYPE,
-                config.NOTIFICATION_TIMEOUT,
-                {
-                    background: config.NOTIFICATION_BACKGROUND_COLOR,
-                    text: config.NOTIFICATION_TEXT_COLOR
-                });
+            notificationUtils.showNotification(notificationMessage)
         })
         .catch(function (response) {
-            notify.show(
-                strings.NOTIFICATION_GAME_STOP_FAILED,
-                config.NOTIFICATION_TYPE,
-                config.NOTIFICATION_TIMEOUT,
-                {
-                    background: config.NOTIFICATION_BACKGROUND_COLOR,
-                    text: config.NOTIFICATION_TEXT_COLOR
-                });
+            notificationUtils.showNotification(strings.NOTIFICATION_GAME_STOP_FAILED)
             console.log(response);
         });
     }

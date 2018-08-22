@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -84,12 +84,6 @@ module.exports = require("axios");
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-notify-toast");
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports) {
 
 var API_LOGIN_USER = '/loginUser';
@@ -124,47 +118,31 @@ module.exports = {
 };
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("styled-jsx/style");
+module.exports = require("react-notify-toast");
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports) {
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
 
-var DB_HOST = 'localhost';
-var DB_PORT = 27017;
-var DB_NAME = 'iceBreaker';
-var PROTOCOL = 'http';
-var HOST = 'localhost';
-var HOST_IP = '127.0.0.1';
-var PORT = 3000;
-var FULL_URI = PROTOCOL + '://' + HOST + ':' + PORT;
-var COOKIE_DURATION = 30 * 60 * 1000;
-var SESSION_SECRET = 'jakbgakegb545';
-var NOTIFICATION_TYPE = 'custom';
-var NOTIFICATION_TIMEOUT = 5000;
-var NOTIFICATION_BACKGROUND_COLOR = '#0E1717';
-var NOTIFICATION_TEXT_COLOR = '#FFFFFF';
+var notify = __webpack_require__(3).notify;
+
+var config = __webpack_require__(11);
+
+console.log("Notify is " + JSON.stringify(notify));
 module.exports = {
-  DB_NAME: DB_NAME,
-  DB_PORT: DB_PORT,
-  DB_HOST: DB_HOST,
-  FULL_URI: FULL_URI,
-  HOST_IP: HOST_IP,
-  HOST: HOST,
-  PORT: PORT,
-  COOKIE_DURATION: COOKIE_DURATION,
-  SESSION_SECRET: SESSION_SECRET,
-  NOTIFICATION_TYPE: NOTIFICATION_TYPE,
-  NOTIFICATION_TIMEOUT: NOTIFICATION_TIMEOUT,
-  NOTIFICATION_BACKGROUND_COLOR: NOTIFICATION_BACKGROUND_COLOR,
-  NOTIFICATION_TEXT_COLOR: NOTIFICATION_TEXT_COLOR
+  showNotification: function showNotification(message) {
+    notify.show(message, config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT, {
+      background: config.NOTIFICATION_BACKGROUND_COLOR,
+      text: config.NOTIFICATION_TEXT_COLOR
+    });
+  }
 };
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 var PUSHER_CHANNEL = 'iceBreaker';
@@ -217,6 +195,12 @@ module.exports = {
 };
 
 /***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("styled-jsx/style");
+
+/***/ }),
 /* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -228,7 +212,7 @@ module.exports = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_head__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_reactstrap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -343,10 +327,44 @@ module.exports = require("reactstrap");
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = require("pusher-js");
+var DB_HOST = 'localhost';
+var DB_PORT = 27017;
+var DB_NAME = 'iceBreaker';
+var PROTOCOL = 'http';
+var HOST = 'localhost';
+var HOST_IP = '127.0.0.1';
+var PORT = 3000;
+var FULL_URI = PROTOCOL + '://' + HOST + ':' + PORT;
+var COOKIE_DURATION = 30 * 60 * 1000;
+var SESSION_SECRET = 'jakbgakegb545';
+var NOTIFICATION_TYPE = 'custom';
+var NOTIFICATION_TIMEOUT = 5000;
+var NOTIFICATION_BACKGROUND_COLOR = '#0E1717';
+var NOTIFICATION_TEXT_COLOR = '#FFFFFF';
+module.exports = {
+  DB_NAME: DB_NAME,
+  DB_PORT: DB_PORT,
+  DB_HOST: DB_HOST,
+  FULL_URI: FULL_URI,
+  HOST_IP: HOST_IP,
+  HOST: HOST,
+  PORT: PORT,
+  COOKIE_DURATION: COOKIE_DURATION,
+  SESSION_SECRET: SESSION_SECRET,
+  NOTIFICATION_TYPE: NOTIFICATION_TYPE,
+  NOTIFICATION_TIMEOUT: NOTIFICATION_TIMEOUT,
+  NOTIFICATION_BACKGROUND_COLOR: NOTIFICATION_BACKGROUND_COLOR,
+  NOTIFICATION_TEXT_COLOR: NOTIFICATION_TEXT_COLOR
+};
 
 /***/ }),
 /* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("pusher-js");
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports) {
 
 var PUSHER_APP_ID = '575034';
@@ -361,12 +379,12 @@ module.exports = {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var axios = __webpack_require__(1);
 
-var endpoints = __webpack_require__(3);
+var endpoints = __webpack_require__(2);
 
 module.exports = {
   insertLetter: function insertLetter(lettersUsed, letterToInsert) {
@@ -435,21 +453,21 @@ module.exports = {
 };
 
 /***/ }),
-/* 14 */,
-/* 15 */
+/* 15 */,
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(16);
+module.exports = __webpack_require__(17);
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_styled_jsx_style__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_styled_jsx_style__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
@@ -457,20 +475,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Page__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Layout_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_endpoints__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_endpoints__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_endpoints___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__constants_endpoints__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_notify_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react_notify_toast__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_config__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__constants_config__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__constants_strings__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__constants_strings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__constants_strings__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_pusher_js__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_pusher_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__constants_credentials__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__constants_credentials___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__constants_credentials__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_utils__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__utils_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__utils_utils__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_notificationUtils__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils_notificationUtils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__utils_notificationUtils__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_strings__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_strings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__constants_strings__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_pusher_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_pusher_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__constants_credentials__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__constants_credentials___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__constants_credentials__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__utils_utils__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__utils_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__utils_utils__);
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -486,7 +502,6 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 
 
 
@@ -538,13 +553,13 @@ function (_Page) {
       enumerable: true,
       writable: true,
       value: function value() {
-        _this.pusher = new __WEBPACK_IMPORTED_MODULE_9_pusher_js___default.a(__WEBPACK_IMPORTED_MODULE_10__constants_credentials___default.a.PUSHER_APP_KEY, {
-          cluster: __WEBPACK_IMPORTED_MODULE_10__constants_credentials___default.a.PUSHER_APP_CLUSTER,
+        _this.pusher = new __WEBPACK_IMPORTED_MODULE_8_pusher_js___default.a(__WEBPACK_IMPORTED_MODULE_9__constants_credentials___default.a.PUSHER_APP_KEY, {
+          cluster: __WEBPACK_IMPORTED_MODULE_9__constants_credentials___default.a.PUSHER_APP_CLUSTER,
           encrypted: true
         });
-        _this.channel = _this.pusher.subscribe(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.PUSHER_CHANNEL);
+        _this.channel = _this.pusher.subscribe(__WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.PUSHER_CHANNEL);
 
-        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.PUSHER_USER_LIST_UPDATE_EVENT, function (users) {
+        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.PUSHER_USER_LIST_UPDATE_EVENT, function (users) {
           console.log("Received new user list from Pusher: " + users);
           var newActiveUsers = users.map(function (user) {
             return user.name;
@@ -555,13 +570,13 @@ function (_Page) {
           });
         });
 
-        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.PUSHER_GAME_START_EVENT, function (users) {
+        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.PUSHER_GAME_START_EVENT, function (users) {
           _this.setState({
             gameStatus: 'IN PROGRESS'
           });
         });
 
-        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.PUSHER_GAME_STOP_EVENT, function (users) {
+        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.PUSHER_GAME_STOP_EVENT, function (users) {
           _this.setState({
             gameStatus: 'INACTIVE'
           });
@@ -591,16 +606,10 @@ function (_Page) {
           }
         }).then(function (response) {
           var notificationMessage = '';
-          if (response.data.success == 1) notificationMessage = __WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.NOTIFICATION_GAME_STARTED_SUCCESSFUL;else notificationMessage = response.data.message;
-          __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__["notify"].show(notificationMessage, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TYPE, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TIMEOUT, {
-            background: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_BACKGROUND_COLOR,
-            text: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TEXT_COLOR
-          });
+          if (response.data.success == 1) notificationMessage = __WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.NOTIFICATION_GAME_STARTED_SUCCESSFUL;else notificationMessage = response.data.message;
+          __WEBPACK_IMPORTED_MODULE_6__utils_notificationUtils___default.a.showNotification(notificationMessage);
         }).catch(function (response) {
-          __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__["notify"].show(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.NOTIFICATION_GAME_STARTED_FAILED, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TYPE, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TIMEOUT, {
-            background: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_BACKGROUND_COLOR,
-            text: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TEXT_COLOR
-          });
+          __WEBPACK_IMPORTED_MODULE_6__utils_notificationUtils___default.a.showNotification(__WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.NOTIFICATION_GAME_STARTED_FAILED);
           console.log(response);
         });
       }
@@ -618,16 +627,10 @@ function (_Page) {
           }
         }).then(function (response) {
           var notificationMessage = '';
-          if (response.data.success == 1) notificationMessage = __WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.NOTIFICATION_GAME_ALREADY_STOPPED;else notificationMessage = response.data.message;
-          __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__["notify"].show(notificationMessage, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TYPE, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TIMEOUT, {
-            background: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_BACKGROUND_COLOR,
-            text: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TEXT_COLOR
-          });
+          if (response.data.success == 1) notificationMessage = __WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.NOTIFICATION_GAME_ALREADY_STOPPED;else notificationMessage = response.data.message;
+          __WEBPACK_IMPORTED_MODULE_6__utils_notificationUtils___default.a.showNotification(notificationMessage);
         }).catch(function (response) {
-          __WEBPACK_IMPORTED_MODULE_6_react_notify_toast__["notify"].show(__WEBPACK_IMPORTED_MODULE_8__constants_strings___default.a.NOTIFICATION_GAME_STOP_FAILED, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TYPE, __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TIMEOUT, {
-            background: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_BACKGROUND_COLOR,
-            text: __WEBPACK_IMPORTED_MODULE_7__constants_config___default.a.NOTIFICATION_TEXT_COLOR
-          });
+          __WEBPACK_IMPORTED_MODULE_6__utils_notificationUtils___default.a.showNotification(__WEBPACK_IMPORTED_MODULE_7__constants_strings___default.a.NOTIFICATION_GAME_STOP_FAILED);
           console.log(response);
         });
       }
@@ -650,7 +653,7 @@ function (_Page) {
   }, {
     key: "retrieveGameStatus",
     value: function retrieveGameStatus() {
-      __WEBPACK_IMPORTED_MODULE_11__utils_utils___default.a.checkGameStarted().then(function (success) {
+      __WEBPACK_IMPORTED_MODULE_10__utils_utils___default.a.checkGameStarted().then(function (success) {
         this.setState({
           gameStatus: 'IN PROGRESS'
         });

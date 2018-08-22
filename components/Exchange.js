@@ -1,5 +1,7 @@
 import React from "react";
 import data from "../data/dataSource";
+import notificationUtils from "../utils/notificationUtils"
+import strings from '../constants/strings'
 
 export default class extends React.Component{
 
@@ -12,6 +14,15 @@ export default class extends React.Component{
             letterToExchange: ''
         }
     }
+
+    checkIfFieldsAreComplete = (userSelected,birthday,favouriteFood,deshu,letterToExchange) => {
+        if( !userSelected || !birthday || !favouriteFood || !deshu || !letterToExchange){
+            notificationUtils.showNotification(strings.NOTIFICATION_INCOMPLETE_DETAILS)
+            return false;
+        }
+        return true;
+    }
+
 
     componentWillReceiveProps(props){
         console.log("Received new props "+JSON.stringify(props))

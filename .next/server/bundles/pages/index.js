@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 18);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -84,12 +84,6 @@ module.exports = require("axios");
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-notify-toast");
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports) {
 
 var API_LOGIN_USER = '/loginUser';
@@ -124,47 +118,31 @@ module.exports = {
 };
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("styled-jsx/style");
+module.exports = require("react-notify-toast");
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports) {
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
 
-var DB_HOST = 'localhost';
-var DB_PORT = 27017;
-var DB_NAME = 'iceBreaker';
-var PROTOCOL = 'http';
-var HOST = 'localhost';
-var HOST_IP = '127.0.0.1';
-var PORT = 3000;
-var FULL_URI = PROTOCOL + '://' + HOST + ':' + PORT;
-var COOKIE_DURATION = 30 * 60 * 1000;
-var SESSION_SECRET = 'jakbgakegb545';
-var NOTIFICATION_TYPE = 'custom';
-var NOTIFICATION_TIMEOUT = 5000;
-var NOTIFICATION_BACKGROUND_COLOR = '#0E1717';
-var NOTIFICATION_TEXT_COLOR = '#FFFFFF';
+var notify = __webpack_require__(3).notify;
+
+var config = __webpack_require__(11);
+
+console.log("Notify is " + JSON.stringify(notify));
 module.exports = {
-  DB_NAME: DB_NAME,
-  DB_PORT: DB_PORT,
-  DB_HOST: DB_HOST,
-  FULL_URI: FULL_URI,
-  HOST_IP: HOST_IP,
-  HOST: HOST,
-  PORT: PORT,
-  COOKIE_DURATION: COOKIE_DURATION,
-  SESSION_SECRET: SESSION_SECRET,
-  NOTIFICATION_TYPE: NOTIFICATION_TYPE,
-  NOTIFICATION_TIMEOUT: NOTIFICATION_TIMEOUT,
-  NOTIFICATION_BACKGROUND_COLOR: NOTIFICATION_BACKGROUND_COLOR,
-  NOTIFICATION_TEXT_COLOR: NOTIFICATION_TEXT_COLOR
+  showNotification: function showNotification(message) {
+    notify.show(message, config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT, {
+      background: config.NOTIFICATION_BACKGROUND_COLOR,
+      text: config.NOTIFICATION_TEXT_COLOR
+    });
+  }
 };
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 var PUSHER_CHANNEL = 'iceBreaker';
@@ -217,6 +195,12 @@ module.exports = {
 };
 
 /***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("styled-jsx/style");
+
+/***/ }),
 /* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -228,7 +212,7 @@ module.exports = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_next_head___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_next_head__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_reactstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_reactstrap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_notify_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_notify_toast__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -343,10 +327,44 @@ module.exports = require("reactstrap");
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = require("pusher-js");
+var DB_HOST = 'localhost';
+var DB_PORT = 27017;
+var DB_NAME = 'iceBreaker';
+var PROTOCOL = 'http';
+var HOST = 'localhost';
+var HOST_IP = '127.0.0.1';
+var PORT = 3000;
+var FULL_URI = PROTOCOL + '://' + HOST + ':' + PORT;
+var COOKIE_DURATION = 30 * 60 * 1000;
+var SESSION_SECRET = 'jakbgakegb545';
+var NOTIFICATION_TYPE = 'custom';
+var NOTIFICATION_TIMEOUT = 5000;
+var NOTIFICATION_BACKGROUND_COLOR = '#0E1717';
+var NOTIFICATION_TEXT_COLOR = '#FFFFFF';
+module.exports = {
+  DB_NAME: DB_NAME,
+  DB_PORT: DB_PORT,
+  DB_HOST: DB_HOST,
+  FULL_URI: FULL_URI,
+  HOST_IP: HOST_IP,
+  HOST: HOST,
+  PORT: PORT,
+  COOKIE_DURATION: COOKIE_DURATION,
+  SESSION_SECRET: SESSION_SECRET,
+  NOTIFICATION_TYPE: NOTIFICATION_TYPE,
+  NOTIFICATION_TIMEOUT: NOTIFICATION_TIMEOUT,
+  NOTIFICATION_BACKGROUND_COLOR: NOTIFICATION_BACKGROUND_COLOR,
+  NOTIFICATION_TEXT_COLOR: NOTIFICATION_TEXT_COLOR
+};
 
 /***/ }),
 /* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("pusher-js");
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports) {
 
 var PUSHER_APP_ID = '575034';
@@ -361,12 +379,12 @@ module.exports = {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var axios = __webpack_require__(1);
 
-var endpoints = __webpack_require__(3);
+var endpoints = __webpack_require__(2);
 
 module.exports = {
   insertLetter: function insertLetter(lettersUsed, letterToInsert) {
@@ -435,7 +453,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 var FOOD_OPTIONS = ['hokkien mee', 'laksa', 'mee rebus'];
@@ -446,27 +464,27 @@ module.exports = {
 };
 
 /***/ }),
-/* 15 */,
 /* 16 */,
-/* 17 */
+/* 17 */,
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(18);
+module.exports = __webpack_require__(19);
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // EXTERNAL MODULE: external "@babel/runtime/regenerator"
-var regenerator_ = __webpack_require__(19);
+var regenerator_ = __webpack_require__(20);
 var regenerator__default = /*#__PURE__*/__webpack_require__.n(regenerator_);
 
 // EXTERNAL MODULE: external "styled-jsx/style"
-var style_ = __webpack_require__(4);
+var style_ = __webpack_require__(6);
 var style__default = /*#__PURE__*/__webpack_require__.n(style_);
 
 // EXTERNAL MODULE: external "axios"
@@ -478,26 +496,22 @@ var external__react_ = __webpack_require__(0);
 var external__react__default = /*#__PURE__*/__webpack_require__.n(external__react_);
 
 // EXTERNAL MODULE: external "pusher-js"
-var external__pusher_js_ = __webpack_require__(11);
+var external__pusher_js_ = __webpack_require__(12);
 var external__pusher_js__default = /*#__PURE__*/__webpack_require__.n(external__pusher_js_);
 
 // EXTERNAL MODULE: ./utils/utils.js
-var utils = __webpack_require__(13);
+var utils = __webpack_require__(14);
 var utils_default = /*#__PURE__*/__webpack_require__.n(utils);
 
 // EXTERNAL MODULE: ./components/Page.js
 var Page = __webpack_require__(8);
 
-// EXTERNAL MODULE: ./constants/config.js
-var config = __webpack_require__(5);
-var config_default = /*#__PURE__*/__webpack_require__.n(config);
-
 // EXTERNAL MODULE: ./data/dataSource.js
-var dataSource = __webpack_require__(14);
+var dataSource = __webpack_require__(15);
 var dataSource_default = /*#__PURE__*/__webpack_require__.n(dataSource);
 
 // EXTERNAL MODULE: external "react-notify-toast"
-var external__react_notify_toast_ = __webpack_require__(2);
+var external__react_notify_toast_ = __webpack_require__(3);
 var external__react_notify_toast__default = /*#__PURE__*/__webpack_require__.n(external__react_notify_toast_);
 
 // CONCATENATED MODULE: ./components/SignIn.js
@@ -647,18 +661,18 @@ function (_React$Component) {
 
 
 // EXTERNAL MODULE: ./constants/strings.js
-var strings = __webpack_require__(6);
+var strings = __webpack_require__(5);
 var strings_default = /*#__PURE__*/__webpack_require__.n(strings);
 
 // EXTERNAL MODULE: ./components/Layout.js
 var Layout = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./constants/endpoints.js
-var endpoints = __webpack_require__(3);
+var endpoints = __webpack_require__(2);
 var endpoints_default = /*#__PURE__*/__webpack_require__.n(endpoints);
 
 // EXTERNAL MODULE: ./constants/credentials.js
-var credentials = __webpack_require__(12);
+var credentials = __webpack_require__(13);
 var credentials_default = /*#__PURE__*/__webpack_require__.n(credentials);
 
 // CONCATENATED MODULE: ./components/LoadingScreen.js
@@ -702,6 +716,10 @@ function (_React$Component) {
   return _default;
 }(external__react__default.a.Component);
 
+
+// EXTERNAL MODULE: ./utils/notificationUtils.js
+var notificationUtils = __webpack_require__(4);
+var notificationUtils_default = /*#__PURE__*/__webpack_require__.n(notificationUtils);
 
 // CONCATENATED MODULE: ./components/LettersComponent.js
 
@@ -887,6 +905,8 @@ function Exchange__assertThisInitialized(self) { if (self === void 0) { throw ne
 
 
 
+
+
 var Exchange__default =
 /*#__PURE__*/
 function (_React$Component) {
@@ -898,6 +918,19 @@ function (_React$Component) {
     Exchange__classCallCheck(this, _default);
 
     _this = Exchange__possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).call(this));
+    Object.defineProperty(Exchange__assertThisInitialized(_this), "checkIfFieldsAreComplete", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(userSelected, birthday, favouriteFood, deshu, letterToExchange) {
+        if (!userSelected || !birthday || !favouriteFood || !deshu || !letterToExchange) {
+          notificationUtils_default.a.showNotification(strings_default.a.NOTIFICATION_INCOMPLETE_DETAILS);
+          return false;
+        }
+
+        return true;
+      }
+    });
     Object.defineProperty(Exchange__assertThisInitialized(_this), "handleBirthdayChange", {
       configurable: true,
       enumerable: true,
@@ -1077,6 +1110,22 @@ function (_React$Component) {
 }(external__react__default.a.Component);
 
 
+// CONCATENATED MODULE: ./models/ExchangeEntity.js
+function ExchangeEntity__classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ExchangeEntity__default = function _default(request_user, respond_user, birthday, favouriteFood, deshu, letterToExchange, letterToReceive) {
+  ExchangeEntity__classCallCheck(this, _default);
+
+  this.request_user = request_user;
+  this.respond_user = respond_user;
+  this.birthday = birthday;
+  this.favouriteFood = favouriteFood;
+  this.deshu = deshu;
+  this.letterToExchange = letterToExchange;
+  this.letterToReceive = letterToReceive;
+};
+
+
 // CONCATENATED MODULE: ./components/ExchangeRequest.js
 function ExchangeRequest__typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { ExchangeRequest__typeof = function _typeof(obj) { return typeof obj; }; } else { ExchangeRequest__typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return ExchangeRequest__typeof(obj); }
 
@@ -1117,41 +1166,33 @@ function (_Exchange) {
       enumerable: true,
       writable: true,
       value: function value(e) {
-        if (!_this.props.userSelected || !_this.state.birthday || !_this.state.favouriteFood || !_this.state.deshu || !_this.state.letterToExchange) {
-          external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_INCOMPLETE_DETAILS, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
-            background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
-            text: config_default.a.NOTIFICATION_TEXT_COLOR
+        var request_user = _this.props.userName;
+        var respond_user = _this.props.userSelected;
+        var birthday = _this.state.birthday;
+        var favouriteFood = _this.state.favouriteFood;
+        var deshu = _this.state.deshu;
+        var letterToExchange = _this.state.letterToExchange;
+        var letterToReceive = '';
+
+        if (_this.checkIfFieldsAreComplete(respond_user, birthday, favouriteFood, deshu, letterToExchange)) {
+          var exchangeRequest = new ExchangeEntity__default(request_user, respond_user, birthday, favouriteFood, deshu, letterToExchange, letterToReceive);
+          console.log("ExchangeRequest: " + JSON.stringify(exchangeRequest));
+          external__axios__default()({
+            method: 'post',
+            url: endpoints_default.a.API_SUBMIT_EXCHANGE_REQUEST,
+            data: exchangeRequest
+          }).then(function (response) {
+            console.log('Response of ExchangeRequest: ' + JSON.stringify(response.data));
+
+            if (response.data.success == 1) {
+              _this.props.onExchangeRequestSubmitSuccess(_this.state.letterToExchange, exchangeRequest);
+
+              _this.props.updateExchangeRequest(exchangeRequest);
+            } else notificationUtils_default.a.showNotification(strings_default.a.NOTIFICATION_WRONG_DETAILS);
+          }).catch(function (response) {
+            console.log(response);
           });
-          return;
         }
-
-        var exchangeRequest = {
-          respond_user: _this.props.userSelected,
-          birthday: _this.state.birthday,
-          favouriteFood: _this.state.favouriteFood,
-          deshu: _this.state.deshu,
-          letterToExchange: _this.state.letterToExchange,
-          request_user: _this.props.userName
-        };
-        console.log("ExchangeRequest: " + JSON.stringify(exchangeRequest));
-        external__axios__default()({
-          method: 'post',
-          url: endpoints_default.a.API_SUBMIT_EXCHANGE_REQUEST,
-          data: exchangeRequest
-        }).then(function (response) {
-          console.log('Response of ExchangeRequest: ' + JSON.stringify(response.data));
-
-          if (response.data.success == 1) {
-            _this.props.onExchangeRequestSubmitSuccess(_this.state.letterToExchange, exchangeRequest);
-
-            _this.props.updateExchangeRequest(exchangeRequest);
-          } else external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_WRONG_DETAILS, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
-            background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
-            text: config_default.a.NOTIFICATION_TEXT_COLOR
-          });
-        }).catch(function (response) {
-          console.log(response);
-        });
       }
     }), Object.defineProperty(ExchangeRequest__assertThisInitialized(_this), "retrieveFromCache", {
       configurable: true,
@@ -1214,38 +1255,29 @@ function (_Exchange) {
       enumerable: true,
       writable: true,
       value: function value(e) {
-        if (!_this.state.birthday || !_this.state.favouriteFood || !_this.state.deshu || !_this.state.letterToExchange) {
-          external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_INCOMPLETE_DETAILS, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
-            background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
-            text: config_default.a.NOTIFICATION_TEXT_COLOR
-          });
-          return;
-        }
+        var request_user = _this.props.exchangeRequest.request_user;
+        var respond_user = _this.props.exchangeRequest.respond_user;
+        var birthday = _this.state.birthday;
+        var favouriteFood = _this.state.favouriteFood;
+        var deshu = _this.state.deshu;
+        var letterToExchange = _this.state.letterToExchange;
+        var letterToReceive = _this.props.exchangeRequest.letterToExchange;
 
-        var exchangeResponse = {
-          request_user: _this.props.exchangeRequest.request_user,
-          birthday: _this.state.birthday,
-          favouriteFood: _this.state.favouriteFood,
-          deshu: _this.state.deshu,
-          letterToExchange: _this.state.letterToExchange,
-          letterToReceive: _this.props.exchangeRequest.letterToExchange,
-          respond_user: _this.props.exchangeRequest.respond_user
-        };
-        console.log("ExchangeResponse: " + JSON.stringify(exchangeResponse));
-        external__axios__default()({
-          method: 'post',
-          url: endpoints_default.a.API_SUBMIT_EXCHANGE_RESPONSE,
-          data: exchangeResponse
-        }).then(function (response) {
-          console.log('Response of ExchangeResponse: ' + JSON.stringify(response.data));
-          if (response.data.success == 1) _this.props.onExchangeResponseSubmitSuccess(exchangeResponse);else external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_WRONG_DETAILS, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
-            background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
-            text: config_default.a.NOTIFICATION_TEXT_COLOR
+        if (_this.checkIfFieldsAreComplete(respond_user, birthday, favouriteFood, deshu, letterToExchange)) {
+          var exchangeResponse = new ExchangeEntity__default(request_user, respond_user, birthday, favouriteFood, deshu, letterToExchange, letterToReceive);
+          console.log("ExchangeResponse: " + JSON.stringify(exchangeResponse));
+          external__axios__default()({
+            method: 'post',
+            url: endpoints_default.a.API_SUBMIT_EXCHANGE_RESPONSE,
+            data: exchangeResponse
+          }).then(function (response) {
+            console.log('Response of ExchangeResponse: ' + JSON.stringify(response.data));
+            if (response.data.success == 1) _this.props.onExchangeResponseSubmitSuccess(exchangeResponse);else notificationUtils_default.a.showNotification(strings_default.a.NOTIFICATION_WRONG_DETAILS);
+          }).catch(function (response) {
+            //handle error
+            console.log(response);
           });
-        }).catch(function (response) {
-          //handle error
-          console.log(response);
-        });
+        }
       }
     }), Object.defineProperty(ExchangeResponse__assertThisInitialized(_this), "retrieveFromCache", {
       configurable: true,
@@ -1406,10 +1438,7 @@ function (_Page) {
 
         _this.channel.bind(strings_default.a.EXCHANGE_COMPLETED_EVENT, function (data) {
           if (data.request_user == _this.state.userName) {
-            external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_EXCHANGE_SUCCESSFUL, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
-              background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
-              text: config_default.a.NOTIFICATION_TEXT_COLOR
-            });
+            notificationUtils_default.a.showNotification(strings_default.a.NOTIFICATION_EXCHANGE_SUCCESSFUL);
             console.log("Exchange request has completed: " + JSON.stringify(data));
             console.log("Letters assigned are now " + _this.state.lettersAssigned);
 
@@ -1431,10 +1460,7 @@ function (_Page) {
 
             _this.retrieveAllGameInformation();
 
-            external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_GAME_BEGUN, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
-              background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
-              text: config_default.a.NOTIFICATION_TEXT_COLOR
-            });
+            notificationUtils_default.a.showNotification(strings_default.a.NOTIFICATION_GAME_BEGUN);
           }
         });
 
@@ -1454,19 +1480,13 @@ function (_Page) {
               isWaitingForCounterPartyToVerify: false
             });
 
-            external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_CANCEL_EXCHANGE, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
-              background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
-              text: config_default.a.NOTIFICATION_TEXT_COLOR
-            });
+            notificationUtils_default.a.showNotification(strings_default.a.NOTIFICATION_CANCEL_EXCHANGE);
           } else if (data.respond_user == _this.state.userName && _this.state.isVerifyingForCounterParty) {
             _this.setState({
               isVerifyingForCounterParty: false
             });
 
-            external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_CANCEL_EXCHANGE, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
-              background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
-              text: config_default.a.NOTIFICATION_TEXT_COLOR
-            });
+            notificationUtils_default.a.showNotification(strings_default.a.NOTIFICATION_CANCEL_EXCHANGE);
           }
         });
       }
@@ -1555,10 +1575,7 @@ function (_Page) {
       enumerable: true,
       writable: true,
       value: function value(exchangeResponse) {
-        external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_EXCHANGE_SUCCESSFUL, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
-          background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
-          text: config_default.a.NOTIFICATION_TEXT_COLOR
-        });
+        notificationUtils_default.a.showNotification(strings_default.a.NOTIFICATION_EXCHANGE_SUCCESSFUL);
 
         _this.retriveLetters();
 
@@ -1577,10 +1594,7 @@ function (_Page) {
       enumerable: true,
       writable: true,
       value: function value(e) {
-        if (_this.state.activeUsers[e.target.id] === _this.state.userName) external__react_notify_toast_["notify"].show(strings_default.a.NOTIFICATION_SAME_NAME_SELECTED, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
-          background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
-          text: config_default.a.NOTIFICATION_TEXT_COLOR
-        });else {
+        if (_this.state.activeUsers[e.target.id] === _this.state.userName) notificationUtils_default.a.showNotification(strings_default.a.NOTIFICATION_SAME_NAME_SELECTED);else {
           console.log("Setting user selected to " + e.target.id);
 
           _this.setState({
@@ -1684,10 +1698,7 @@ function (_Page) {
         }).then(function (response) {
           if (response.data.result == 1) _this.setState({
             signedIn: true
-          });else external__react_notify_toast_["notify"].show(response.data.message, config_default.a.NOTIFICATION_TYPE, config_default.a.NOTIFICATION_TIMEOUT, {
-            background: config_default.a.NOTIFICATION_BACKGROUND_COLOR,
-            text: config_default.a.NOTIFICATION_TEXT_COLOR
-          });
+          });else notificationUtils_default.a.showNotification(response.data.message);
         }).catch(function (response) {
           //handle error
           console.log(response);
@@ -1715,6 +1726,7 @@ function (_Page) {
       authenticationChecked: false,
       gameStartedChecked: false
     };
+    console.log("notify from index is " + JSON.stringify(external__react_notify_toast_["notify"]));
     _this.exchangeRequest = {};
     return _this;
   }
@@ -1829,7 +1841,7 @@ function (_Page) {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("@babel/runtime/regenerator");

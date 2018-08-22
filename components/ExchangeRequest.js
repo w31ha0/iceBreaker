@@ -2,61 +2,41 @@ import React from 'react'
 import axios from "axios";
 import Exchange from './Exchange'
 import endpoints from "../constants/endpoints";
-import {notify} from "react-notify-toast";
 import strings from "../constants/strings";
-import config from "../constants/config";
+import ExchangeEntity from "../models/ExchangeEntity";
+import notificationUtils from "../utils/notificationUtils"
 
 export default class extends Exchange{
 
     submitForm = (e) => {
-        if( !this.props.userSelected ||
-            !this.state.birthday ||
-            !this.state.favouriteFood ||
-            !this.state.deshu ||
-            !this.state.letterToExchange) {
-            notify.show(
-                strings.NOTIFICATION_INCOMPLETE_DETAILS,
-                config.NOTIFICATION_TYPE,
-                config.NOTIFICATION_TIMEOUT,
-                {
-                    background: config.NOTIFICATION_BACKGROUND_COLOR,
-                    text: config.NOTIFICATION_TEXT_COLOR
-                });
-            return
+        const request_user = this.props.userName
+        const respond_user = this.props.userSelected
+        const birthday = this.state.birthday
+        const favouriteFood = this.state.favouriteFood
+        const deshu = this.state.deshu
+        const letterToExchange = this.state.letterToExchange
+        const letterToReceive = ''
+        if (this.checkIfFieldsAreComplete(respond_user,birthday,favouriteFood,deshu,letterToExchange)){
+            var exchangeRequest = new ExchangeEntity(request_user,respond_user,birthday,favouriteFood,deshu,letterToExchange,letterToReceive)
+            console.log("ExchangeRequest: " + JSON.stringify(exchangeRequest))
+            axios({
+                method: 'post',
+                url: endpoints.API_SUBMIT_EXCHANGE_REQUEST,
+                data: exchangeRequest
+            })
+            .then((response) => {
+                console.log('Response of ExchangeRequest: ' + JSON.stringify(response.data))
+                if (response.data.success == 1) {
+                    this.props.onExchangeRequestSubmitSuccess(this.state.letterToExchange, exchangeRequest)
+                    this.props.updateExchangeRequest(exchangeRequest)
+                }
+                else
+                    notificationUtils.showNotification(strings.NOTIFICATION_WRONG_DETAILS)
+            })
+            .catch(function (response) {
+                console.log(response);
+            });
         }
-        let exchangeRequest = {
-            respond_user: this.props.userSelected,
-            birthday: this.state.birthday,
-            favouriteFood: this.state.favouriteFood,
-            deshu: this.state.deshu,
-            letterToExchange: this.state.letterToExchange,
-            request_user: this.props.userName
-        }
-        console.log("ExchangeRequest: "+JSON.stringify(exchangeRequest))
-        axios({
-            method: 'post',
-            url: endpoints.API_SUBMIT_EXCHANGE_REQUEST,
-            data: exchangeRequest
-        })
-        .then((response) => {
-            console.log('Response of ExchangeRequest: '+JSON.stringify(response.data))
-            if(response.data.success == 1) {
-                this.props.onExchangeRequestSubmitSuccess(this.state.letterToExchange,exchangeRequest)
-                this.props.updateExchangeRequest(exchangeRequest)
-            }
-            else
-                notify.show(
-                    strings.NOTIFICATION_WRONG_DETAILS,
-                    config.NOTIFICATION_TYPE,
-                    config.NOTIFICATION_TIMEOUT,
-                    {
-                        background: config.NOTIFICATION_BACKGROUND_COLOR,
-                        text: config.NOTIFICATION_TEXT_COLOR
-                    });
-        })
-        .catch(function (response) {
-            console.log(response);
-        });
     }
 
     retrieveFromCache = (props) => {
