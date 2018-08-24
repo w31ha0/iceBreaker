@@ -63,6 +63,21 @@ module.exports = {
         })
     },
 
+    getCompletedUsers(){
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'post',
+                url: endpoints.API_GET_COMPLETED_USERS
+            })
+            .then((response) => {
+                resolve(response.data)
+            })
+            .catch(function (err) {
+                reject(err);
+            });
+        })
+    },
+
     getActiveUsers(){
         return new Promise((resolve, reject) => {
             axios({

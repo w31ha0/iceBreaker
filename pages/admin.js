@@ -53,8 +53,9 @@ export default class extends Page{
         this.channel = this.pusher.subscribe(strings.PUSHER_CHANNEL);
 
         this.channel.bind(strings.PUSHER_USER_LIST_UPDATE_EVENT, (users) => {
-            console.log("Received new user list from Pusher: " + users)
-            var newActiveUsers = users.map(user => user.name)
+            const activeUsers = users.activeUsers
+            console.log("Received new user list from Pusher: " + activeUsers)
+            var newActiveUsers = activeUsers.map(user => user.name)
             this.setState({
                 activeUsers: newActiveUsers
             })
@@ -67,6 +68,12 @@ export default class extends Page{
         });
 
         this.channel.bind(strings.PUSHER_GAME_STOP_EVENT, (users) => {
+            this.setState({
+                gameStatus: 'INACTIVE'
+            })
+        });
+
+        this.channel.bind(strings.PUSHER_GAME_COMPLETED_EVENT, (users) => {
             this.setState({
                 gameStatus: 'INACTIVE'
             })

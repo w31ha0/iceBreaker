@@ -61,7 +61,7 @@ export default class LetterComponent extends React.Component {
             gameUtils.completeGame().then(()=>{
                 localStorage.clear()
                 window.alert("You have completed the game!")
-                window.location.href='/'
+                window.location.href='/leaderboard'
             },function(err){})
     }
 

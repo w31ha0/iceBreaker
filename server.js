@@ -35,6 +35,7 @@ nextApp
         var allUsers = []
         var gameStarted = false
         var assignedLetters = {}
+        var completedUsers = []
 
         expressApp.use(session({secret: config.SESSION_SECRET,
             store: sessionStore
@@ -45,6 +46,10 @@ nextApp
         expressApp.use(bodyParser.urlencoded({ extended: true }));
 
         //mongoose.connect('mongodb://'+config.DB_HOST+':'+config.DB_PORT+'/'+config.DB_NAME);
+
+        expressApp.post(endpoints.API_GET_COMPLETED_USERS,function(req,res){
+            res.json({completedUsers: completedUsers})
+        })
 
         expressApp.post(endpoints.API_CANCEL_EXCHANGE,function(req,res){
             console.log("Received cancel exchange request: "+JSON.stringify(req.body))
@@ -70,23 +75,20 @@ nextApp
             allUsers = allUsers.filter(function( user ) {
                 return user.name !== completedUser.name;
             });
+            completedUsers.push(completedUser)
             res.json({success:1})
             if(allUsers.length == 0){
                 onGameCompleted(sessionStore,allCharacters,allUsers,gameStarted,assignedLetters,pusher)
             }
-            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
+            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, {activeUsers: allUsers,completedUsers: completedUsers});
         })
 
         expressApp.post(endpoints.API_START_GAME,function(req,res){
             console.log("Got Request to start game with password "+req.body.password)
             if(req.body.password === 'jxbcamp2019'){
                 if(!gameStarted) {
-                    console.log("Authentication succeeded...starting game")
-                    allCharacters = utils.shuffleString(allCharacters)
-                    console.log("Shuffled characters are now " + allCharacters)
-                    pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_GAME_START_EVENT, {})
+                    onGameStarted()
                     res.json({success: 1})
-                    gameStarted = true
                 }else
                     res.json({success: 0, message: strings.NOTIFICATION_GAME_ALREADY_STARTED})
             }
@@ -189,6 +191,15 @@ nextApp
             console.log('Server is now running on '+config.FULL_URI)
         })
 
+        function onGameStarted() {
+            console.log("Authentication succeeded...starting game")
+            allCharacters = utils.shuffleString(allCharacters)
+            console.log("Shuffled characters are now " + allCharacters)
+            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_GAME_START_EVENT, {})
+            gameStarted = true
+            completedUsers = []
+        }
+
         function onGameCompleted() {
             console.log("All users have completed the game....")
             sessionStore.clear()
@@ -196,7 +207,7 @@ nextApp
             allUsers = []
             gameStarted = false
             assignedLetters = {}
-            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_GAME_STOP_EVENT, {})
+            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_GAME_COMPLETED_EVENT, {})
             pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
         }
 

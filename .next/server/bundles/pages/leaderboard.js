@@ -67,7 +67,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -231,41 +231,6 @@ function (_React$Component) {
 
 /***/ }),
 
-/***/ "./constants/config.js":
-/***/ (function(module, exports) {
-
-var DB_HOST = 'localhost';
-var DB_PORT = 27017;
-var DB_NAME = 'iceBreaker';
-var PROTOCOL = 'http';
-var HOST = 'localhost';
-var HOST_IP = '127.0.0.1';
-var PORT = 3000;
-var FULL_URI = PROTOCOL + '://' + HOST + ':' + PORT;
-var COOKIE_DURATION = 30 * 60 * 1000;
-var SESSION_SECRET = 'jakbgakegb545';
-var NOTIFICATION_TYPE = 'custom';
-var NOTIFICATION_TIMEOUT = 5000;
-var NOTIFICATION_BACKGROUND_COLOR = '#0E1717';
-var NOTIFICATION_TEXT_COLOR = '#FFFFFF';
-module.exports = {
-  DB_NAME: DB_NAME,
-  DB_PORT: DB_PORT,
-  DB_HOST: DB_HOST,
-  FULL_URI: FULL_URI,
-  HOST_IP: HOST_IP,
-  HOST: HOST,
-  PORT: PORT,
-  COOKIE_DURATION: COOKIE_DURATION,
-  SESSION_SECRET: SESSION_SECRET,
-  NOTIFICATION_TYPE: NOTIFICATION_TYPE,
-  NOTIFICATION_TIMEOUT: NOTIFICATION_TIMEOUT,
-  NOTIFICATION_BACKGROUND_COLOR: NOTIFICATION_BACKGROUND_COLOR,
-  NOTIFICATION_TEXT_COLOR: NOTIFICATION_TEXT_COLOR
-};
-
-/***/ }),
-
 /***/ "./constants/credentials.js":
 /***/ (function(module, exports) {
 
@@ -378,7 +343,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./pages/admin.js":
+/***/ "./pages/leaderboard.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -386,21 +351,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_styled_jsx_style__ = __webpack_require__("styled-jsx/style");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__("react");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js__ = __webpack_require__("pusher-js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_pusher_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Page__ = __webpack_require__("./components/Page.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_strings__ = __webpack_require__("./constants/strings.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_strings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__constants_strings__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils__ = __webpack_require__("./utils/gameUtils.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__utils_gameUtils__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Page__ = __webpack_require__("./components/Page.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__("react");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_pusher_js__ = __webpack_require__("pusher-js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_pusher_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_credentials__ = __webpack_require__("./constants/credentials.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_credentials___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__constants_credentials__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_strings__ = __webpack_require__("./constants/strings.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_strings___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__constants_strings__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Layout_js__ = __webpack_require__("./components/Layout.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_credentials__ = __webpack_require__("./constants/credentials.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_credentials___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__constants_credentials__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_notificationUtils__ = __webpack_require__("./utils/notificationUtils.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils_notificationUtils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__utils_notificationUtils__);
-var _jsxFileName = "E:\\iceBreaker\\pages\\admin.js";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_gameUtils__ = __webpack_require__("./utils/gameUtils.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utils_gameUtils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__utils_gameUtils__);
+var _jsxFileName = "E:\\iceBreaker\\pages\\leaderboard.js";
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -425,7 +388,6 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
-
 var _default =
 /*#__PURE__*/
 function (_Page) {
@@ -437,16 +399,18 @@ function (_Page) {
     _classCallCheck(this, _default);
 
     _this = _possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).call(this));
-    Object.defineProperty(_assertThisInitialized(_this), "retrieveActiveUsers", {
+    Object.defineProperty(_assertThisInitialized(_this), "retrieveCompletedUsers", {
       configurable: true,
       enumerable: true,
       writable: true,
       value: function value() {
-        __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils___default.a.getActiveUsers().then(function (activeUsers) {
+        __WEBPACK_IMPORTED_MODULE_7__utils_gameUtils___default.a.getCompletedUsers().then(function (res) {
+          var completedUsers = res.completedUsers;
+
           _this.setState({
-            activeUsers: activeUsers
+            completedUsers: completedUsers
           });
-        }, function (err) {});
+        }, function (failure) {});
       }
     });
     Object.defineProperty(_assertThisInitialized(_this), "setupPusher", {
@@ -454,81 +418,25 @@ function (_Page) {
       enumerable: true,
       writable: true,
       value: function value() {
-        _this.pusher = new __WEBPACK_IMPORTED_MODULE_2_pusher_js___default.a(__WEBPACK_IMPORTED_MODULE_7__constants_credentials___default.a.PUSHER_APP_KEY, {
-          cluster: __WEBPACK_IMPORTED_MODULE_7__constants_credentials___default.a.PUSHER_APP_CLUSTER,
+        _this.pusher = new __WEBPACK_IMPORTED_MODULE_3_pusher_js___default.a(__WEBPACK_IMPORTED_MODULE_4__constants_credentials___default.a.PUSHER_APP_KEY, {
+          cluster: __WEBPACK_IMPORTED_MODULE_4__constants_credentials___default.a.PUSHER_APP_CLUSTER,
           encrypted: true
         });
-        _this.channel = _this.pusher.subscribe(__WEBPACK_IMPORTED_MODULE_4__constants_strings___default.a.PUSHER_CHANNEL);
+        _this.channel = _this.pusher.subscribe(__WEBPACK_IMPORTED_MODULE_5__constants_strings___default.a.PUSHER_CHANNEL);
 
-        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_4__constants_strings___default.a.PUSHER_USER_LIST_UPDATE_EVENT, function (users) {
-          var activeUsers = users.activeUsers;
-          console.log("Received new user list from Pusher: " + activeUsers);
-          var newActiveUsers = activeUsers.map(function (user) {
-            return user.name;
-          });
+        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_5__constants_strings___default.a.PUSHER_USER_LIST_UPDATE_EVENT, function (users) {
+          console.log("Received users " + JSON.stringify(users));
+          var completedUsers = users.completedUsers;
+          console.log("Received new user list from Pusher: " + JSON.stringify(completedUsers));
 
           _this.setState({
-            activeUsers: newActiveUsers
+            completedUsers: completedUsers
           });
-        });
-
-        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_4__constants_strings___default.a.PUSHER_GAME_START_EVENT, function (users) {
-          _this.setState({
-            gameStatus: 'IN PROGRESS'
-          });
-        });
-
-        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_4__constants_strings___default.a.PUSHER_GAME_STOP_EVENT, function (users) {
-          _this.setState({
-            gameStatus: 'INACTIVE'
-          });
-        });
-
-        _this.channel.bind(__WEBPACK_IMPORTED_MODULE_4__constants_strings___default.a.PUSHER_GAME_COMPLETED_EVENT, function (users) {
-          _this.setState({
-            gameStatus: 'INACTIVE'
-          });
-        });
-      }
-    });
-    Object.defineProperty(_assertThisInitialized(_this), "handlePasswordChange", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: function value(e) {
-        _this.setState({
-          password: e.target.value
-        });
-      }
-    });
-    Object.defineProperty(_assertThisInitialized(_this), "startGame", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: function value() {
-        __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils___default.a.startGame(_this.state.password).then(function (notificationMessage) {
-          __WEBPACK_IMPORTED_MODULE_8__utils_notificationUtils___default.a.showNotification(notificationMessage);
-        }, function (notificationMessage) {
-          __WEBPACK_IMPORTED_MODULE_8__utils_notificationUtils___default.a.showNotification(notificationMessage);
-        });
-      }
-    });
-    Object.defineProperty(_assertThisInitialized(_this), "stopGame", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: function value() {
-        __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils___default.a.stopGame(_this.state.password).then(function (notificationMessage) {
-          __WEBPACK_IMPORTED_MODULE_8__utils_notificationUtils___default.a.showNotification(notificationMessage);
-        }, function (notificationMessage) {
-          __WEBPACK_IMPORTED_MODULE_8__utils_notificationUtils___default.a.showNotification(notificationMessage);
         });
       }
     });
     _this.state = {
-      password: '',
-      activeUsers: [],
-      gameStatus: __WEBPACK_IMPORTED_MODULE_4__constants_strings___default.a.GAME_STATUS_INACTIVE
+      completedUsers: []
     };
     return _this;
   }
@@ -537,122 +445,109 @@ function (_Page) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.setupPusher();
-      this.retrieveActiveUsers();
-      this.retrieveGameStatus();
-    }
-  }, {
-    key: "retrieveGameStatus",
-    value: function retrieveGameStatus() {
-      __WEBPACK_IMPORTED_MODULE_5__utils_gameUtils___default.a.checkGameStarted().then(function (success) {
-        this.setState({
-          gameStatus: __WEBPACK_IMPORTED_MODULE_4__constants_strings___default.a.GAME_STATUS_IN_PROGRESS
-        });
-      }, function (failure) {
-        this.setState({
-          gameStatus: __WEBPACK_IMPORTED_MODULE_4__constants_strings___default.a.GAME_STATUS_INACTIVE
-        });
-      });
+      this.retrieveCompletedUsers();
     }
   }, {
     key: "render",
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_Layout_js__["a" /* default */], {
+      return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__components_Layout_js__["a" /* default */], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 107
+          lineNumber: 53
         }
-      }, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 108
-        },
-        className: "jsx-2924920866" + " " + "form-group"
-      }, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("label", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 109
-        },
-        className: "jsx-2924920866"
-      }, "Password"), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("input", {
-        onChange: this.handlePasswordChange,
-        name: "name",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 110
-        },
-        className: "jsx-2924920866" + " " + "form-control"
-      })), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 112
-        },
-        className: "jsx-2924920866"
-      }, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("button", {
-        id: "start-button",
-        onClick: this.startGame,
-        type: "submit",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 113
-        },
-        className: "jsx-2924920866" + " " + "btn btn-primary"
-      }, "Start Game"), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("button", {
-        id: "stop-button",
-        onClick: this.stopGame,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 114
-        },
-        className: "jsx-2924920866" + " " + "btn btn-danger"
-      }, "Stop Game")), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", {
-        id: "game-status",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 116
-        },
-        className: "jsx-2924920866"
-      }, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("label", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 117
-        },
-        className: "jsx-2924920866"
-      }, "Current Game Status: ", this.state.gameStatus)), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("div", {
+      }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("div", {
         id: "players",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 119
+          lineNumber: 54
         },
-        className: "jsx-2924920866"
-      }, __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("label", {
+        className: "jsx-741864783"
+      }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("label", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 120
+          lineNumber: 55
         },
-        className: "jsx-2924920866"
-      }, "Current players in session"), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("ul", {
+        className: "jsx-741864783"
+      }, "Hall of Fame"), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("table", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 121
+          lineNumber: 56
         },
-        className: "jsx-2924920866" + " " + "list-group"
-      }, this.state.activeUsers.map(function (user, index) {
-        return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("li", {
+        className: "jsx-741864783" + " " + "table"
+      }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("thead", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 57
+        },
+        className: "jsx-741864783"
+      }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("tr", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 58
+        },
+        className: "jsx-741864783"
+      }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("th", {
+        scope: "col",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 59
+        },
+        className: "jsx-741864783"
+      }, "Rank"), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("th", {
+        scope: "col",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 60
+        },
+        className: "jsx-741864783"
+      }, "Name"), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("th", {
+        scope: "col",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 61
+        },
+        className: "jsx-741864783"
+      }, "Deshu"))), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("tbody", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 64
+        },
+        className: "jsx-741864783"
+      }, this.state.completedUsers.map(function (user, index) {
+        return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("tr", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 123
+            lineNumber: 66
           },
-          className: "jsx-2924920866" + " " + "list-group-item"
-        }, user);
-      }))), __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default.a, {
-        styleId: "2924920866",
-        css: "#start-button.jsx-2924920866{margin-right:15px;}#players.jsx-2924920866{margin-top:15px;}#game-status.jsx-2924920866{margin-top:15px;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxhZG1pbi5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUE4SDRCLEFBRzJDLEFBR0YsQUFHQSxnQkFGcEIsQUFHQSxFQU5BIiwiZmlsZSI6InBhZ2VzXFxhZG1pbi5qcyIsInNvdXJjZVJvb3QiOiJFOlxcaWNlQnJlYWtlciIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tIFwicmVhY3RcIjtcclxuaW1wb3J0IFB1c2hlciBmcm9tIFwicHVzaGVyLWpzXCI7XHJcbmltcG9ydCBQYWdlIGZyb20gJy4uL2NvbXBvbmVudHMvUGFnZSc7XHJcbmltcG9ydCBzdHJpbmdzIGZyb20gJy4uL2NvbnN0YW50cy9zdHJpbmdzJ1xyXG5pbXBvcnQgZ2FtZVV0aWxzIGZyb20gXCIuLi91dGlscy9nYW1lVXRpbHNcIjtcclxuaW1wb3J0IExheW91dCBmcm9tICcuLi9jb21wb25lbnRzL0xheW91dC5qcydcclxuaW1wb3J0IGNyZWRlbnRpYWxzIGZyb20gXCIuLi9jb25zdGFudHMvY3JlZGVudGlhbHNcIjtcclxuaW1wb3J0IG5vdGlmaWNhdGlvblV0aWxzIGZyb20gXCIuLi91dGlscy9ub3RpZmljYXRpb25VdGlsc1wiXHJcblxyXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBleHRlbmRzIFBhZ2V7XHJcblxyXG4gICAgY29uc3RydWN0b3IoKXtcclxuICAgICAgICBzdXBlcigpXHJcbiAgICAgICAgdGhpcy5zdGF0ZSA9IHtcclxuICAgICAgICAgICAgcGFzc3dvcmQ6JycsXHJcbiAgICAgICAgICAgIGFjdGl2ZVVzZXJzOiBbXSxcclxuICAgICAgICAgICAgZ2FtZVN0YXR1czogc3RyaW5ncy5HQU1FX1NUQVRVU19JTkFDVElWRVxyXG4gICAgICAgIH1cclxuICAgIH1cclxuXHJcbiAgICBjb21wb25lbnREaWRNb3VudCgpe1xyXG4gICAgICAgIHRoaXMuc2V0dXBQdXNoZXIoKVxyXG4gICAgICAgIHRoaXMucmV0cmlldmVBY3RpdmVVc2VycygpXHJcbiAgICAgICAgdGhpcy5yZXRyaWV2ZUdhbWVTdGF0dXMoKVxyXG4gICAgfVxyXG5cclxuICAgIHJldHJpZXZlR2FtZVN0YXR1cygpe1xyXG4gICAgICAgIGdhbWVVdGlscy5jaGVja0dhbWVTdGFydGVkKCkudGhlbihmdW5jdGlvbihzdWNjZXNzKXtcclxuICAgICAgICAgICAgdGhpcy5zZXRTdGF0ZSh7XHJcbiAgICAgICAgICAgICAgICBnYW1lU3RhdHVzOiBzdHJpbmdzLkdBTUVfU1RBVFVTX0lOX1BST0dSRVNTXHJcbiAgICAgICAgICAgIH0pXHJcbiAgICAgICAgfSxmdW5jdGlvbihmYWlsdXJlKXtcclxuICAgICAgICAgICAgdGhpcy5zZXRTdGF0ZSh7XHJcbiAgICAgICAgICAgICAgICBnYW1lU3RhdHVzOiBzdHJpbmdzLkdBTUVfU1RBVFVTX0lOQUNUSVZFXHJcbiAgICAgICAgICAgIH0pXHJcbiAgICAgICAgfSlcclxuICAgIH1cclxuXHJcbiAgICByZXRyaWV2ZUFjdGl2ZVVzZXJzID0gKCkgPT4ge1xyXG4gICAgICAgIGdhbWVVdGlscy5nZXRBY3RpdmVVc2VycygpLnRoZW4oKGFjdGl2ZVVzZXJzKSA9PiB7XHJcbiAgICAgICAgICAgIHRoaXMuc2V0U3RhdGUoe1xyXG4gICAgICAgICAgICAgICAgYWN0aXZlVXNlcnMgOiBhY3RpdmVVc2Vyc1xyXG4gICAgICAgICAgICB9KVxyXG4gICAgICAgIH0sZnVuY3Rpb24oZXJyKXt9KVxyXG4gICAgfVxyXG5cclxuICAgIHNldHVwUHVzaGVyID0gKCkgPT4ge1xyXG4gICAgICAgIHRoaXMucHVzaGVyID0gbmV3IFB1c2hlcihjcmVkZW50aWFscy5QVVNIRVJfQVBQX0tFWSwge1xyXG4gICAgICAgICAgICBjbHVzdGVyOiBjcmVkZW50aWFscy5QVVNIRVJfQVBQX0NMVVNURVIsXHJcbiAgICAgICAgICAgIGVuY3J5cHRlZDogdHJ1ZVxyXG4gICAgICAgIH0pO1xyXG5cclxuICAgICAgICB0aGlzLmNoYW5uZWwgPSB0aGlzLnB1c2hlci5zdWJzY3JpYmUoc3RyaW5ncy5QVVNIRVJfQ0hBTk5FTCk7XHJcblxyXG4gICAgICAgIHRoaXMuY2hhbm5lbC5iaW5kKHN0cmluZ3MuUFVTSEVSX1VTRVJfTElTVF9VUERBVEVfRVZFTlQsICh1c2VycykgPT4ge1xyXG4gICAgICAgICAgICBjb25zdCBhY3RpdmVVc2VycyA9IHVzZXJzLmFjdGl2ZVVzZXJzXHJcbiAgICAgICAgICAgIGNvbnNvbGUubG9nKFwiUmVjZWl2ZWQgbmV3IHVzZXIgbGlzdCBmcm9tIFB1c2hlcjogXCIgKyBhY3RpdmVVc2VycylcclxuICAgICAgICAgICAgdmFyIG5ld0FjdGl2ZVVzZXJzID0gYWN0aXZlVXNlcnMubWFwKHVzZXIgPT4gdXNlci5uYW1lKVxyXG4gICAgICAgICAgICB0aGlzLnNldFN0YXRlKHtcclxuICAgICAgICAgICAgICAgIGFjdGl2ZVVzZXJzOiBuZXdBY3RpdmVVc2Vyc1xyXG4gICAgICAgICAgICB9KVxyXG4gICAgICAgIH0pO1xyXG5cclxuICAgICAgICB0aGlzLmNoYW5uZWwuYmluZChzdHJpbmdzLlBVU0hFUl9HQU1FX1NUQVJUX0VWRU5ULCAodXNlcnMpID0+IHtcclxuICAgICAgICAgICAgdGhpcy5zZXRTdGF0ZSh7XHJcbiAgICAgICAgICAgICAgICBnYW1lU3RhdHVzOiAnSU4gUFJPR1JFU1MnXHJcbiAgICAgICAgICAgIH0pXHJcbiAgICAgICAgfSk7XHJcblxyXG4gICAgICAgIHRoaXMuY2hhbm5lbC5iaW5kKHN0cmluZ3MuUFVTSEVSX0dBTUVfU1RPUF9FVkVOVCwgKHVzZXJzKSA9PiB7XHJcbiAgICAgICAgICAgIHRoaXMuc2V0U3RhdGUoe1xyXG4gICAgICAgICAgICAgICAgZ2FtZVN0YXR1czogJ0lOQUNUSVZFJ1xyXG4gICAgICAgICAgICB9KVxyXG4gICAgICAgIH0pO1xyXG5cclxuICAgICAgICB0aGlzLmNoYW5uZWwuYmluZChzdHJpbmdzLlBVU0hFUl9HQU1FX0NPTVBMRVRFRF9FVkVOVCwgKHVzZXJzKSA9PiB7XHJcbiAgICAgICAgICAgIHRoaXMuc2V0U3RhdGUoe1xyXG4gICAgICAgICAgICAgICAgZ2FtZVN0YXR1czogJ0lOQUNUSVZFJ1xyXG4gICAgICAgICAgICB9KVxyXG4gICAgICAgIH0pO1xyXG4gICAgfVxyXG5cclxuICAgIGhhbmRsZVBhc3N3b3JkQ2hhbmdlID0gKGUpID0+IHtcclxuICAgICAgICB0aGlzLnNldFN0YXRlKHtcclxuICAgICAgICAgICAgcGFzc3dvcmQ6IGUudGFyZ2V0LnZhbHVlXHJcbiAgICAgICAgfSlcclxuICAgIH1cclxuXHJcbiAgICBzdGFydEdhbWUgPSAoKSA9PiB7XHJcbiAgICAgICAgZ2FtZVV0aWxzLnN0YXJ0R2FtZSh0aGlzLnN0YXRlLnBhc3N3b3JkKS50aGVuKChub3RpZmljYXRpb25NZXNzYWdlKSA9PiB7XHJcbiAgICAgICAgICAgIG5vdGlmaWNhdGlvblV0aWxzLnNob3dOb3RpZmljYXRpb24obm90aWZpY2F0aW9uTWVzc2FnZSlcclxuICAgICAgICB9LChub3RpZmljYXRpb25NZXNzYWdlKSA9PiB7XHJcbiAgICAgICAgICAgIG5vdGlmaWNhdGlvblV0aWxzLnNob3dOb3RpZmljYXRpb24obm90aWZpY2F0aW9uTWVzc2FnZSlcclxuICAgICAgICB9KVxyXG4gICAgfVxyXG5cclxuICAgIHN0b3BHYW1lID0gKCkgPT4ge1xyXG4gICAgICAgIGdhbWVVdGlscy5zdG9wR2FtZSh0aGlzLnN0YXRlLnBhc3N3b3JkKS50aGVuKChub3RpZmljYXRpb25NZXNzYWdlKSA9PiB7XHJcbiAgICAgICAgICAgIG5vdGlmaWNhdGlvblV0aWxzLnNob3dOb3RpZmljYXRpb24obm90aWZpY2F0aW9uTWVzc2FnZSlcclxuICAgICAgICB9LChub3RpZmljYXRpb25NZXNzYWdlKSA9PiB7XHJcbiAgICAgICAgICAgIG5vdGlmaWNhdGlvblV0aWxzLnNob3dOb3RpZmljYXRpb24obm90aWZpY2F0aW9uTWVzc2FnZSlcclxuICAgICAgICB9KVxyXG4gICAgfVxyXG5cclxuICAgIHJlbmRlcigpe1xyXG4gICAgICAgIHJldHVybihcclxuICAgICAgICAgICAgPExheW91dD5cclxuICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZm9ybS1ncm91cFwiPlxyXG4gICAgICAgICAgICAgICAgICAgIDxsYWJlbD5QYXNzd29yZDwvbGFiZWw+XHJcbiAgICAgICAgICAgICAgICAgICAgPGlucHV0IG9uQ2hhbmdlPXt0aGlzLmhhbmRsZVBhc3N3b3JkQ2hhbmdlfSBjbGFzc05hbWU9XCJmb3JtLWNvbnRyb2xcIiBuYW1lPVwibmFtZVwiLz5cclxuICAgICAgICAgICAgICAgIDwvZGl2PlxyXG4gICAgICAgICAgICAgICAgPGRpdj5cclxuICAgICAgICAgICAgICAgICAgICA8YnV0dG9uIGlkPSdzdGFydC1idXR0b24nIG9uQ2xpY2s9e3RoaXMuc3RhcnRHYW1lfSB0eXBlPVwic3VibWl0XCIgY2xhc3NOYW1lPVwiYnRuIGJ0bi1wcmltYXJ5XCI+U3RhcnQgR2FtZTwvYnV0dG9uPlxyXG4gICAgICAgICAgICAgICAgICAgIDxidXR0b24gaWQ9J3N0b3AtYnV0dG9uJyBvbkNsaWNrPXt0aGlzLnN0b3BHYW1lfSBjbGFzc05hbWU9XCJidG4gYnRuLWRhbmdlclwiPlN0b3AgR2FtZTwvYnV0dG9uPlxyXG4gICAgICAgICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgICAgICAgICA8ZGl2IGlkPVwiZ2FtZS1zdGF0dXNcIj5cclxuICAgICAgICAgICAgICAgICAgICA8bGFiZWw+Q3VycmVudCBHYW1lIFN0YXR1czoge3RoaXMuc3RhdGUuZ2FtZVN0YXR1c308L2xhYmVsPlxyXG4gICAgICAgICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgICAgICAgICA8ZGl2IGlkPSdwbGF5ZXJzJz5cclxuICAgICAgICAgICAgICAgICAgICA8bGFiZWw+Q3VycmVudCBwbGF5ZXJzIGluIHNlc3Npb248L2xhYmVsPlxyXG4gICAgICAgICAgICAgICAgICAgIDx1bCBjbGFzc05hbWU9XCJsaXN0LWdyb3VwXCI+XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIHt0aGlzLnN0YXRlLmFjdGl2ZVVzZXJzLm1hcCgodXNlcixpbmRleCkgPT4ge1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIDxsaSBjbGFzc05hbWU9XCJsaXN0LWdyb3VwLWl0ZW1cIj57dXNlcn08L2xpPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICB9KX1cclxuICAgICAgICAgICAgICAgICAgICA8L3VsPlxyXG4gICAgICAgICAgICAgICAgPC9kaXY+XHJcbiAgICAgICAgICAgICAgICA8c3R5bGUganN4PntgXHJcbiAgICAgICAgICAgICAgICAgICAgI3N0YXJ0LWJ1dHRvbiB7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIG1hcmdpbi1yaWdodDogMTVweDtcclxuICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICAgICAgI3BsYXllcnMge1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBtYXJnaW4tdG9wOiAxNXB4O1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgICAgICAjZ2FtZS1zdGF0dXN7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIG1hcmdpbi10b3A6IDE1cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgYH08L3N0eWxlPlxyXG4gICAgICAgICAgICA8L0xheW91dD5cclxuICAgICAgICApXHJcbiAgICB9XHJcbn0iXX0= */\n/*@ sourceURL=pages\\admin.js */"
+          className: "jsx-741864783"
+        }, __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("th", {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 67
+          },
+          className: "jsx-741864783"
+        }, index + 1), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("th", {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 68
+          },
+          className: "jsx-741864783"
+        }, user.name), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("th", {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 69
+          },
+          className: "jsx-741864783"
+        }, user.deshu));
+      })))), __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0_styled_jsx_style___default.a, {
+        styleId: "741864783",
+        css: "#players.jsx-741864783{text-align:center;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VzXFxsZWFkZXJib2FyZC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUEwRTRCLEFBRzJDLGtCQUN0QiIsImZpbGUiOiJwYWdlc1xcbGVhZGVyYm9hcmQuanMiLCJzb3VyY2VSb290IjoiRTpcXGljZUJyZWFrZXIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUGFnZSBmcm9tIFwiLi4vY29tcG9uZW50cy9QYWdlXCI7XHJcbmltcG9ydCBSZWFjdCBmcm9tIFwicmVhY3RcIjtcclxuaW1wb3J0IFB1c2hlciBmcm9tIFwicHVzaGVyLWpzXCI7XHJcbmltcG9ydCBjcmVkZW50aWFscyBmcm9tIFwiLi4vY29uc3RhbnRzL2NyZWRlbnRpYWxzXCI7XHJcbmltcG9ydCBzdHJpbmdzIGZyb20gXCIuLi9jb25zdGFudHMvc3RyaW5nc1wiO1xyXG5pbXBvcnQgTGF5b3V0IGZyb20gJy4uL2NvbXBvbmVudHMvTGF5b3V0LmpzJ1xyXG5pbXBvcnQgZ2FtZVV0aWxzIGZyb20gJy4uL3V0aWxzL2dhbWVVdGlscydcclxuXHJcbmV4cG9ydCBkZWZhdWx0IGNsYXNzIGV4dGVuZHMgUGFnZSB7XHJcblxyXG4gICAgY29uc3RydWN0b3IoKXtcclxuICAgICAgICBzdXBlcigpXHJcbiAgICAgICAgdGhpcy5zdGF0ZSA9IHtcclxuICAgICAgICAgICAgY29tcGxldGVkVXNlcnM6IFtdXHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG5cclxuICAgIGNvbXBvbmVudERpZE1vdW50KCl7XHJcbiAgICAgICAgdGhpcy5zZXR1cFB1c2hlcigpXHJcbiAgICAgICAgdGhpcy5yZXRyaWV2ZUNvbXBsZXRlZFVzZXJzKClcclxuICAgIH1cclxuXHJcbiAgICByZXRyaWV2ZUNvbXBsZXRlZFVzZXJzID0gKCkgPT4ge1xyXG4gICAgICAgIGdhbWVVdGlscy5nZXRDb21wbGV0ZWRVc2VycygpLnRoZW4oKHJlcykgPT4ge1xyXG4gICAgICAgICAgICBjb25zdCBjb21wbGV0ZWRVc2VycyA9IHJlcy5jb21wbGV0ZWRVc2Vyc1xyXG4gICAgICAgICAgICB0aGlzLnNldFN0YXRlKHtcclxuICAgICAgICAgICAgICAgIGNvbXBsZXRlZFVzZXJzOiBjb21wbGV0ZWRVc2Vyc1xyXG4gICAgICAgICAgICB9KVxyXG4gICAgICAgIH0sZnVuY3Rpb24oZmFpbHVyZSl7fSlcclxuICAgIH1cclxuXHJcbiAgICBzZXR1cFB1c2hlciA9ICgpID0+IHtcclxuICAgICAgICB0aGlzLnB1c2hlciA9IG5ldyBQdXNoZXIoY3JlZGVudGlhbHMuUFVTSEVSX0FQUF9LRVksIHtcclxuICAgICAgICAgICAgY2x1c3RlcjogY3JlZGVudGlhbHMuUFVTSEVSX0FQUF9DTFVTVEVSLFxyXG4gICAgICAgICAgICBlbmNyeXB0ZWQ6IHRydWVcclxuICAgICAgICB9KTtcclxuXHJcbiAgICAgICAgdGhpcy5jaGFubmVsID0gdGhpcy5wdXNoZXIuc3Vic2NyaWJlKHN0cmluZ3MuUFVTSEVSX0NIQU5ORUwpO1xyXG5cclxuICAgICAgICB0aGlzLmNoYW5uZWwuYmluZChzdHJpbmdzLlBVU0hFUl9VU0VSX0xJU1RfVVBEQVRFX0VWRU5ULCAodXNlcnMpID0+IHtcclxuICAgICAgICAgICAgY29uc29sZS5sb2coXCJSZWNlaXZlZCB1c2VycyBcIitKU09OLnN0cmluZ2lmeSh1c2VycykpXHJcbiAgICAgICAgICAgIGNvbnN0IGNvbXBsZXRlZFVzZXJzID0gdXNlcnMuY29tcGxldGVkVXNlcnNcclxuICAgICAgICAgICAgY29uc29sZS5sb2coXCJSZWNlaXZlZCBuZXcgdXNlciBsaXN0IGZyb20gUHVzaGVyOiBcIiArIEpTT04uc3RyaW5naWZ5KGNvbXBsZXRlZFVzZXJzKSlcclxuICAgICAgICAgICAgdGhpcy5zZXRTdGF0ZSh7XHJcbiAgICAgICAgICAgICAgICBjb21wbGV0ZWRVc2VyczogY29tcGxldGVkVXNlcnNcclxuICAgICAgICAgICAgfSlcclxuICAgICAgICB9KTtcclxuXHJcbiAgICB9XHJcblxyXG4gICAgcmVuZGVyKCl7XHJcbiAgICAgICAgcmV0dXJuKFxyXG4gICAgICAgICAgICA8TGF5b3V0PlxyXG4gICAgICAgICAgICAgICAgPGRpdiBpZD0ncGxheWVycyc+XHJcbiAgICAgICAgICAgICAgICAgICAgPGxhYmVsPkhhbGwgb2YgRmFtZTwvbGFiZWw+XHJcbiAgICAgICAgICAgICAgICAgICAgPHRhYmxlIGNsYXNzTmFtZT1cInRhYmxlXCI+XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIDx0aGVhZD5cclxuICAgICAgICAgICAgICAgICAgICAgICAgPHRyPlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgPHRoIHNjb3BlPVwiY29sXCI+UmFuazwvdGg+XHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8dGggc2NvcGU9XCJjb2xcIj5OYW1lPC90aD5cclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIDx0aCBzY29wZT1cImNvbFwiPkRlc2h1PC90aD5cclxuICAgICAgICAgICAgICAgICAgICAgICAgPC90cj5cclxuICAgICAgICAgICAgICAgICAgICAgICAgPC90aGVhZD5cclxuICAgICAgICAgICAgICAgICAgICAgICAgPHRib2R5PlxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAge3RoaXMuc3RhdGUuY29tcGxldGVkVXNlcnMubWFwKCh1c2VyLGluZGV4KSA9PiB7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuICg8dHI+XHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHRoPntpbmRleCsxfTwvdGg+XHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPHRoPnt1c2VyLm5hbWV9PC90aD5cclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8dGg+e3VzZXIuZGVzaHV9PC90aD5cclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvdHI+KVxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgfSl9XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIDwvdGJvZHk+XHJcbiAgICAgICAgICAgICAgICAgICAgPC90YWJsZT5cclxuICAgICAgICAgICAgICAgIDwvZGl2PlxyXG4gICAgICAgICAgICAgICAgPHN0eWxlIGpzeD57YFxyXG4gICAgICAgICAgICAgICAgICAgICNwbGF5ZXJzIHtcclxuICAgICAgICAgICAgICAgICAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgIGB9PC9zdHlsZT5cclxuICAgICAgICAgICAgPC9MYXlvdXQ+XHJcbiAgICAgICAgKVxyXG4gICAgfVxyXG59Il19 */\n/*@ sourceURL=pages\\leaderboard.js */"
       }));
     }
   }]);
 
   return _default;
-}(__WEBPACK_IMPORTED_MODULE_3__components_Page__["a" /* default */]);
+}(__WEBPACK_IMPORTED_MODULE_1__components_Page__["a" /* default */]);
 
 
 
@@ -869,29 +764,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./utils/notificationUtils.js":
+/***/ 4:
 /***/ (function(module, exports, __webpack_require__) {
 
-var notify = __webpack_require__("react-notify-toast").notify;
-
-var config = __webpack_require__("./constants/config.js");
-
-console.log("Notify is " + JSON.stringify(notify));
-module.exports = {
-  showNotification: function showNotification(message) {
-    notify.show(message, config.NOTIFICATION_TYPE, config.NOTIFICATION_TIMEOUT, {
-      background: config.NOTIFICATION_BACKGROUND_COLOR,
-      text: config.NOTIFICATION_TEXT_COLOR
-    });
-  }
-};
-
-/***/ }),
-
-/***/ 5:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__("./pages/admin.js");
+module.exports = __webpack_require__("./pages/leaderboard.js");
 
 
 /***/ }),
@@ -946,4 +822,4 @@ module.exports = require("styled-jsx/style");
 /***/ })
 
 /******/ });
-//# sourceMappingURL=admin.js.map
+//# sourceMappingURL=leaderboard.js.map
