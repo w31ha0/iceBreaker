@@ -80,7 +80,6 @@ nextApp
             if(allUsers.length == 0){
                 onGameCompleted(sessionStore,allCharacters,allUsers,gameStarted,assignedLetters,pusher)
             }
-            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, {activeUsers: allUsers,completedUsers: completedUsers});
         })
 
         expressApp.post(endpoints.API_START_GAME,function(req,res){
@@ -99,6 +98,7 @@ nextApp
         expressApp.post(endpoints.API_STOP_GAME,function(req,res){
             console.log("Got Request to stop game with password "+req.body.password)
             if(req.body.password === 'jxbcamp2019'){
+                pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_GAME_STOP_EVENT, {});
                 if(gameStarted) {
                     onGameCompleted(sessionStore,allCharacters,allUsers,gameStarted,assignedLetters,pusher)
                 }else
@@ -132,7 +132,7 @@ nextApp
                         allCharacters += user.name
                         console.log("All characters are now " + allCharacters)
                         res.json({result: 1})
-                        pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
+                        pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, {activeUsers: allUsers, completedUsers: completedUsers});
                     } else
                         res.json({result: 0, message: strings.NOTIFICATION_DUPLICATE_NAME})
                 }
@@ -208,7 +208,7 @@ nextApp
             gameStarted = false
             assignedLetters = {}
             pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_GAME_COMPLETED_EVENT, {})
-            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, allUsers);
+            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, {activeUsers: allUsers,completedUsers: completedUsers});
         }
 
         function swapLetters(exchangeResponse){

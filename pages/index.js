@@ -42,7 +42,6 @@ export default class extends Page {
     componentDidMount(){
         this.setupPusher()
         this.checkGameState()
-
         /*
         this.setState({
             signedIn: true,
@@ -105,7 +104,9 @@ export default class extends Page {
 
         this.channel.bind(strings.PUSHER_GAME_STOP_EVENT, () => {
             if (this.state.signedIn) {
+                console.log("Received notification to stop the game abruptly!")
                 localStorage.clear()
+                this.pusher.disconnect()
                 window.alert("Game has been forcefully stopped by game master")
                 window.location.href = '/'
             }
@@ -126,6 +127,10 @@ export default class extends Page {
                 notificationUtils.showNotification(strings.NOTIFICATION_CANCEL_EXCHANGE)
             }
         });
+
+        window.onbeforeunload = function(){
+            this.pusher.disconnect()
+        };
     }
 
     checkGameState = () => {
@@ -188,6 +193,10 @@ export default class extends Page {
         this.setState({
             isVerifyingForCounterParty: false
         })
+    }
+
+    onGameCompleted = () => {
+        this.pusher.disconnect()
     }
 
     onUserSelected = (e) => {
@@ -305,7 +314,7 @@ export default class extends Page {
                         </div>
                         <div id="page-content-wrapper">
                             <div className="page-content inset" data-spy="scroll" data-target="#spy">
-                                <LetterComponent userName={this.state.userName} lettersAssigned={this.state.lettersAssigned}/>
+                                <LetterComponent onGameCompleted={this.onGameCompleted} userName={this.state.userName} lettersAssigned={this.state.lettersAssigned}/>
                                 <div style={{marginTop:'50px',marginBottom:'50px'}} className="form-group">
                                     <label>Fill in the details of the player you would like to exchange with below.</label>
                                 </div>

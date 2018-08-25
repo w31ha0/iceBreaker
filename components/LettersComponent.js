@@ -60,6 +60,7 @@ export default class LetterComponent extends React.Component {
         if(this.state.lettersUsed.join('') === this.props.userName && typeof window !== 'undefined')
             gameUtils.completeGame().then(()=>{
                 localStorage.clear()
+                this.props.onGameCompleted()
                 window.alert("You have completed the game!")
                 window.location.href='/leaderboard'
             },function(err){})

@@ -46,6 +46,17 @@ export default class extends Page {
             })
         });
 
+        this.channel.bind(strings.PUSHER_GAME_COMPLETED_EVENT, () => {
+            this.pusher.disconnect()
+        })
+
+        this.channel.bind(strings.PUSHER_GAME_STOP_EVENT, () => {
+            this.pusher.disconnect()
+        })
+
+        window.onbeforeunload = function(){
+            this.pusher.disconnect()
+        };
     }
 
     render(){

@@ -19,9 +19,9 @@ export default class extends Page{
     }
 
     componentDidMount(){
-        this.setupPusher()
         this.retrieveActiveUsers()
         this.retrieveGameStatus()
+        this.setupPusher()
     }
 
     retrieveGameStatus(){
@@ -78,6 +78,10 @@ export default class extends Page{
                 gameStatus: 'INACTIVE'
             })
         });
+
+        window.onbeforeunload = function(){
+            this.pusher.disconnect()
+        };
     }
 
     handlePasswordChange = (e) => {
