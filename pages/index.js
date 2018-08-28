@@ -267,7 +267,9 @@ export default class extends Page {
         else if(!this.state.signedIn)
             return(
                 <Layout>
-                    <SignIn onSignIn={this.onSignIn}/>
+                    <div id="signIn">
+                        <SignIn onSignIn={this.onSignIn}/>
+                    </div>
                 </Layout>
             )
         else if (this.state.isWaitingForGameToStart && this.state.signedIn)
@@ -329,6 +331,9 @@ export default class extends Page {
                         </div>
                     </div>
                     <style jsx>{`
+                    #signIn {
+                        background-color: black
+                       }
                     #wrapper.active {
                       padding-left: 0;
                     }

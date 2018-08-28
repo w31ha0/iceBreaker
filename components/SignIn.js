@@ -41,41 +41,89 @@ export default class extends React.Component {
 
     render(){
         return(
-            <div>
-                <div className="form-group">
-                    <label>Fill in your details below to join the game.</label>
+            <div id="loginform">
+                <div className="form-group-container">
+                    <label className="label-general">Fill in your details below to join the game.</label>
                 </div>
-                <div className="form-group">
-                    <label>Name</label>
-                    <input onChange={this.handleNameChange} id="name" class="form-control" name="name"/>
-                </div>
-                <div className="form-group">
-                    <label>Deshu</label>
-                    <select onChange={this.handleDeshuChange} className="form-control" name="deshu">
+                    <div className="form-group-container">
+                        <label className="label-general">Name</label>
+                        <input onChange={this.handleNameChange} id="name" className="input-general" name="name"/>
+                    </div>
+                <div className="form-group-container">
+                    <label className="label-general">Deshu</label>
+                    <select onChange={this.handleDeshuChange} className="input-general" name="deshu">
                         <option disabled selected value>Select your deshu.</option>
                         {data.DESHU_OPTIONS.map(deshu => {
                             return <option value={deshu}>{deshu}</option>
                         })}
                     </select>
                 </div>
-                <div className="form-group">
-                    <label>Birthday</label>
-                    <input type="date" onChange={this.handleBirthdayChange} class="form-control" name="birthday"/>
+                <div className="form-group-container">
+                    <label className="label-general">Birthday</label>
+                    <input type="date" onChange={this.handleBirthdayChange} className="input-general" name="birthday"/>
                 </div>
-                <div className="form-group">
-                    <label>Favourite Food</label>
-                    <select onChange={this.handleFavouriteFoodChange} class="form-control" name="favouriteFood">
+                <div className="form-group-container">
+                    <label className="label-general">Favourite Food</label>
+                    <select onChange={this.handleFavouriteFoodChange} className="input-general" name="favouriteFood">
                         <option disabled selected value>Select your favourite food</option>
                         {data.FOOD_OPTIONS.map(foodOption => { return <option value={foodOption}>{foodOption}</option>})}
                     </select>
                 </div>
-                <button onClick={() => {
-                    this.props.onSignIn(
-                        this.state.name,
-                        this.state.birthday,
-                        this.state.favouriteFood,
-                        this.state.deshu
-                ) }} type="submit" className="btn btn-primary">Submit</button>
+                <div className="form-group-container">
+                    <button onClick={() => {
+                        this.props.onSignIn(
+                            this.state.name,
+                            this.state.birthday,
+                            this.state.favouriteFood,
+                            this.state.deshu
+                    ) }} type="submit" className="btn-login">Submit</button>
+                </div>
+                <style jsx>{`
+                     #loginform {
+                        background: transparent;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        padding: 7px;
+                        width: 100%;
+                        height: 100%;
+                    }
+                    .form-group-container {
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        padding: 7px;
+                    }
+                    .input-general{
+                         background: transparent ;
+                         border: 1px solid #fff;
+                         color: white;
+                         font-family: 'Roboto Medium', sans-serif;
+                         font-size: 100%;
+                         font-weight: lighter;
+                         padding: 7px;
+                         width: 100%;
+                    }
+                    .label-general {
+                        color: white;
+                        font-family: 'Roboto Medium', sans-serif;
+                        font-size: 100%;
+                        font-weight: lighter;
+                    }
+                    .btn-login {
+                         background: transparent;
+                         box-shadow: none;
+                         border: 1px solid #fff;
+                         transition: .3s all ease;
+                         color: white;
+                         font-family: 'Roboto Medium', sans-serif;
+                         font-size: 100%;
+                         font-weight: lighter;
+                         width: 60px;
+                         height: 100%;
+                    }
+                    //  *{ border:2px solid #CD1821 }
+                `}</style>
             </div>
             )}
 

@@ -7,7 +7,7 @@ export default class extends React.Component{
 
     render(){
         return(
-            <div>
+            <div id="main">
                 <Head>
                     <meta name="viewport" content="width=device-width,height=device-height" />
                     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -18,10 +18,25 @@ export default class extends React.Component{
                     <meta name="mobile-web-app-capable" content="yes"/>
                     <meta name="apple-mobile-web-app-capable" content="yes"/>
                 </Head>
-                <Container>
-                    <Notifications />
-                    {this.props.children}
-                </Container>
+                <div>
+                    <Container>
+                        <Notifications />
+                            {this.props.children}
+                    </Container>
+                </div>
+                <style jsx>{`
+                    #main {
+                            background: linear-gradient(#26EFB4, #07466F);
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            height:100%;
+                            width:100%;
+                            max-height:100%;
+                            max-width:100%;
+                            overflow-x: hidden;
+                    }
+                `}</style>
             </div>
         )
     }
