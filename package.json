@@ -38,6 +38,7 @@
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-list-select": "^0.4.0",
+    "react-markdown": "^3.4.1",
     "react-notify-toast": "^0.5.0",
     "react-popup": "^0.9.3",
     "react-responsive": "^5.0.0",

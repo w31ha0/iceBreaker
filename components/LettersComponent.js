@@ -6,7 +6,7 @@ export default class LetterComponent extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            lettersUsed: [],
+            lettersUsed: ["D","F"],
             lettersAvailable: props.lettersAssigned.slice()
         }
     }
@@ -71,37 +71,65 @@ export default class LetterComponent extends React.Component {
         return(
             <div>
                 <div id="instructions2" className="form-group">
-                    <label>To complete the game, click on the blue boxes below to form your username: {this.props.userName}</label>
+                    <label className="label-general">To complete the game, click on the boxes below to form your username: {this.props.userName}</label>
                 </div>
                 <div id="instructions" className="form-group">
-                    <label>To get the letters you need, click a player on the left to begin exchanging letters with him/her.</label>
+                    <label className="label-general">To get the letters you need, click a player on the left to begin exchanging letters with him/her.</label>
                 </div>
-                <div>
-                    <pre>{this.state.lettersUsed.join(' ')}</pre>
-                    <button id="cancel-btn" onClick={this.removeOneCharFromLettersUsed} className="btn btn-light">Backspace</button>
+                <div className="form-group-container">
+                    <pre className="pre-general">{this.state.lettersUsed.join(' ')}</pre>
+                    <button onClick={this.removeOneCharFromLettersUsed} className="btn-back">Backspace</button>
                 </div>
-                <div id="letters-available">
+                <div className="letter-available">
                     {this.state.lettersAvailable.map((letter,index) => {
-                        return <button id="letter-available" value={index} onClick={this.handleLetterSelected} className="btn btn-primary">{/\S/.test(letter)?letter:"Space"}</button>
+                        return <button value={index} onClick={this.handleLetterSelected} className="btn-letter">{/\S/.test(letter)?letter:"Space"}</button>
                     })}
                 </div>
                 <style jsx>{`
-                    #cancel-btn {
-                              margin-left: 0px;
-                              margin-bottom: 20px;
-                            }
-                    #letters-available {
-                              margin-bottom: 20px;
-                            }
-                    #letter-available {
-                              margin: 5px;
-                            }
+                    .letter-available {
+                              padding: 7px;
+                    }
                     #instructions {
                               margin-bottom: 15px;
                     }
                     #instructions2 {
                               margin-bottom: 15px;
                     }
+                    .pre-general {
+                        color: black;
+                        background: transparent;
+                        border: 0px;
+                        font-size: 20px;
+                    }
+                    .btn-back {
+                         background: transparent;
+                         box-shadow: none;
+                         border: 1px solid #fff;
+                         transition: .3s all ease;
+                         color: white;
+                         font-family: 'Roboto Medium', sans-serif;
+                         font-size: 100%;
+                         font-weight: lighter;
+                         width: 100px;
+                         padding: 7px;
+                         height: 100%;
+                    }
+                    .btn-letter {
+                         background: transparent;
+                         box-shadow: none;
+                         border: 1px solid #fff;
+                         transition: .3s all ease;
+                         color: white;
+                         font-family: 'Roboto Medium', sans-serif;
+                         font-size: 100%;
+                         font-weight: lighter;
+                         width: 70px;
+                         height: 100%;
+                         padding: 7px;
+                         margin-right: 20px;
+                         margin-top: 20px;
+                    }
+                    //*{ border:2px solid #CD1821 }
                 `}</style>
             </div>
         )

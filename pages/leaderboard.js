@@ -86,6 +86,10 @@ export default class extends Page {
                 <style jsx>{`
                     #players {
                         text-align: center;
+                        color: white;
+                        font-family: 'Roboto Medium', sans-serif;
+                        font-size: 100%;
+                        font-weight: lighter;
                     }
                 `}</style>
             </Layout>

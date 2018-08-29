@@ -41,7 +41,7 @@ export default class extends React.Component {
 
     render(){
         return(
-            <div id="loginform">
+            <div className="wrapper">
                 <div className="form-group-container">
                     <label className="label-general">Fill in your details below to join the game.</label>
                 </div>
@@ -52,9 +52,9 @@ export default class extends React.Component {
                 <div className="form-group-container">
                     <label className="label-general">Deshu</label>
                     <select onChange={this.handleDeshuChange} className="input-general" name="deshu">
-                        <option disabled selected value>Select your deshu.</option>
+                        <option className="option-general" disabled selected value>Select your deshu.</option>
                         {data.DESHU_OPTIONS.map(deshu => {
-                            return <option value={deshu}>{deshu}</option>
+                            return <option className="option-general" value={deshu}>{deshu}</option>
                         })}
                     </select>
                 </div>
@@ -65,8 +65,8 @@ export default class extends React.Component {
                 <div className="form-group-container">
                     <label className="label-general">Favourite Food</label>
                     <select onChange={this.handleFavouriteFoodChange} className="input-general" name="favouriteFood">
-                        <option disabled selected value>Select your favourite food</option>
-                        {data.FOOD_OPTIONS.map(foodOption => { return <option value={foodOption}>{foodOption}</option>})}
+                        <option className="option-general" disabled selected value>Select your favourite food</option>
+                        {data.FOOD_OPTIONS.map(foodOption => { return <option className="option-general" value={foodOption}>{foodOption}</option>})}
                     </select>
                 </div>
                 <div className="form-group-container">
@@ -76,51 +76,11 @@ export default class extends React.Component {
                             this.state.birthday,
                             this.state.favouriteFood,
                             this.state.deshu
-                    ) }} type="submit" className="btn-login">Submit</button>
+                    ) }} type="submit" className="btn-submit">Submit</button>
                 </div>
                 <style jsx>{`
-                     #loginform {
-                        background: transparent;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        padding: 7px;
-                        width: 100%;
-                        height: 100%;
-                    }
-                    .form-group-container {
-                        display: flex;
-                        flex-direction: column;
-                        width: 100%;
-                        padding: 7px;
-                    }
-                    .input-general{
-                         background: transparent ;
-                         border: 1px solid #fff;
-                         color: white;
-                         font-family: 'Roboto Medium', sans-serif;
-                         font-size: 100%;
-                         font-weight: lighter;
-                         padding: 7px;
-                         width: 100%;
-                    }
-                    .label-general {
-                        color: white;
-                        font-family: 'Roboto Medium', sans-serif;
-                        font-size: 100%;
-                        font-weight: lighter;
-                    }
-                    .btn-login {
-                         background: transparent;
-                         box-shadow: none;
-                         border: 1px solid #fff;
-                         transition: .3s all ease;
-                         color: white;
-                         font-family: 'Roboto Medium', sans-serif;
-                         font-size: 100%;
-                         font-weight: lighter;
-                         width: 60px;
-                         height: 100%;
+                    .option-general {
+                        color: black;
                     }
                     //  *{ border:2px solid #CD1821 }
                 `}</style>

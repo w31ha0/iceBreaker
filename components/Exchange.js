@@ -85,51 +85,46 @@ export default class extends React.Component{
         return(
             <div>
                 <div className="form-group">
-                    <label>Name</label>
+                    <label className="label-general">Name</label>
                 </div>
                 <div className="form-group">
-                    <label>{this.props.targetUser}</label>
+                    <label className="label-general">{this.props.targetUser}</label>
                 </div>
                 <div className="form-group">
-                    <label>Deshu</label>
-                    <select value={this.state.deshu} onChange={this.handleDeshuChange} className="form-control" name="deshu">
-                        <option disabled value="default">Select his/her deshu.</option>
+                    <label className="label-general">Deshu</label>
+                    <select value={this.state.deshu} onChange={this.handleDeshuChange} className="input-general" name="deshu">
+                        <option className="option-general" disabled value="default">Select his/her deshu.</option>
                         {data.DESHU_OPTIONS.map(deshu => {
-                            return <option value={deshu}>{deshu}</option>
+                            return <option className="option-general" value={deshu}>{deshu}</option>
                         })}
                     </select>
                 </div>
                 <div className="form-group">
-                    <label>Birthday</label>
-                    <input type="date" className="form-control" name="birthday" value={this.state.birthday} onChange={this.handleBirthdayChange}/>
+                    <label className="label-general">Birthday</label>
+                    <input type="date" className="input-general" name="birthday" value={this.state.birthday} onChange={this.handleBirthdayChange}/>
                 </div>
                 <div className="form-group">
-                    <label>Favourite Food</label>
-                    <select value={this.state.favouriteFood} className="form-control" name="favouriteFood" onChange={this.handleFavouriteFoodChange}>
-                        <option disabled value="default">Select his/her favourite food</option>
+                    <label className="label-general">Favourite Food</label>
+                    <select value={this.state.favouriteFood} className="input-general" name="favouriteFood" onChange={this.handleFavouriteFoodChange}>
+                        <option className="option-general"disabled value="default">Select his/her favourite food</option>
                         {data.FOOD_OPTIONS.map(foodOption => {
-                            return <option value={foodOption}>{foodOption}</option>
+                            return <option className="option-general" value={foodOption}>{foodOption}</option>
                         })}
                     </select>
                 </div>
                 <div className="form-group">
-                    <label>Letter To Exchange Away</label>
-                    <select className="form-control" name="letterToExchange"
+                    <label className="label-general">Letter To Exchange Away</label>
+                    <select className="input-general" name="letterToExchange"
                             onChange={this.handleLetterToExchangeChange}>
-                        <option disabled selected value>Select a letter to exchange away</option>
+                        <option className="option-general" disabled selected value>Select a letter to exchange away</option>
                         {this.props.lettersAvailable.map(letter => {
-                            return <option value={letter}>{/\S/.test(letter)?letter:"Space"}</option>
+                            return <option className="option-general" value={letter}>{/\S/.test(letter)?letter:"Space"}</option>
                         })}
                     </select>
                 </div>
-                <div id='submit-button'>
-                    <button onClick={this.submitForm} className="btn btn-primary">Submit</button>
+                <div>
+                    <button onClick={this.submitForm} className="btn-submit">Submit</button>
                 </div>
-                <style jsx>{`
-                    #submit-button {
-                        margin-bottom: 15px;
-                    }
-                `}</style>
             </div>
         )}
 }

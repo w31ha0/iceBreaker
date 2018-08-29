@@ -24,7 +24,7 @@ export default class extends React.Component{
                             {this.props.children}
                     </Container>
                 </div>
-                <style jsx>{`
+                <style jsx global>{`
                     #main {
                             background: linear-gradient(#26EFB4, #07466F);
                             position: absolute;
@@ -36,6 +36,101 @@ export default class extends React.Component{
                             max-width:100%;
                             overflow-x: hidden;
                     }
+                    .wrapper {
+                        background: transparent;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        padding: 7px;
+                        width: 100%;
+                        height: 100%;
+                    }
+                    .form-group-container {
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        padding: 7px;
+                    }
+                    .label-general {
+                        color: white;
+                        font-family: 'Roboto Medium', sans-serif;
+                        font-size: 100%;
+                        font-weight: lighter;
+                    }
+                    .option-general {
+                        color: black;
+                        font-family: 'Roboto Medium', sans-serif;
+                        font-size: 100%;
+                        font-weight: lighter;
+                    }
+                    .input-general{
+                         background: transparent ;
+                         border: 1px solid #fff;
+                         color: white;
+                         font-family: 'Roboto Medium', sans-serif;
+                         font-size: 100%;
+                         font-weight: lighter;
+                         padding: 7px;
+                         width: 100%;
+                    }
+                    .list-item-general{
+                         background: transparent ;
+                         border: 1px solid #fff;
+                         color: white;
+                         font-family: 'Roboto Medium', sans-serif;
+                         font-size: 100%;
+                         font-weight: lighter;
+                         padding: 7px;
+                         width: 100%;
+                         list-style: none;
+                    }
+                    .btn {
+                         background: transparent;
+                         box-shadow: none;
+                         border: 1px solid #fff;
+                         transition: .3s all ease;
+                         color: white;
+                         font-family: 'Roboto Medium', sans-serif;
+                         font-size: 100%;
+                         font-weight: lighter;
+                         width: 80px;
+                         height: 100%;
+                    }
+                    .btn-submit {
+                         background: transparent;
+                         box-shadow: none;
+                         border: 1px solid #fff;
+                         transition: .3s all ease;
+                         color: white;
+                         font-family: 'Roboto Medium', sans-serif;
+                         font-size: 100%;
+                         font-weight: lighter;
+                         width: 80px;
+                         padding: 7px;
+                    }
+                    .btn-cancel {
+                         background: transparent;
+                         box-shadow: none;
+                         border: 1px solid #fff;
+                         transition: .3s all ease;
+                         color: white;
+                         font-family: 'Roboto Medium', sans-serif;
+                         font-size: 100%;
+                         font-weight: lighter;
+                         width: 80px;
+                         height: 100%;
+                         padding: 7px;
+                         margin-top: 15px;
+                    }
+                    .App-logo {
+                      animation: App-logo-spin infinite 20s linear;
+                      height: 80px;
+                    }
+                    @keyframes App-logo-spin {
+                      from { transform: rotate(0deg); }
+                      to { transform: rotate(360deg); }
+                    }
+                    //*{ border:2px solid #CD1821 }
                 `}</style>
             </div>
         )

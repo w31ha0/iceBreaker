@@ -110,27 +110,38 @@ export default class extends Page{
         return(
             <Layout>
                 <div className="form-group">
-                    <label>Password</label>
-                    <input onChange={this.handlePasswordChange} className="form-control" name="name"/>
+                    <label className="label-general">Password</label>
+                    <input className="input-general" onChange={this.handlePasswordChange} name="name"/>
                 </div>
                 <div>
-                    <button id='start-button' onClick={this.startGame} type="submit" className="btn btn-primary">Start Game</button>
-                    <button id='stop-button' onClick={this.stopGame} className="btn btn-danger">Stop Game</button>
+                    <button className="btn-custom" onClick={this.startGame} type="submit">Start Game</button>
+                    <button className="btn-custom" onClick={this.stopGame}>Stop Game</button>
                 </div>
                 <div id="game-status">
-                    <label>Current Game Status: {this.state.gameStatus}</label>
+                    <label className="label-general">Current Game Status: {this.state.gameStatus}</label>
                 </div>
                 <div id='players'>
-                    <label>Current players in session</label>
+                    <label className="label-general">Current players in session</label>
                     <ul className="list-group">
                         {this.state.activeUsers.map((user,index) => {
-                            return <li className="list-group-item">{user}</li>
+                            return <li className="list-item-general">{user}</li>
                         })}
                     </ul>
                 </div>
                 <style jsx>{`
-                    #start-button {
-                        margin-right: 15px;
+                    .btn-custom {
+                         background: transparent;
+                         box-shadow: none;
+                         border: 1px solid #fff;
+                         transition: .3s all ease;
+                         color: white;
+                         font-family: 'Roboto Medium', sans-serif;
+                         font-size: 100%;
+                         font-weight: lighter;
+                         width: 100px;
+                         height: 100%;
+                         margin-right: 20px;
+                         padding: 7px;
                     }
                     #players {
                         margin-top: 15px;
@@ -138,6 +149,7 @@ export default class extends Page{
                     #game-status{
                         margin-top: 15px;
                     }
+                    //*{ border:2px solid #CD1821 }
                 `}</style>
             </Layout>
         )

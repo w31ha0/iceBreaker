@@ -288,7 +288,7 @@ export default class extends Page {
             return(
                 <Layout>
                     <div className="form-group">
-                        <label>{this.exchangeRequest.request_user} has requested to connect.Please fill in his details below.</label>
+                        <label className="label-general">{this.exchangeRequest.request_user} has requested to connect.Please fill in his details below.</label>
                     </div>
                     <ExchangeResponse
                         targetUser={this.exchangeRequest.request_user}
@@ -296,9 +296,7 @@ export default class extends Page {
                         onExchangeResponseSubmitSuccess={this.onExchangeResponseSubmitSuccess}
                         lettersAvailable={this.state.lettersAssigned}
                         exchangeRequest={this.exchangeRequest}/>
-                    <div id='cancel-button'>
-                        <button onClick={this.cancelRespondToRequester} className="btn btn-danger">Cancel</button>
-                    </div>
+                    <button onClick={this.cancelRespondToRequester} className="btn-cancel">Cancel</button>
                 </Layout>
             )
         else
@@ -318,7 +316,7 @@ export default class extends Page {
                             <div className="page-content inset" data-spy="scroll" data-target="#spy">
                                 <LetterComponent onGameCompleted={this.onGameCompleted} userName={this.state.userName} lettersAssigned={this.state.lettersAssigned}/>
                                 <div style={{marginTop:'50px',marginBottom:'50px'}} className="form-group">
-                                    <label>Fill in the details of the player you would like to exchange with below.</label>
+                                    <label className="label-general">Fill in the details of the player you would like to exchange with below.</label>
                                 </div>
                                 <ExchangeRequest
                                     targetUser={this.state.userSelected}
@@ -391,7 +389,10 @@ export default class extends Page {
                           margin-left: -250px;
                           left: 250px;
                           width: 250px;
-                          background: #000;
+                          background: linear-gradient(#000000, #3300CC);
+                          font-family: 'Roboto Medium', sans-serif;
+                          font-size: 100%;
+                          font-weight: lighter;
                           position: fixed;
                           height: 100%;
                           overflow-y: auto;
@@ -426,7 +427,10 @@ export default class extends Page {
                           margin-left: -100px;
                           left: 100px;
                           width: 100px;
-                          background: #000;
+                          background: linear-gradient(#000000, #3300CC);
+                          font-family: 'Roboto Medium', sans-serif;
+                          font-size: 100%;
+                          font-weight: lighter;
                           position: fixed;
                           height: 100%;
                           overflow-y: auto;
@@ -451,6 +455,7 @@ export default class extends Page {
                         }
 
                     }
+
                     `}</style>
                 </Layout>
             )
