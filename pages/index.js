@@ -267,7 +267,7 @@ export default class extends Page {
         else if(!this.state.signedIn)
             return(
                 <Layout>
-                    <div id="signIn">
+                    <div>
                         <SignIn onSignIn={this.onSignIn}/>
                     </div>
                 </Layout>
@@ -329,9 +329,6 @@ export default class extends Page {
                         </div>
                     </div>
                     <style jsx>{`
-                    #signIn {
-                        background-color: black
-                       }
                     #wrapper.active {
                       padding-left: 0;
                     }

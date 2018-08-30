@@ -42,8 +42,8 @@ export default class extends React.Component {
     render(){
         return(
             <div className="wrapper">
-                <div className="form-group-container">
-                    <label className="label-general">Fill in your details below to join the game.</label>
+                <div className="center-container">
+                    <img className="main-logo" src="/static/main_logo.png"/>
                 </div>
                     <div className="form-group-container">
                         <label className="label-general">Name</label>
@@ -82,7 +82,12 @@ export default class extends React.Component {
                     .option-general {
                         color: black;
                     }
-                    //  *{ border:2px solid #CD1821 }
+                    .main-logo {
+                        width: 70px;
+                        height: 70px;
+                        float: center;
+                    }
+                      //*{ border:2px solid #CD1821 }
                 `}</style>
             </div>
             )}

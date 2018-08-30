@@ -51,6 +51,13 @@ export default class extends React.Component{
                         width: 100%;
                         padding: 7px;
                     }
+                    .center-container {
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        padding: 7px;
+                        align-items: center;
+                    }
                     .label-general {
                         color: white;
                         font-family: 'Roboto Medium', sans-serif;
