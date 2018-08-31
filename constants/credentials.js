@@ -1,5 +1,5 @@
 const PUSHER_APP_ID = process.env.APP_ID
-const PUSHER_APP_KEY = "bb408fe5bb6058c10dbc"
+const PUSHER_APP_KEY = "b835427d208ad8e041f6"
 const PUSHER_APP_SECRET = process.env.APP_SECRET
 const PUSHER_APP_CLUSTER = "ap1"
 

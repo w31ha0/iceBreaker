@@ -77,6 +77,7 @@ nextApp
             });
             completedUsers.push(completedUser)
             res.json({success:1})
+            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, {activeUsers: allUsers,completedUsers: completedUsers});
             if(allUsers.length == 0){
                 onGameCompleted(sessionStore,allCharacters,allUsers,gameStarted,assignedLetters,pusher)
             }
