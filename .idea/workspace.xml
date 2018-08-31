@@ -2,45 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b01c743-071b-446e-8fd6-5cd5d1864f2e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/048a1dee2c46c9a7827e.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.048a1dee2c46c9a7827e.hot-update.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.048a1dee2c46c9a7827e.hot-update.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.4c89f934ba4933b39c45.hot-update.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.4c89f934ba4933b39c45.hot-update.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.5067412711bb1ad111c9.hot-update.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.5067412711bb1ad111c9.hot-update.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.7dae68ede0e82f6a6dbc.hot-update.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.7dae68ede0e82f6a6dbc.hot-update.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.bfcf3a034e9c5fa06bfe.hot-update.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.bfcf3a034e9c5fa06bfe.hot-update.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.cad604ccab1ac7a0b6da.hot-update.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.cad604ccab1ac7a0b6da.hot-update.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.d88cf5bbfe88cac86b42.hot-update.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.d88cf5bbfe88cac86b42.hot-update.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.e366793d0424582e1c4a.hot-update.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.e366793d0424582e1c4a.hot-update.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.f820effa9cc816f750cb.hot-update.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4.f820effa9cc816f750cb.hot-update.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/4c89f934ba4933b39c45.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/5067412711bb1ad111c9.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/7dae68ede0e82f6a6dbc.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/bfcf3a034e9c5fa06bfe.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/build-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/.next/build-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/bundles/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/bundles/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/bundles/pages/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/.next/bundles/pages/index.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/cad604ccab1ac7a0b6da.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/d2b185e8c7c706eae4c8.hot-update.json" beforeDir="false" afterPath="$PROJECT_DIR$/.next/d2b185e8c7c706eae4c8.hot-update.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/d88cf5bbfe88cac86b42.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/e366793d0424582e1c4a.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/f820effa9cc816f750cb.hot-update.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/bundles/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/bundles/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/bundles/pages/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/bundles/pages/index.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/server/pages-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/.next/server/pages-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/commons/manifest.js" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/commons/manifest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.next/static/commons/manifest.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/.next/static/commons/manifest.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants/credentials.js" beforeDir="false" afterPath="$PROJECT_DIR$/constants/credentials.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -88,6 +51,7 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="30" />
+          <entry key="gitignore" value="6" />
           <entry key="js" value="19194" />
           <entry key="json" value="50" />
         </counts>
@@ -96,7 +60,7 @@
         <counts>
           <entry key="JSON" value="50" />
           <entry key="JavaScript" value="19194" />
-          <entry key="PLAIN_TEXT" value="30" />
+          <entry key="PLAIN_TEXT" value="36" />
         </counts>
       </usages-collector>
     </session>
@@ -165,7 +129,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="265">
@@ -228,11 +192,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="4" selection-start-column="4" selection-end-column="4" />
+            <state relative-caret-position="34">
+              <caret line="2" column="5" lean-forward="true" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -329,13 +293,13 @@
         <option value="$PROJECT_DIR$/components/LettersComponent.js" />
         <option value="$PROJECT_DIR$/pages/leaderboard.js" />
         <option value="$PROJECT_DIR$/pages/admin.js" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/pages/index.js" />
         <option value="$PROJECT_DIR$/components/Layout.js" />
         <option value="$PROJECT_DIR$/components/SignIn.js" />
         <option value="$PROJECT_DIR$/constants/credentials.js" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -355,7 +319,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="81" />
     <option name="y" value="235" />
     <option name="width" value="979" />
@@ -469,12 +433,12 @@
       <workItem from="1535371582150" duration="15686000" />
       <workItem from="1535521397493" duration="12836000" />
       <workItem from="1535611567146" duration="2667000" />
-      <workItem from="1535714608666" duration="677000" />
+      <workItem from="1535714608666" duration="842000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="176902000" />
+    <option name="totallyTimeSpent" value="177067000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -779,13 +743,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="4" selection-start-column="4" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -821,6 +778,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="265">
           <caret line="78" column="33" selection-start-line="78" selection-start-column="32" selection-end-line="78" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="5" lean-forward="true" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
         </state>
       </provider>
     </entry>
