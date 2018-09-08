@@ -26,7 +26,7 @@ export default class extends React.Component{
                 </div>
                 <style jsx global>{`
                     #main {
-                            background: linear-gradient(#26EFB4, #07466F);
+                            background: linear-gradient(#07466F,#26EFB4);
                             position: absolute;
                             top: 0;
                             left: 0;

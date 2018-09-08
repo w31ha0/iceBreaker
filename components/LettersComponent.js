@@ -6,7 +6,7 @@ export default class LetterComponent extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            lettersUsed: ["D","F"],
+            lettersUsed: [],
             lettersAvailable: props.lettersAssigned.slice()
         }
     }

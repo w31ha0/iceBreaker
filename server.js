@@ -52,8 +52,11 @@ nextApp
         })
 
         expressApp.post(endpoints.API_CANCEL_EXCHANGE,function(req,res){
-            console.log("Received cancel exchange request: "+JSON.stringify(req.body))
-            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_EXCHANGE_CANCELLED_EVENT, req.body);
+            const exchangeRequest = req.body
+            console.log("Received cancel exchange request: "+JSON.stringify(exchangeRequest))
+            pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_EXCHANGE_CANCELLED_EVENT, exchangeRequest);
+            updateUserStatusByName(exchangeRequest.request_user,strings.USER_STATUS_IDLE)
+            updateUserStatusByName(exchangeRequest.respond_user,strings.USER_STATUS_IDLE)
         })
 
         expressApp.post(endpoints.API_CHECK_GAME_STARTED,function (req,res) {
@@ -129,6 +132,7 @@ nextApp
                     if (!allUsers.filter(function (savedUser) {
                         return savedUser.name === user.name;
                     }).length > 0) {
+                        user.status = strings.USER_STATUS_IDLE
                         allUsers.push(user)
                         allCharacters += user.name
                         console.log("All characters are now " + allCharacters)
@@ -162,12 +166,17 @@ nextApp
         expressApp.post(endpoints.API_SUBMIT_EXCHANGE_REQUEST,function (req,res) {
             const exchangeRequest = req.body
             console.log("Received Exchange Request: "+JSON.stringify(exchangeRequest))
-            gameUtils.validateUserInfo(sessionStore,exchangeRequest,exchangeRequest.respond_user).then(function(success){
-                res.json({success: 1})
-                pusher.trigger(strings.PUSHER_CHANNEL,strings.PUSHER_NEW_EXCHANGE_REQUEST_EVENT,exchangeRequest)
-            },function(failure){
-                res.json({success:0})
-            })
+            if(getUserStatusByName(exchangeRequest.respond_user) !== strings.USER_STATUS_BUSY)
+                gameUtils.validateUserInfo(sessionStore,exchangeRequest,exchangeRequest.respond_user).then(function(success){
+                    res.json({success: 1})
+                    pusher.trigger(strings.PUSHER_CHANNEL,strings.PUSHER_NEW_EXCHANGE_REQUEST_EVENT,exchangeRequest)
+                    updateUserStatusByName(exchangeRequest.request_user,strings.USER_STATUS_BUSY)
+                    updateUserStatusByName(exchangeRequest.respond_user,strings.USER_STATUS_BUSY)
+                },function(failure){
+                    res.json({success:0,message:strings.NOTIFICATION_WRONG_DETAILS})
+                })
+            else
+                res.json({success:0,message:strings.NOTIFICATION_USER_BUSY})
         })
 
         expressApp.post(endpoints.API_SUBMIT_EXCHANGE_RESPONSE,function (req,res) {
@@ -177,6 +186,8 @@ nextApp
                 res.json({success: 1})
                 swapLetters(exchangeResponse)
                 pusher.trigger(strings.PUSHER_CHANNEL,strings.EXCHANGE_COMPLETED_EVENT,exchangeResponse)
+                updateUserStatusByName(exchangeResponse.request_user,strings.USER_STATUS_IDLE)
+                updateUserStatusByName(exchangeResponse.respond_user,strings.USER_STATUS_IDLE)
             },function(failure){
                 res.json({success:0})
             })
@@ -191,6 +202,27 @@ nextApp
             if (err) throw err
             console.log('Server is now running on '+config.FULL_URI)
         })
+
+        function updateUserStatusByName(name,status){
+            allUsers = allUsers.map(user => {
+                if(user.name === name) {
+                    console.log("Updating status of "+name+" to "+status)
+                    user.status = status
+                }
+                return user;
+            })
+        }
+
+        function getUserStatusByName(name){
+            for(var index in allUsers) {
+                const user = allUsers[index]
+                if (user.name === name) {
+                    console.log("Found status of " + user.status + " for " + name)
+                    return user.status
+                }
+            }
+            return null;
+        }
 
         function onGameStarted() {
             console.log("Authentication succeeded...starting game")

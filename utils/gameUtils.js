@@ -17,7 +17,7 @@ module.exports = {
                     resolve(1)
                 }
                 else
-                    reject(strings.NOTIFICATION_WRONG_DETAILS)
+                    reject(response.data.message)
             })
             .catch(function (response) {
                 console.log(response);
