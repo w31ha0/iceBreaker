@@ -23,6 +23,8 @@ export default class extends Page {
         super()
         this.state = {
             userName: "",
+            birthday: "",
+            favouriteFood: "",
             activeUsers : [],
             lettersAssigned: [],
             userSelected: '',
@@ -161,7 +163,7 @@ export default class extends Page {
     }
 
     retrieveAllGameInformation = () => {
-        this.retriveUserName()
+        this.retrieveUserInfo()
         this.retriveLetters()
         this.retrieveActiveUsers()
     }
@@ -222,6 +224,17 @@ export default class extends Page {
         gameUtils.getActiveUsers().then((activeUsers) => {
             this.setState({
                 activeUsers : activeUsers
+            })
+        },function(err){})
+    }
+
+    retrieveUserInfo = () => {
+        gameUtils.getUserInfo().then((user) => {
+            console.log("Retrieved User Object "+JSON.stringify(user))
+            this.setState({
+                userName: user.name,
+                birthday: user.birthday,
+                favouriteFood: user.favouriteFood
             })
         },function(err){})
     }
@@ -314,7 +327,7 @@ export default class extends Page {
                         </div>
                         <div id="page-content-wrapper">
                             <div className="page-content inset" data-spy="scroll" data-target="#spy">
-                                <LetterComponent onGameCompleted={this.onGameCompleted} userName={this.state.userName} lettersAssigned={this.state.lettersAssigned}/>
+                                <LetterComponent onGameCompleted={this.onGameCompleted} userName={this.state.userName} birthday={this.state.birthday} favouriteFood={this.state.favouriteFood} lettersAssigned={this.state.lettersAssigned}/>
                                 <div style={{marginTop:'50px',marginBottom:'50px'}} className="form-group">
                                     <label className="label-general">Fill in the details of the player you would like to exchange with below.</label>
                                 </div>

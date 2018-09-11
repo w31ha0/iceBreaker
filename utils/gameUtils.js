@@ -116,6 +116,25 @@ module.exports = {
         })
     },
 
+    getUserInfo(){
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'post',
+                url: endpoints.API_GET_SESSION
+            })
+                .then((response) => {
+                    const userName = response.data.user.name
+                    if (typeof response.data.user === 'undefined')
+                        reject(0)
+                    resolve(response.data.user)
+                })
+                .catch(function (err) {
+                    reject(err)
+                    console.log(err);
+                });
+        })
+    },
+
     loginUser(user){
         return new Promise((resolve, reject) => {
             axios({

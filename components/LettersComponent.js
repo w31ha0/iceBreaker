@@ -73,6 +73,12 @@ export default class LetterComponent extends React.Component {
                 <div id="instructions2" className="form-group">
                     <label className="label-general">To complete the game, click on the boxes below to form your username: {this.props.userName}</label>
                 </div>
+                <div id="playerBirthday" className="form-group">
+                    <label className="label-general">Your Birthday: {this.props.birthday}</label>
+                </div>
+                <div id="playerBirthday" className="form-group">
+                    <label className="label-general">Your Favourite Food: {this.props.favouriteFood}</label>
+                </div>
                 <div id="instructions" className="form-group">
                     <label className="label-general">To get the letters you need, click a player on the left to begin exchanging letters with him/her.</label>
                 </div>
