@@ -74,6 +74,9 @@ export default class LetterComponent extends React.Component {
                     <label className="label-general">To complete the game, click on the boxes below to form your username: {this.props.userName}</label>
                 </div>
                 <div id="playerBirthday" className="form-group">
+                    <label className="label-general">Your Deshu: {this.props.deshu}</label>
+                </div>
+                <div id="playerBirthday" className="form-group">
                     <label className="label-general">Your Birthday: {this.props.birthday}</label>
                 </div>
                 <div id="playerBirthday" className="form-group">

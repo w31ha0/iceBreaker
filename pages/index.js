@@ -23,6 +23,7 @@ export default class extends Page {
         super()
         this.state = {
             userName: "",
+            deshu: "",
             birthday: "",
             favouriteFood: "",
             activeUsers : [],
@@ -234,7 +235,8 @@ export default class extends Page {
             this.setState({
                 userName: user.name,
                 birthday: user.birthday,
-                favouriteFood: user.favouriteFood
+                favouriteFood: user.favouriteFood,
+                deshu: user.deshu
             })
         },function(err){})
     }
@@ -267,6 +269,14 @@ export default class extends Page {
         })
     }
 
+    onSignOut = () => {
+        console.log("On signing out...")
+        this.setState({
+            signedIn: false
+        })
+        notificationUtils.showNotification(strings.NOTIFICATION_UNREGISTER_USER)
+    }
+
     updateExchangeRequest = (exchangeRequest) => {
         this.exchangeRequest = exchangeRequest
     }
@@ -288,7 +298,7 @@ export default class extends Page {
         else if (this.state.isWaitingForGameToStart && this.state.signedIn)
             return(
                 <Layout>
-                    <LoadingScreen/>
+                    <LoadingScreen onSignOut={this.onSignOut}/>
                 </Layout>
             )
         if (this.state.isWaitingForCounterPartyToVerify)
@@ -327,7 +337,7 @@ export default class extends Page {
                         </div>
                         <div id="page-content-wrapper">
                             <div className="page-content inset" data-spy="scroll" data-target="#spy">
-                                <LetterComponent onGameCompleted={this.onGameCompleted} userName={this.state.userName} birthday={this.state.birthday} favouriteFood={this.state.favouriteFood} lettersAssigned={this.state.lettersAssigned}/>
+                                <LetterComponent onGameCompleted={this.onGameCompleted} userName={this.state.userName} deshu={this.state.deshu} birthday={this.state.birthday} favouriteFood={this.state.favouriteFood} lettersAssigned={this.state.lettersAssigned}/>
                                 <div style={{marginTop:'50px',marginBottom:'50px'}} className="form-group">
                                     <label className="label-general">Fill in the details of the player you would like to exchange with below.</label>
                                 </div>

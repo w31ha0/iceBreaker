@@ -26,15 +26,15 @@ export default class extends React.Component{
                 </div>
                 <style jsx global>{`
                     #main {
-                            background: linear-gradient(#07466F,#26EFB4);
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            height:100%;
-                            width:100%;
-                            max-height:100%;
-                            max-width:100%;
-                            overflow-x: hidden;
+                        background: linear-gradient(#07466F,#26EFB4);
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height:100%;
+                        width:100%;
+                        max-height:100%;
+                        max-width:100%;
+                        overflow-x: hidden;
                     }
                     .wrapper {
                         background: transparent;

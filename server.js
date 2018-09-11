@@ -47,6 +47,15 @@ nextApp
 
         //mongoose.connect('mongodb://'+config.DB_HOST+':'+config.DB_PORT+'/'+config.DB_NAME);
 
+        expressApp.post(endpoints.API_UNREGISTER_USER,function(req,res){
+            sessionStore.destroy(req.sessionID,function(){
+                console.log("Session deletion complete")
+                removeUserByName(req.session.user.name)
+                pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, {activeUsers: allUsers,completedUsers: completedUsers});
+                res.json({result:1})
+            })
+        })
+
         expressApp.post(endpoints.API_GET_COMPLETED_USERS,function(req,res){
             res.json({completedUsers: completedUsers})
         })
@@ -134,7 +143,6 @@ nextApp
                     }).length > 0) {
                         user.status = strings.USER_STATUS_IDLE
                         allUsers.push(user)
-                        allCharacters += user.name
                         console.log("All characters are now " + allCharacters)
                         res.json({result: 1})
                         pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_USER_LIST_UPDATE_EVENT, {activeUsers: allUsers, completedUsers: completedUsers});
@@ -203,6 +211,12 @@ nextApp
             console.log('Server is now running on '+config.FULL_URI)
         })
 
+        function removeUserByName(name){
+            allUsers = allUsers.filter(function(user){
+                return user.name !== name
+            })
+        }
+
         function updateUserStatusByName(name,status){
             allUsers = allUsers.map(user => {
                 if(user.name === name) {
@@ -226,6 +240,9 @@ nextApp
 
         function onGameStarted() {
             console.log("Authentication succeeded...starting game")
+            for(var index in allUsers) {
+                allCharacters += allUsers[index].name
+            }
             allCharacters = utils.shuffleString(allCharacters)
             console.log("Shuffled characters are now " + allCharacters)
             pusher.trigger(strings.PUSHER_CHANNEL, strings.PUSHER_GAME_START_EVENT, {})

@@ -54,7 +54,7 @@ export default class extends Page{
 
         this.channel.bind(strings.PUSHER_USER_LIST_UPDATE_EVENT, (users) => {
             const activeUsers = users.activeUsers
-            console.log("Received new user list from Pusher: " + activeUsers)
+            console.log("Received new user list from Pusher: " + JSON.stringify(activeUsers))
             var newActiveUsers = activeUsers.map(user => user.name)
             this.setState({
                 activeUsers: newActiveUsers

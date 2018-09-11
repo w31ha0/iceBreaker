@@ -155,6 +155,25 @@ module.exports = {
         })
     },
 
+    logoutUser(){
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'post',
+                url: endpoints.API_UNREGISTER_USER
+            })
+            .then((response) => {
+                if(response.data.result == 1)
+                    resolve(1)
+                else
+                    reject(response.data.message)
+            })
+            .catch(function (err) {
+                reject(err)
+                console.log(err);
+            });
+        })
+    },
+
     startGame(password){
         return new Promise((resolve, reject) => {
             axios({
