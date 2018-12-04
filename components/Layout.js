@@ -130,6 +130,13 @@ export default class extends React.Component{
                          font-weight: lighter;
                          width: 80px;
                          padding: 7px;
+                         text-align: center;
+                    }
+                    .btn-submit:active {
+                        background-color: #dd4814;
+                    }
+                    .btn-submit:focus {
+                        background-color: #dd4814;
                     }
                     .btn-cancel {
                          background: transparent;
@@ -144,6 +151,9 @@ export default class extends React.Component{
                          height: 50px;
                          padding: 7px;
                          margin-top: 15px;
+                    }
+                    .btn-cancel:active {
+                        background-color: #dd4814;
                     }
                     .App-logo {
                       animation: App-logo-spin infinite 20s linear;

@@ -208,6 +208,7 @@ export default class extends Page {
             notificationUtils.showNotification(strings.NOTIFICATION_SAME_NAME_SELECTED)
         else {
             console.log("Setting user selected to " + e.target.id)
+            notificationUtils.showNotification("You have selected to exchange with "+this.state.activeUsers[e.target.id])
             this.setState({
                 userSelected: this.state.activeUsers[e.target.id]
             })
