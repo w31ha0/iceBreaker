@@ -43,7 +43,7 @@ export default class extends React.Component{
                             },function(failed){
 
                             })
-                        }} className="btn">Unregister</button>
+                        }} className="btn-cancel">Unregister</button>
                     </div>
                 </div>
                 <style jsx>{`

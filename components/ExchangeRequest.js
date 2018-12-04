@@ -15,12 +15,16 @@ export default class extends Exchange{
         const letterToExchange = this.state.letterToExchange
         const letterToReceive = ''
         if (this.checkIfFieldsAreComplete(respond_user,birthday,favouriteFood,deshu,letterToExchange)){
+            this.props.updateLoadingStatus(true)
             var exchangeRequest = new ExchangeEntity(request_user,respond_user,birthday,favouriteFood,deshu,letterToExchange,letterToReceive)
             console.log("ExchangeRequest: " + JSON.stringify(exchangeRequest))
             gameUtils.sendExchangeRequest(exchangeRequest).then((succeed) => {
                 this.props.onExchangeRequestSubmitSuccess(this.state.letterToExchange, exchangeRequest)
                 this.props.updateExchangeRequest(exchangeRequest)
-            },function(errMessage){
+                this.props.updateLoadingStatus(false)
+            },(errMessage) => {
+                console.log("testttt")
+                this.props.updateLoadingStatus(false)
                 notificationUtils.showNotification(errMessage)
             })
         }

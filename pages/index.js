@@ -15,7 +15,7 @@ import LetterComponent from '../components/LettersComponent'
 import ExchangeRequest from '../components/ExchangeRequest'
 import ExchangeResponse from '../components/ExchangeResponse'
 import WaitingForVerification from '../components/WaitingForVerification'
-
+import Loading from '../components/Loading'
 
 export default class extends Page {
 
@@ -35,7 +35,8 @@ export default class extends Page {
             signedIn: false,
             letterToGive: '',
             authenticationChecked: false,
-            gameStartedChecked: false
+            gameStartedChecked: false,
+            loading: false
         }
         console.log("notify from index is "+JSON.stringify(notify))
         this.exchangeRequest = {}
@@ -257,14 +258,23 @@ export default class extends Page {
     }
 
     onSignIn = (name,birthday,favouriteFood,deshu) => {
+        if( name && birthday && favouriteFood && deshu) {
+            this.setState({
+                loading: true
+            })
+        }
         name = name.toUpperCase()
         console.log("Signing in..."+name)
         const user = new User(name,birthday,deshu,favouriteFood)
         gameUtils.loginUser(user).then((succeed)=>{
             this.setState({
-                signedIn: true
+                signedIn: true,
+                loading: false
             })
         },function(errMessage){
+            this.setState({
+                loading: false
+            })
             notificationUtils.showNotification(errMessage)
         })
     }
@@ -281,35 +291,46 @@ export default class extends Page {
         this.exchangeRequest = exchangeRequest
     }
 
+    updateLoadingStatus = (status) => {
+        this.setState({
+            loading: status
+        })
+    }
+
     render(){
-        if(!this.state.authenticationChecked || !this.state.gameStartedChecked)
+        if (this.state.loading)
             return(
-                <Layout>
+                <Loading/>
+            )
+        else if(!this.state.authenticationChecked || !this.state.gameStartedChecked)
+            return(
+                <Layout loading={this.state.loading}>
                 </Layout>
             )
         else if(!this.state.signedIn)
             return(
-                <Layout>
+                <Layout loading={this.state.loading}>
                     <div>
                         <SignIn onSignIn={this.onSignIn}/>
+
                     </div>
                 </Layout>
             )
         else if (this.state.isWaitingForGameToStart && this.state.signedIn)
             return(
-                <Layout>
+                <Layout loading={this.state.loading}>
                     <LoadingScreen onSignOut={this.onSignOut}/>
                 </Layout>
             )
         if (this.state.isWaitingForCounterPartyToVerify)
             return(
-                <Layout>
+                <Layout loading={this.state.loading}>
                     <WaitingForVerification cancel={this.cancelWaitingForVerification}/>
                 </Layout>
             )
         else if(this.state.isVerifyingForCounterParty)
             return(
-                <Layout>
+                <Layout loading={this.state.loading}>
                     <div className="form-group">
                         <label className="label-general">{this.exchangeRequest.request_user} has requested to connect.Please fill in his details below.</label>
                     </div>
@@ -318,13 +339,14 @@ export default class extends Page {
                         userName={this.exchangeRequest.request_user}
                         onExchangeResponseSubmitSuccess={this.onExchangeResponseSubmitSuccess}
                         lettersAvailable={this.state.lettersAssigned}
-                        exchangeRequest={this.exchangeRequest}/>
+                        exchangeRequest={this.exchangeRequest}
+                        updateLoadingStatus={this.updateLoadingStatus}/>
                     <button onClick={this.cancelRespondToRequester} className="btn-cancel">Cancel</button>
                 </Layout>
             )
         else
             return(
-                <Layout>
+                <Layout loading={this.state.loading}>
                     <div id="wrapper">
                         <div id="sidebar-wrapper">
                             <nav id="spy">
@@ -347,7 +369,8 @@ export default class extends Page {
                                     onExchangeRequestSubmitSuccess={this.onExchangeRequestSubmitSuccess}
                                     userSelected={this.state.userSelected}
                                     lettersAvailable={this.state.lettersAssigned}
-                                    updateExchangeRequest={this.updateExchangeRequest}/>
+                                    updateExchangeRequest={this.updateExchangeRequest}
+                                    updateLoadingStatus={this.updateLoadingStatus}/>
                             </div>
                         </div>
                     </div>

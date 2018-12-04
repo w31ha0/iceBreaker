@@ -121,7 +121,7 @@ export default class LetterComponent extends React.Component {
                          font-weight: lighter;
                          width: 100px;
                          padding: 7px;
-                         height: 100%;
+                         height: 50px;
                     }
                     .btn-letter {
                          background: transparent;

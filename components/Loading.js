@@ -1,28 +1,23 @@
 import React from "react";
-import Head from 'next/head'
 import { Container } from 'reactstrap'
-import Notifications from "react-notify-toast";
+import { BounceLoader } from 'react-spinners';
 
 export default class extends React.Component{
 
     render(){
         return(
             <div id="main">
-                <Head>
-                    <meta name="viewport" content="width=device-width,height=device-height" />
-                    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
-                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-                          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-                          crossOrigin="anonymous"/>
-                    <link rel="stylesheet" href="https://unpkg.com/react-tabs@2/style/react-tabs.css"/>
-                    <meta charSet="utf-8" />
-                    <meta name="mobile-web-app-capable" content="yes"/>
-                    <meta name="apple-mobile-web-app-capable" content="yes"/>
-                </Head>
                 <div>
                     <Container>
-                                <Notifications />
-                                {this.props.children}
+                        <div className="container2">
+                            <div className="loading">
+                                <BounceLoader
+                                    sizeUnit={"px"}
+                                    size={150}
+                                    color={'#123abc'}
+                                />
+                            </div>
+                        </div>
                     </Container>
                 </div>
                 <style jsx global>{`
@@ -50,7 +45,7 @@ export default class extends React.Component{
                         padding: 7px;
                         width: 100%;
                         height: 100%;
-                        margin-top:10%;
+                        margin-top:50%;
                     }
                     .wrapper {
                         background: transparent;
@@ -141,7 +136,7 @@ export default class extends React.Component{
                          font-size: 100%;
                          font-weight: lighter;
                          width: 80px;
-                         height: 50px;
+                         height: 100%;
                          padding: 7px;
                          margin-top: 15px;
                     }
