@@ -271,7 +271,7 @@ export default class extends Page {
                 signedIn: true,
                 loading: false
             })
-        },function(errMessage){
+        },(errMessage) => {
             this.setState({
                 loading: false
             })

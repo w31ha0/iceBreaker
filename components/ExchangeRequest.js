@@ -23,7 +23,6 @@ export default class extends Exchange{
                 this.props.updateExchangeRequest(exchangeRequest)
                 this.props.updateLoadingStatus(false)
             },(errMessage) => {
-                console.log("testttt")
                 this.props.updateLoadingStatus(false)
                 notificationUtils.showNotification(errMessage)
             })

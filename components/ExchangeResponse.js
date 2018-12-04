@@ -22,8 +22,8 @@ export default class extends Exchange{
                 this.props.updateLoadingStatus(false)
                 this.props.onExchangeResponseSubmitSuccess(exchResponse)
             },(errMessage) => {
-                notificationUtils.showNotification(errMessage)
                 this.props.updateLoadingStatus(false)
+                notificationUtils.showNotification(errMessage)
             })
         }
     }
